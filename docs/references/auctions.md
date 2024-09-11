@@ -11,20 +11,19 @@ import Highlight from './../../src/components/Hightlight';
 :::danger[deprecated]
 Active bids is currently deprecated, due to issues with fetching this data.
 :::
+Gets the currently active bids.
 
 ```
 /api/auctions/current
 ```
 
-Gets the currently active bids.
-
 ## Auctions Tags <Highlight color="#25c2a0">GET</Highlight>
+
+Gets all the tags for auctions.
 
 ```
 /api/auctions/tags
 ```
-
-Gets all the tags for auctions.
 
 #### Example Response
 

@@ -22,4 +22,4 @@ All of your requests to our API must contain a valid API key and provided throug
 ```
 
 ## My Token No Longer Works?
-This may be because, you are no longer a member of Top.gg's Discord Server. Please make sure to remain a member as we use this to provide our API keys. 
+This may be because, you are no longer a member of [Top.gg's Discord Server](https://discord.com/invite/EYHTgJX). Please make sure to remain a member as we use this to provide our API keys. 

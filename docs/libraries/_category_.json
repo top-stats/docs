@@ -1,10 +1,4 @@
 {
   "label": "Libraries",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "title": "Third Party Libraries",
-    "description": "View third party libraries that wrap our API.",
-    "keywords": ["libraries", "third party libraries"]
-  }
+  "position": 4
 }

@@ -8,11 +8,11 @@ import Highlight from './../../src/components/Hightlight';
 
 ## User Bots <Highlight color="#25c2a0">GET</Highlight>
 
+Get all user bots.
+
 ```
 /api/users/:id/bots
 ```
-
-Get all user bots.
 
 #### Example Response
 
