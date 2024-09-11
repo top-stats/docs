@@ -5,7 +5,7 @@ sidebar_position: 1
 
 :::info
 
-Tokens are handed out based off of membership of Top.gg's Discord Server, it may take around 15 minutes to register.
+Tokens are handed out based off of membership of [Top.gg's Discord Server](https://discord.com/invite/EYHTgJX), it may take around 15 minutes to register.
 
 :::
 

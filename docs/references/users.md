@@ -1,18 +1,21 @@
 ---
 sidebar_position: 2
 ---
+
 import Highlight from './../../src/components/Hightlight';
 
 # Users
 
 ## User Bots <Highlight color="#25c2a0">GET</Highlight>
+
 ```
 /api/users/:id/bots
 ```
+
 Get all user bots.
 
-
 #### Example Response
+
 ```json
 {
   "user": {

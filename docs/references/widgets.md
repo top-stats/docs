@@ -1,22 +1,27 @@
 ---
 sidebar_position: 4
 ---
+
 import Highlight from './../../src/components/Hightlight';
 
-# Widgets 
+# Widgets
+
 ## Widget <Highlight color="#25c2a0">GET</Highlight>
+
 ```
 /bot/:id/widget/:type
 ```
 
 ### Available Types
+
 - servers
 - totalVotes
 - monthlyVotes
 - shardCount
--  ranks
+- ranks
 
 Query Options:
+
 - ?titleFontSize= - Default: 12
 - ?labelFontSize= - Default: 12
 - ?backgroundColor= - Default: #00000
@@ -26,6 +31,7 @@ Query Options:
 - ?height= - Default: 150
 
 Rank Widget Options:
+
 - ?titleColor= - Default: #a8b3dd
 - ?rankBackColor= - Default: #1d1e21
 - ?rankColor= - Default: #a8b3dd
