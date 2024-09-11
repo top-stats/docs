@@ -1,0 +1,76 @@
+import {themes as prismThemes} from 'prism-react-renderer';
+import type {Config} from '@docusaurus/types';
+import type * as Preset from '@docusaurus/preset-classic';
+
+const config: Config = {
+  title: 'DBL Statistics API Docs',
+  tagline: 'DBLStatistics API Documentation',
+  favicon: 'img/favicon.ico',
+  url: 'https://docs.dblstatistics.com',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+  presets: [
+    [
+      'classic',
+      {
+        docs: {
+          routeBasePath: '/',
+          sidebarPath: './sidebars.ts',
+          editUrl:
+            'https://github.com/dbl-statistics/docs',
+        },
+        theme: {
+          customCss: './src/css/custom.css',
+        },
+        gtag: {
+          trackingID: 'G-NPC9BT76N7',
+        },
+      } satisfies Preset.Options,
+    ],
+  ],
+  themeConfig: {
+    image: 'img/dblstats-dark.png',
+    navbar: {
+      title: 'DBL Statistics',
+      logo: {
+        alt: 'My Site Logo',
+        src: 'img/dblstats-dark.png',
+        srcDark: 'img/dblstats-light.png',
+      },
+      items: [
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          position: 'left',
+          label: 'Docs',
+        },
+        {
+          label: 'Website',
+          href: 'https://dblstatistics.com',
+          position: 'right',
+        },
+        {
+          label: 'Discord',
+          href: 'https://discord.com/invite/cB4q5YP',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/dbl-statistics',
+          label: 'GitHub',
+          position: 'right',
+        },
+      ],
+    },
+    prism: {
+      theme: prismThemes.github,
+      darkTheme: prismThemes.dracula,
+    },
+  } satisfies Preset.ThemeConfig,
+};
+
+export default config;

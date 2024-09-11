@@ -1,0 +1,10 @@
+{
+  "label": "Authentication",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "title": "API Authentication and Ratelimits",
+    "description": "Learn about authentication and ratelimits with our API.",
+    "keywords": ["authentication"]
+  }
+}
