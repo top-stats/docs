@@ -1,0 +1,24 @@
+name: Typecheck
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 20.11.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.11.0
+
+    - name: Type Check
+      run: |
+        npm install --include=dev
+        npm run typecheck

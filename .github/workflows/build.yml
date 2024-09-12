@@ -1,0 +1,43 @@
+name: ESLint Verification
+
+on:
+  workflow_run:
+    workflows: ["Typecheck"]  # The name of the workflow in Repository A
+    types:
+      - completed
+
+jobs:
+  build:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 20.11.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.11.0
+
+    - name: Run Build
+      run: |
+        npm install --include=dev
+        npm run build
+
+    # Log in to the GitHub Container Registry (GHCR)
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    # Build the Docker image
+    - name: Build Docker image
+      run: |
+        docker build -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest .
+
+    # Push the Docker image to GitHub Container Registry
+    - name: Push Docker image to GHCR
+      run: |
+        docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
