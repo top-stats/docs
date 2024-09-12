@@ -21,7 +21,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/dbl-statistics/docs',
+          editUrl: 'https://github.com/dbl-statistics/docs/tree/master',
         },
         theme: {
           customCss: './src/css/custom.css',
