@@ -21,8 +21,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl:
-            'https://github.com/dbl-statistics/docs',
+          editUrl: 'https://github.com/dbl-statistics/docs',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -46,6 +45,16 @@ const config: Config = {
     ],
   ],
   themeConfig: {
+    metadata: [
+      {
+        name: 'keywords',
+        content: 'dblstats docs, dblstatistics docs, docs, dblstatistics documentation, documentation, dblstats documentation'
+      },
+      {
+        name: 'twitter:card',
+        content: 'summary_large_image'
+      },
+    ],
     image: 'img/dblstats-dark.png',
     navbar: {
       title: 'DBL Statistics',
