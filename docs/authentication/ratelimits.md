@@ -14,7 +14,7 @@ Continuously surpassing our **ratelimits** will result in a cooldown or a permen
 |--------------------|---------------------|
 | /bots/:id          | 60                  |
 | /bots/:id/previous | 20                  |
-| /bots/top          | 60                  |
+| /bots/top          | 20                  |
 | /auctions/tags     | 60                  |
 | /users/:id/bots    | 60                  |
 | /bots/top          | 60                  |
@@ -29,6 +29,9 @@ When you are rate-limited, you will receive this response, you can use this to w
   "retryAfter": "{time}"
 }
 ```
+
+## Would You Like to Get Higher RateLimits? 
+reach out to our team in [Our Discord](https://discord.com/invite/cB4q5YP). For any requests regarding ratelimits. 
 
 ## I am Banned, What Can I Do?
 If you've been banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/cB4q5YP).
