@@ -1,0 +1,28 @@
+xignotic:
+  page: true
+  name: Xignotic
+  title: Full Stack Engineer @ TopStats.gg
+  url: https://xignotic.dev
+  image_url: https://github.com/xignotic84.png
+  socials:
+    github: xignotic84
+    x: xignotic
+    portfolio: https://xignotic.dev
+
+marco:
+  page: true
+  name: Marco
+  title: Full Stack Engineer @ TopStats.gg
+  image_url: https://github.com/marcorennmaus.png
+
+luke:
+  page: true
+  name: Luke
+  title: Full Stack Engineer @ TopStats.gg
+  image_url: https://github.com/Luke-6723.png
+
+topstats_team:
+  page: true
+  name: Top Stats
+  title: Engineering Team
+  image_url: https://github.com/dbl-statistics.png
