@@ -1,0 +1,51 @@
+---
+title: The Future of DBL Statistics.
+description: We're cooking some things up in here.
+authors: topstats_team
+tags: [update]
+---
+
+Hey, it's been a while since we've given an update about DBL Statistics.
+
+Things are changing around here and it's about time we went into, atleast some, depth about what...
+
+{/* truncate */}
+
+### The infrastructure side of it. 
+
+As many of you know we've been fairly open with the fact that we use MongoDB to store our data... 
+we've (mostly Luke:tm:) has come to very much regret that decision. As such we're moving databases.
+
+We're going to be moving to a combination of **PostgreSQL** and **InfluxDB**.
+Influx will be carrying hour timebased data, whilst postgres will be housing the generalistic data (names, descriptions, etc)
+
+Why now? Well when we first started the initial **DBL Statistics v2** rewrite, we went with what we knew.
+Which was a combination of EJS, MongoDB and Express.
+
+We're going to answer some very likely questions below and then get to the frontend side.
+
+- Assuming you're going to migrate, will this mean downtime?
+  - Unlikely, the way we're going about this will mean that we should be able to accomplish what we're doing with minimum, if any, downtime what so ever.
+- Will it increase the sites performance.
+  - Ten fold. Initial testing has already garnered 10x faster queries.
+- New backend, meaning new frontend?
+  - Look below for that :heart:
+
+Fun fact, We'll be documenting how we're going to migrate the massive **1.1 BILLION** documents here on the blog so watch out for that.
+
+### The frontend side of it.
+
+TBD
+
+{/* Xig you're gonna have to write this. Thanks <3 */}
+
+### This title can't be changed until we announce big secret
+
+TBD
+
+{/* Need to plan a group meeting to write this. <3 */}
+
+
+
+
+
