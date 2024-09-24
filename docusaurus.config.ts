@@ -102,7 +102,7 @@ const config: Config = {
         },
         {
           label: 'Discord',
-          href: 'https://discord.com/invite/cB4q5YP',
+          href: 'https://discord.com/invite/jjEauJXuZc',
           position: 'right',
         },
         {
