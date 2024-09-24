@@ -24,6 +24,15 @@ const config: Config = {
           editUrl: 'https://github.com/dbl-statistics/docs/tree/master',
         },
         blog: {
+          /* Meta */
+          blogTitle: 'Top Stats Blog!',
+          blogDescription: 'Everything you need to know about TopStats.gg!',
+          postsPerPage: 5,
+          sortPosts: "ascending",
+          /* Sidebar */
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
+          /* Misc */
           showReadingTime: true,
           feedOptions: {
             type: ['rss', 'atom'],

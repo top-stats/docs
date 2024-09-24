@@ -1,0 +1,63 @@
+---
+title: The Future of DBL Statistics.
+description: We're cooking some things up in here.
+authors: topstats_team
+tags: [update, v3]
+---
+
+## Things are changing
+Hey, it's been a while since we've given an update about DBL Statistics.
+
+Things are changing around here and it's about time we went into, atleast some, depth about what...
+
+{/* truncate */}
+
+
+### Our name
+As we build up our new site, we want a name that represents more of what we do and be more up to date, therefore we are changing our name to TopStats. With this name change, we will also be getting a new redesign and a faster site.
+
+### Our Domain
+Once the new site has been released, you will be able to access it at https://topstats.gg. There will be a migration period and we'll share details once we get closer to release.
+
+### The Frontend side
+
+Our new web stack will now be in React using Chakra UI. We've decided to migrate off of EJS and pure HTML, largely due to the pain of having to maintain and the effect it had on our ability to provide newer features.
+
+With this you can expect a nice clean new UI, with up-to-date features and no more waiting nine seconds for your graphs to load!
+
+### The Infrastructure side
+
+#### Our API
+We'll be revamping our API, which will be faster, with new features, newer docs and a better ecosystem with higher ratelimits. This will allow you to do more with the data we provide. A blog post will come with more details about the API changes in the coming weeks.
+
+#### Our Databases
+
+We've been fairly open with the fact that we use MongoDB to store our data and we've (mostly Luke:tm:) have come to very much regret that decision.
+As such, our new site will also be utilizing new databases.
+
+We're going to be moving to a combination of **PostgreSQL** and **InfluxDB**.
+Influx will be housing our time-based data, whilst postgres will be housing the generalistic data (names, descriptions, etc)
+
+### Why now?
+When we first started the initial **DBL Statistics v2** rewrite, we went with what we knew, which was a combination of EJS, MongoDB and Express.
+We thought it was time to bring it up to standard with current times.
+
+We'll be going to answer some very likely questions below:
+
+- Assuming you're going to migrate, will this mean downtime?
+  - Unlikely. With the way we'll be handling our migration, we expect that we should be able to accomplish what we're doing with minimum, if any, downtime what so ever.
+- Will it increase the sites performance?
+  - Ten fold. Initial testing has already garnered 10x faster queries.
+- New backend, meaning new frontend?
+  - Look below for that :heart:
+
+Fun fact: Luke will be documenting how we're going to migrate the massive **1.1 BILLION** documents here on the blog, so watch out for that!
+
+### Stay up to date!
+
+If you want to stay up to date with all TopStats.gg progress, make sure to join our Discord server at https://discord.gg/jjEauJXuZc !
+
+With love :heart:
+
+Xignotic, Marco, Luke
+
