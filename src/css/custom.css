@@ -37,16 +37,15 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
   background: linear-gradient(0deg, #04050E, #04050E), linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) fixed;
-
-  .navbar {
-    background:
-            linear-gradient(0deg, #04050E, #04050E),
-            linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) !important;
-    background-size: cover;
-    box-shadow: none;
-  }
 }
 
+[data-theme='dark'] .navbar {
+  background:
+          linear-gradient(0deg, #04050E, #04050E),
+          linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) !important;
+  background-size: cover;
+  box-shadow: none;
+}
 
 body, html {
   background-size: cover;
