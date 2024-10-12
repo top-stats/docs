@@ -11,7 +11,7 @@ Here you will find the API routes, and the necessary information to use our API.
 ## Base URL
 This is the base URL to access our API. Please refer to specific resources to see which path is needed. 
 ```
-https://topstats.gg/api/
+https://api.topstats.gg/
 ```
 
 ## How to Contribute?
