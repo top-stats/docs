@@ -3,6 +3,9 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 
 /* You can override the default Infima variables here. */
 :root {
@@ -15,6 +18,7 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -27,4 +31,23 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #04050E, #04050E), linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) fixed;
+
+  .navbar {
+    background:
+            linear-gradient(0deg, #04050E, #04050E),
+            linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%);
+    background-size: cover;
+    box-shadow: none;
+  }
 }
+
+body, html {
+  background-size: cover;
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  height: 100%;
+}
+

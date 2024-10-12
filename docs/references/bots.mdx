@@ -1,0 +1,89 @@
+---
+sidebar_position: 1
+---
+
+import Highlight from './../../src/components/Hightlight';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+# Bots
+
+## Fetch a Bot <Highlight color="#25c2a0">GET</Highlight>
+
+Fetch a specific bot from our API.
+
+```markdown
+/api/bots/:id
+```
+
+
+
+### Responses
+
+<Tabs>
+  <TabItem value="200" label="200" default>
+    ```json
+    {
+      "id": "583807014896140293",
+      "certified": false,
+      "owners": [
+      "321714991050784770",
+      "205680187394752512",
+      "116930717241311236"
+      ],
+      "deleted": false,
+      "name": "DBL Statistics",
+      "def_avatar": "1.png",
+      "avatar": "d9c16daef96dfa39e4b1235e5bcd9979",
+      "short_desc": "Get statistics of every bot listed on top.gg",
+      "lib": "",
+      "prefix": "dbl-",
+      "website": "https://dblstatistics.com/",
+      "approved_at": "2020-08-02T12:39:32.440Z",
+      "monthly_votes": 3,
+      "server_count": 80,
+      "total_votes": 250,
+      "shard_count": 0,
+      "monthly_votes_rank": 7540,
+      "server_count_rank": 6289,
+      "shard_count_rank": 43308,
+      "total_votes_rank": 4795,
+      "timestamp": "2024-10-12T16:00:00.000Z",
+      "unix_timestamp": "1728748800000"
+    }
+    ```
+  </TabItem>
+  <TabItem value="404" label="404">
+    ```json
+    {
+      "code": 404,
+      "message": "Not found, no bot exists with the provided id."
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+
+
+## Fetch a Bot <Highlight color="#25c2a0">GET</Highlight>
+
+Fetch historical data for a bot.
+
+```markdown
+/api/bots/:id/historical
+```
+
+### Responses
+<Tabs>
+  <TabItem value="200" label="200" default>
+    ```json
+    Not yet documented
+    ```
+  </TabItem>
+  <TabItem value="404" label="404">
+    ```json
+    Not yet documented
+    ```
+  </TabItem>
+</Tabs>

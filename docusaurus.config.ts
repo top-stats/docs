@@ -3,10 +3,10 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'DBL Statistics API Docs',
-  tagline: 'DBLStatistics API Documentation',
+  title: 'TopStats.gg API Docs',
+  tagline: 'TopStats API Documentation',
   favicon: 'img/favicon.ico',
-  url: 'https://docs.dblstatistics.com',
+  url: 'https://docs.topstats.gg',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -68,37 +68,48 @@ const config: Config = {
     metadata: [
       {
         name: 'keywords',
-        content: 'dblstats docs, dblstatistics docs, docs, dblstatistics documentation, documentation, dblstats documentation'
+        content: 'topstats docs, topstats.gg docs, docs, topstats.gg documentation, documentation, topstats documentation'
       },
       {
         name: 'twitter:card',
         content: 'summary_large_image'
       },
     ],
-    image: 'img/dblstats-dark.png',
+    image: 'img/logo.png',
     navbar: {
-      title: 'DBL Statistics',
+      title: 'Top Stats',
       logo: {
         alt: 'My Site Logo',
-        src: 'img/dblstats-dark.png',
-        srcDark: 'img/dblstats-light.png',
+        src: 'img/logo.png',
+        srcDark: 'img/logo.png',
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Docs',
-        },
-        {
-          to: '/blog',
-          label: 'Blog',
+          to: 'https://topstats.gg/rankings',
+          label: 'Rankings',
           position: 'left'
         },
         {
-          label: 'Website',
-          href: 'https://dblstatistics.com',
-          position: 'right',
+          to: '/compare',
+          label: 'Compare',
+          position: 'left'
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'tutorialSidebar',
+          label: 'API',
+        },
+        {
+          label: '...',
+          type: 'dropdown',
+          position: 'left',
+          items: [
+            {
+              to: 'https://topstats.gg',
+              label: 'v3',
+              target: '_blank'
+            },
+          ],
         },
         {
           label: 'Discord',

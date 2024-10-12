@@ -10,14 +10,10 @@ Continuously surpassing our **ratelimits** will result in a cooldown or a permen
 
 :::
 
-| Route              | Requests Per Minute |
-|--------------------|---------------------|
-| /bots/:id          | 60                  |
-| /bots/:id/previous | 20                  |
-| /bots/top          | 20                  |
-| /auctions/tags     | 60                  |
-| /users/:id/bots    | 60                  |
-| /bots/top          | 60                  |
+| Route                | Requests Per Minute |
+|----------------------|---------------------|
+| /bots/:id            | //                  |
+| /bots/:id/historical | //                  |
 
 
 ## What Happens When I am RateLimited?
