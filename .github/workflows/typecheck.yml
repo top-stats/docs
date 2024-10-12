@@ -2,7 +2,7 @@ name: Typecheck
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "next" ]
 
 jobs:
   typecheck:
