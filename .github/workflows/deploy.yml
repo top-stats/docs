@@ -1,14 +1,29 @@
-name: Build and Push
+name: Deployment
 
 on:
-  workflow_run:
-    workflows: ["Typecheck"]  # The name of the workflow in Repository A
-    types:
-      - completed
+  push:
+    branches: [ "master", "next" ]
 
 jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 20.11.0
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.11.0
+
+    - name: Type Check
+      run: |
+        npm install --include=dev
+        npm run typecheck
+
   build:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: typecheck
+    if: success()
     runs-on: ubuntu-latest
     
     steps:
