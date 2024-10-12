@@ -90,7 +90,7 @@ const config: Config = {
           position: 'left'
         },
         {
-          to: '/compare',
+          to: 'https://topstats.gg/compare',
           label: 'Compare',
           position: 'left'
         },
