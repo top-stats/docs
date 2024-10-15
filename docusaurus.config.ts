@@ -1,12 +1,13 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import type * as Preset from '@docusaurus/preset-classic'
+import type { Config } from '@docusaurus/types'
+import { themes as prismThemes } from 'prism-react-renderer'
+import tailwindPlugin from './plugins/tailwind-config.cjs'
 
 const config: Config = {
-  title: 'DBL Statistics API Docs',
-  tagline: 'DBLStatistics API Documentation',
+  title: 'TopStats.gg API Docs',
+  tagline: 'Documentation for the TopStats.gg APIs',
   favicon: 'img/favicon.ico',
-  url: 'https://docs.dblstatistics.com',
+  url: 'https://docs.topstats.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -14,6 +15,8 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  themes: [],
+  plugins: [tailwindPlugin],
   presets: [
     [
       'classic',
@@ -25,10 +28,10 @@ const config: Config = {
         },
         blog: {
           /* Meta */
-          blogTitle: 'Top Stats Blog!',
+          blogTitle: 'TopStats.gg Blog!',
           blogDescription: 'Everything you need to know about TopStats.gg!',
           postsPerPage: 5,
-          sortPosts: "ascending",
+          sortPosts: 'ascending',
           /* Sidebar */
           blogSidebarTitle: 'All posts',
           blogSidebarCount: 'ALL',
@@ -38,7 +41,7 @@ const config: Config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          editUrl: 'https://github.com/dbl-statistics/docs/tree/master',
+          editUrl: 'https://github.com/top-stats/docs/tree/master',
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -56,30 +59,34 @@ const config: Config = {
           ignorePatterns: ['/tags/**'],
           filename: 'sitemap.xml',
           createSitemapItems: async (params) => {
-            const {defaultCreateSitemapItems, ...rest} = params;
-            const items = await defaultCreateSitemapItems(rest);
-            return items.filter((item) => !item.url.includes('/page/'));
+            const { defaultCreateSitemapItems, ...rest } = params
+            const items = await defaultCreateSitemapItems(rest)
+            return items.filter((item) => !item.url.includes('/page/'))
           },
-        }
+        },
       } satisfies Preset.Options,
     ],
   ],
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+    },
     metadata: [
       {
         name: 'keywords',
-        content: 'dblstats docs, dblstatistics docs, docs, dblstatistics documentation, documentation, dblstats documentation'
+        content:
+          'topstats.gg docs, topstats docs, docs, topstats documentation, documentation, topstats documentation',
       },
       {
         name: 'twitter:card',
-        content: 'summary_large_image'
+        content: 'summary_large_image',
       },
     ],
     image: 'img/dblstats-dark.png',
     navbar: {
-      title: 'DBL Statistics',
+      title: 'TopStats.gg',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'TopStats.gg Site Icon',
         src: 'img/dblstats-dark.png',
         srcDark: 'img/dblstats-light.png',
       },
@@ -93,7 +100,7 @@ const config: Config = {
         {
           to: '/blog',
           label: 'Blog',
-          position: 'left'
+          position: 'left',
         },
         {
           label: 'Website',
@@ -106,7 +113,7 @@ const config: Config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/dbl-statistics',
+          href: 'https://github.com/top-stats',
           label: 'GitHub',
           position: 'right',
         },
@@ -114,9 +121,9 @@ const config: Config = {
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      darkTheme: prismThemes.duotoneDark,
     },
   } satisfies Preset.ThemeConfig,
-};
+}
 
-export default config;
+export default config
