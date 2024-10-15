@@ -3,10 +3,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
+html, body {
+  height: 100%
+}
+
 body {
   font-family: 'Hanken Grotesk', sans-serif;
   background: linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%), #ffffff;
-  height: 100%;
 }
 
 [data-theme="dark"] body {
