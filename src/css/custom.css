@@ -6,6 +6,7 @@
 body {
   font-family: 'Hanken Grotesk', sans-serif;
   background: linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%), #ffffff;
+  height: 100%;
 }
 
 [data-theme="dark"] body {
@@ -13,6 +14,8 @@ body {
 }
 
 code, pre {
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-family: 'JetBrains Mono', monospace;
 }
 
