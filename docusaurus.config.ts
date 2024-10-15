@@ -24,7 +24,7 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/dbl-statistics/docs/tree/master',
+          editUrl: 'https://github.com/top-stats/docs/tree/master',
         },
         blog: {
           /* Meta */
@@ -82,13 +82,13 @@ const config: Config = {
         content: 'summary_large_image',
       },
     ],
-    image: 'img/dblstats-dark.png',
+    image: 'img/logo.png',
     navbar: {
       title: 'TopStats.gg',
       logo: {
         alt: 'TopStats.gg Site Icon',
-        src: 'img/dblstats-dark.png',
-        srcDark: 'img/dblstats-light.png',
+        src: 'img/logo.png',
+        srcDark: 'img/logo.png',
       },
       items: [
         {
