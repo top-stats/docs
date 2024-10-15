@@ -7,6 +7,10 @@ html, body {
   height: 100%
 }
 
+.avatar img {
+  height: 3.6rem;
+}
+
 body {
   font-family: 'Hanken Grotesk', sans-serif;
   background: linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%), #ffffff;
