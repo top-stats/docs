@@ -1,6 +1,6 @@
-@import "./tailwind.css";
-
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+@import "./tailwind.css";
 
 
 .avatar img {
@@ -16,17 +16,16 @@ body, html {
   font-family: 'Hanken Grotesk', sans-serif;
 }
 
-[data-theme="light"] body, [data-theme="light"], html {
-  height: 100%;
+[data-theme="light"] html, [data-theme="light"] body {
+  background: #ffffff linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) no-repeat !important;
+  height: unset !important;
 }
 
-[data-theme="dark"] body, [data-theme="dark"] html {
-  background: #04050E linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%);
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-}
 
+[data-theme="dark"] html, [data-theme="dark"] body  {
+  background: #04050E linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%) repeat !important;
+  height: unset !important;
+}
 
 code, pre {
   margin-top: 10px;
