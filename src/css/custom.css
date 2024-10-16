@@ -2,22 +2,31 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
-html, body {
-  height: 100%
-}
 
 .avatar img {
   height: 3.6rem;
 }
 
-body {
-  font-family: 'Hanken Grotesk', sans-serif;
-  background: linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%), #ffffff;
+.avatar {
+  height: 50px;
+  width: 100%;
 }
 
-[data-theme="dark"] body {
-  background: linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%), #04050E;
+body, html {
+  font-family: 'Hanken Grotesk', sans-serif;
 }
+
+[data-theme="light"] body, [data-theme="light"], html {
+  height: 100%;
+}
+
+[data-theme="dark"] body, [data-theme="dark"] html {
+  background: #04050E linear-gradient(359.75deg, rgba(138, 157, 228, 0) 36.68%, rgba(138, 157, 228, 0.2) 140.45%);
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
 
 code, pre {
   margin-top: 10px;

@@ -45,6 +45,7 @@ export const botResponse = {
       value: 'lib',
       types: ['string'],
       description: 'The library that the bot was written in',
+      isDeprecated: true,
     },
     {
       value: 'prefix',
