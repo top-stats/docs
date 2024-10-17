@@ -6,11 +6,14 @@ import Highlight from './../../src/components/Hightlight';
 
 # Auctions
 
+:::danger[deprecated]
+Auctions is currently deprecated, due to issues with fetching this data. 
+
+The routes listed below are out of date and will not be supported going forward.
+:::
+
 ## Active Bids <Highlight color="#25c2a0">GET</Highlight>
 
-:::danger[deprecated]
-Active bids is currently deprecated, due to issues with fetching this data.
-:::
 Gets the currently active bids.
 
 ```
