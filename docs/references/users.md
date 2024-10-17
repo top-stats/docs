@@ -8,11 +8,18 @@ import Highlight from './../../src/components/Hightlight';
 
 ## User Bots <Highlight color="#25c2a0">GET</Highlight>
 
+:::warning[deprecated]
+Data provided from this route may be inaccurate!
+
+This occurs due to fact that bots moved to a team will remain on a users account irrespective of ownership
+:::
+
 Get all user bots.
 
 ```
 /api/users/:id/bots
 ```
+
 
 #### Example Response
 
