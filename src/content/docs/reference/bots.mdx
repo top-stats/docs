@@ -1,0 +1,234 @@
+---
+title: Bots
+description: A reference page in my new Starlight docs site.
+---
+
+import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
+
+
+<article className="prose max-w-full" style={{maxWidth: 'unset'}}>
+
+    ## Fetch a Bot
+
+    ```sh
+    GET api.topstats.gg/bots/:id
+    ```
+
+    #### Query Parameters
+    ```json
+    {
+        "id": "<string>"
+    }
+    ```
+    ### Response
+    <Tabs>
+        <TabItem label="Response">
+            ```json
+            {
+                "certified": false,
+                "owners": [
+                    "321714991050784770",
+                    "205680187394752512",
+                    "116930717241311236"
+                ],
+                "deleted": false,
+                "id": "583807014896140293",
+                "name": "DBL Statistics",
+                "def_avatar": "1cbd08c76f8af6dddce02c5138971129",
+                "avatar": "d9c16daef96dfa39e4b1235e5bcd9979",
+                "short_desc": "Get statistics of every bot listed on top.gg",
+                "lib": "discord.js",
+                "prefix": "dbl-",
+                "website": "https://dblstatistics.com/",
+                "approved_at": "2020-08-02T12:39:32.440Z",
+                "monthly_votes": 32,
+                "server_count": 68,
+                "total_votes": 33,
+                "shard_count": 0,
+                "monthly_votes_rank": 1023,
+                "server_count_rank": 3176,
+                "total_votes_rank": 4708,
+                "shard_count_rank": 11974,
+                "timestamp": "2020-08-15T08:00:00.222Z",
+                "unix_timestamp": 1597478400,
+                "percentageChanges": {
+                    "daily": "0.00",
+                    "monthly": "200.00"
+                }
+            }
+            ```
+        </TabItem>
+        <TabItem label="Body">
+            <Card>
+                | Value                                                      | Description                              | Type                                                                           |
+                | ---------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
+                | `certified`                                                | Is the Bot Certified On Top.gg?          | <Badge text="boolean" variant="note" />                                        |
+                | `owners`  <Badge text={'Deprecated'} variant={'danger'} /> | Array of Discord ID's                    | <Badge text="array" variant="note" />  <Badge text="null" variant="caution" /> |
+                | `deleted`                                                  | Is the Bot deleted from Top.gg?          | <Badge text="boolean" variant="note" />                                        |
+                | `id`                                                       | Discord ID of the bot                    | <Badge text="string" variant="note" />                                         |
+                | `name`                                                     | Discord name of the bot                  | <Badge text="string" variant="note" />                                         |
+                | `def_avatar`                                               | Default discord avatar for the bot       | <Badge text="string" variant="note" />                                         |
+                | `avatar`                                                   | Discord avatar of the bot                | <Badge text="string" variant="note" /> <Badge text="null" variant="caution" /> |
+                | `short_desc`                                               | Bot Short Description from Top.gg        | <Badge text="string" variant="note" />                                         |
+                | `lib`   <Badge text={'Deprecated'} variant={'danger'} />   | Library in which the bot is written in   | <Badge text="string" variant="note" />                                         |
+                | `prefix`                                                   | Bot's prefix                             | <Badge text="string" variant="note" />                                         |
+                | `approved_at`                                              | Date when the bot was approved on Top.gg | <Badge text="string" variant="note" />                                         |
+                | `monthly_votes`                                            | Current monthly votes count              | <Badge text="number" variant="note" />                                         |
+                | `server_count`                                             | Current server count                     | <Badge text="number" variant="note" />                                         |
+                | `total_votes`                                              | Current count for all votes              | <Badge text="number" variant="note" />                                         |
+                | `shard_count`                                              | Current shard count                      | <Badge text="number" variant="note" />                                         |
+                | `monthly_votes_rank`                                       | Current monthly votes rank               | <Badge text="number" variant="note" />                                         |
+                | `server_count_rank`                                        | Current server count rank                | <Badge text="number" variant="note" />                                         |
+                | `total_votes_rank`                                         | Total votes rank                         | <Badge text="number" variant="note" />                                         |
+                | `shard_count_rank`                                         | Shard count rank                         | <Badge text="number" variant="note" />                                         |
+                | `timestamp`                                                | Last modified timestamp                  | <Badge text="string" variant="note" />                                         |
+                | `percentageChanges.daily`                                  | Percentage change of the last day        | <Badge text="string" variant="note" />                                         |
+                | `percentageChanges.monthly`                                | Percentage change of the last monthly    | <Badge text="string" variant="note" />                                         |
+            </Card>
+        </TabItem>
+    </Tabs>
+
+    ## Fetch a Bot's Historical Data (Graphs)
+
+    ```sh
+    GET api.topstats.gg/bots/:id/historical
+    ```
+
+    #### Query
+    ```json
+    {
+        "id": "<string>"
+    }
+    ```
+
+    #### Parameters
+    ```json
+    {
+        "timeFrame": "<string>" ['alltime','5y','3y','1y','90d','30d','7d','3d','1d','12h','6h']
+        "type": "<string>" ['monthly_votes','total_votes','server_count','shard_count']
+    }
+    ```
+
+    <Tabs>
+        <TabItem label="Response">
+            ```json
+            {
+                "data": [
+                    {
+                        "time": "2024-10-01T00:00:00.000Z",
+                        "id": "583807014896140293",
+                        "monthly_votes": 1
+                    },
+                    {
+                        "time": "2024-09-01T00:00:00.000Z",
+                        "id": "583807014896140293",
+                        "monthly_votes": 2
+                    },
+                    {
+                        "time": "2024-08-01T00:00:00.000Z",
+                        "id": "583807014896140293",
+                        "monthly_votes": 1
+                    },
+                    ... more entries
+                ]
+            }
+            ```
+        </TabItem>
+        <TabItem label="Body">
+            <Card>
+                | Value   | Description                 | Type                                   |
+                | ------- | --------------------------- | -------------------------------------- |
+                | `time`  | Date of value               | <Badge text="string" variant="note" /> |
+                | `id`    | Discord ID of the bot       | <Badge text="string" variant="note" /> |
+                | `value` | Value of the requested type | <Badge text="number" variant="note" /> |
+            </Card>
+        </TabItem>
+    </Tabs>
+
+
+    ## Fetch a Bot's Recent Data
+
+    ```sh
+    GET api.topstats.gg/bots/:id/recent
+    ```
+
+    #### Query
+    ```json
+    {
+        "id": "<string>"
+    }
+    ```
+
+    <Tabs>
+        <TabItem label="Response">
+            ```json
+            {
+                "hourlyData": [
+                    {
+                        "time": "2024-10-18T18:00:00.000Z",
+                        "monthly_votes": 1800088,
+                        "server_count": 3371839,
+                        "shard_count": 1792,
+                        "total_votes": 204896149,
+                        "monthly_votes_change": 7310,
+                        "monthly_votes_change_perc": 0.41,
+                        "server_count_change": 0,
+                        "shard_count_change": 0,
+                        "total_votes_change": 5028
+                    },
+                    {
+                        "time": "2024-10-18T17:00:00.000Z",
+                        "monthly_votes": 1792778,
+                        "server_count": 3371839,
+                        "shard_count": 1792,
+                        "total_votes": 204891121,
+                        "monthly_votes_change": 7232,
+                        "monthly_votes_change_perc": 0.41,
+                        "server_count_change": 0,
+                        "shard_count_change": 0,
+                        "total_votes_change": 4884
+                    },
+                    ... 28 more entries
+                ],
+                "dailyData": [
+                    {
+                        "time": "2024-10-18T00:00:00.000Z",
+                        "monthly_votes": 1800088,
+                        "server_count": 3371839,
+                        "shard_count": 1792,
+                        "total_votes": 204896149,
+                        "monthly_votes_change": 110263,
+                        "monthly_votes_change_perc": 6.53,
+                        "server_count_change": 0,
+                        "shard_count_change": 0,
+                        "total_votes_change": 79940
+                    },
+                    {
+                        "time": "2024-10-17T00:00:00.000Z",
+                        "monthly_votes": 1689825,
+                        "server_count": 3371839,
+                        "shard_count": 1792,
+                        "total_votes": 204816209,
+                        "monthly_votes_change": 73997,
+                        "monthly_votes_change_perc": 4.58,
+                        "server_count_change": 0,
+                        "shard_count_change": 0,
+                        "total_votes_change": 53552
+                    },
+                    ... 28 more entries
+                ]
+            }
+
+            ```
+        </TabItem>
+        <TabItem label="Body">
+            <Card>
+                | Value   | Description                 | Type                                   |
+                | ------- | --------------------------- | -------------------------------------- |
+                | `time`  | Date of value               | <Badge text="string" variant="note" /> |
+                | `id`    | Discord ID of the bot       | <Badge text="string" variant="note" /> |
+                | `value` | Value of the requested type | <Badge text="number" variant="note" /> |
+            </Card>
+        </TabItem>
+    </Tabs>
+</article>

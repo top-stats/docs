@@ -1,22 +1,38 @@
-# Stage 1: Base image.
-## Start with a base image containing NodeJS so we can build Docusaurus.
-FROM node:lts as base
-## Disable colour output from yarn to make logs easier to read.
-ENV FORCE_COLOR=0
-## Enable corepack.
-RUN corepack enable
-## Set the working directory to `/opt/docusaurus`.
-WORKDIR /opt/docusaurus
+# Stage 1: Build the Astro project
+FROM node:18-alpine AS builder
 
-## Copy over the source code.
-COPY . .
-## Install dependencies with `--immutable` to ensure reproducibility.
-RUN npm ci
-## Build the static site.
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and package-lock.json if present
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install --include=dev
+
+# Copy all project files
+COPY . /app/
+
+# Build the Astro project
 RUN npm run build
 
-FROM node:lts-alpine as deploy
-## Copy the Docusaurus build output.
-COPY --from=base /opt/docusaurus/build /var/docusaurus
-## Run
-CMD npx serve -s /var/docusaurus
+# Stage 2: Use 'serve' to host the build
+FROM node:18-alpine AS production
+
+# Set environment variable to force Astro to use port 3000
+ENV PORT=3000
+
+# Install 'serve' globally to serve the static files
+RUN npm install -g serve
+
+# Set the working directory for production
+WORKDIR /app
+
+# Copy the built files from the builder stage
+COPY --from=builder /app/dist ./dist
+
+# Expose port 3000
+EXPOSE 3000
+
+# Use 'serve' to serve the built files from the 'dist' folder
+CMD ["serve", "-s", "dist", "-l", "3000"]
