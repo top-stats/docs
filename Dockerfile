@@ -8,31 +8,25 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --include=dev
+RUN npm install
 
 # Copy all project files
-COPY . /app/
+COPY . .
 
 # Build the Astro project
 RUN npm run build
 
-# Stage 2: Use 'serve' to host the build
-FROM node:18-alpine AS production
+# Stage 2: Serve with Busybox HTTPd
+FROM busybox:stable AS production
 
-# Set environment variable to force Astro to use port 3000
+# Set environment variable to force the server to use port 3000
 ENV PORT=3000
 
-# Install 'serve' globally to serve the static files
-RUN npm install -g serve
-
-# Set the working directory for production
-WORKDIR /app
-
-# Copy the built files from the builder stage
-COPY --from=builder /app/dist ./dist
+# Copy the built files from the previous stage
+COPY --from=builder /app/dist /var/www
 
 # Expose port 3000
 EXPOSE 3000
 
-# Use 'serve' to serve the built files from the 'dist' folder
-CMD ["serve", "-s", "dist", "-l", "3000"]
+# Start Busybox HTTPd server on port 3000, serving files from /var/www
+CMD ["httpd", "-f", "-p", "3000", "-h", "/var/www"]
