@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8568cdbd-07a0-4157-a969-a3535efed3b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/content/docs/reference/bots.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarn/install-state.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.yarnrc.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/authors.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/technical/how-i-migrated-our-database.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/updates/the-future-dblstats.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/authentication/_category_.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/authentication/ratelimits.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/authentication/tokens.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/intro.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/libraries/_category_.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/libraries/javascript.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/libraries/python.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/references/_category_.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/references/bots.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docusaurus.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/plugins/tailwind-config.cjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sidebars.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Button.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Hightlight.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ResponseFields.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/custom.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/reset.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/css/tailwind.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/responses/bot.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/cn.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/.nojekyll" beforeDir="false" afterPath="$PROJECT_DIR$/src/content/docs/libraries/javascript.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2lvlwCMZyn8AuJinMW49QWHDHtT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/franz/Documents/GitHub/docs",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/franz/Documents/GitHub/docs/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/content/docs/reference" />
+      <recent name="$PROJECT_DIR$/static/img" />
+      <recent name="$PROJECT_DIR$/static/dblstats-dark.png" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8568cdbd-07a0-4157-a969-a3535efed3b8" name="Changes" comment="" />
+      <created>1726068667772</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726068667772</updated>
+      <workItem from="1726068669225" duration="14218000" />
+      <workItem from="1728223618316" duration="50000" />
+      <workItem from="1729256251207" duration="1372000" />
+      <workItem from="1729268736280" duration="79000" />
+      <workItem from="1729268821540" duration="4651000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

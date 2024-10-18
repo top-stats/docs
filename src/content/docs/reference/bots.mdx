@@ -1,0 +1,149 @@
+---
+title: Bots
+description: A reference page in my new Starlight docs site.
+---
+import {Badge, Card, Code, TabItem, Tabs} from '@astrojs/starlight/components'
+import {CardGrid} from '@astrojs/starlight/components'
+
+
+<article className="prose max-w-full" style={{maxWidth: 'unset'}}>
+
+  ## Fetch a Bot
+
+  ```sh
+  GET api.topstats.gg/bots/:id
+  ```
+
+  #### Query Parameters
+  ```json
+  {
+    "id": "<string>"
+  }
+  ```
+  ### Response
+  <Tabs>
+    <TabItem label="Response">
+      ```json
+      {
+        "certified": false,
+        "owners": [
+        "321714991050784770",
+        "205680187394752512",
+        "116930717241311236"
+        ],
+        "deleted": false,
+        "id": "583807014896140293",
+        "name": "DBL Statistics",
+        "def_avatar": "1cbd08c76f8af6dddce02c5138971129",
+        "avatar": "d9c16daef96dfa39e4b1235e5bcd9979",
+        "short_desc": "Get statistics of every bot listed on top.gg",
+        "lib": "discord.js",
+        "prefix": "dbl-",
+        "website": "https://dblstatistics.com/",
+        "approved_at": "2020-08-02T12:39:32.440Z",
+        "monthly_votes": 32,
+        "server_count": 68,
+        "total_votes": 33,
+        "shard_count": 0,
+        "monthly_votes_rank": 1023,
+        "server_count_rank": 3176,
+        "total_votes_rank": 4708,
+        "shard_count_rank": 11974,
+        "timestamp": "2020-08-15T08:00:00.222Z",
+        "unix_timestamp": 1597478400
+        "percentageChanges": {
+        "daily": "0.00",
+        "monthly": "200.00"
+      }
+      }
+      ```
+    </TabItem>
+    <TabItem label="Body">
+      <Card>
+        | Value | Description | Type |
+        | -------- | ------------------------------------------ | -------- |
+        | `certified` | b | |
+        | `owners` | b | |
+        | `deleted` | b | Yes |
+        | `id` | b| Yes |
+        | `name` | b | Yes |
+        | `def_avatar` |b | |
+        | `avatar` | b | Yes |
+        | `short_desc` | b | |
+        | `lib` |b | Yes |
+        | `prefix` | b | |
+        | `approved_at` | b | Yes |
+        | `monthly_votes` | b | |
+        | `server_count` |b| |
+        | `total_votes` | b | |
+        | `shard_count` | b | Yes |
+        | `monthly_votes_rank` | b | |
+        | `server_count_rank` |b | |
+        | `total_votes_rank` | b| |
+        | `shard_count_rank` | b | |
+        | `timestamp` | b| |
+
+      </Card>
+    </TabItem>
+  </Tabs>
+
+  ## Fetch a Bot's Historical Data (Graphs)
+
+  ```sh
+  GET api.topstats.gg/bots/:id/historical
+  ```
+
+  #### Query
+  ```json
+  {
+    "id": "<string>"
+  }
+  ```
+
+  #### Parameters
+  ```json
+  {
+    "timeFrame": "<string>" ['alltime','5y','3y','1y','90d','30d','7d','3d','1d','12h','6h']
+    "type": "<string>" ['monthly_votes','total_votes','server_count','shard_count']
+  }
+  ```
+
+
+  <Tabs>
+    <TabItem label="Response">
+      ```json
+      {
+        "data": [
+      {
+        "time": "2024-10-01T00:00:00.000Z",
+        "id": "583807014896140293",
+        "monthly_votes": 1
+      },
+      {
+        "time": "2024-09-01T00:00:00.000Z",
+        "id": "583807014896140293",
+        "monthly_votes": 2
+      },
+      {
+        "time": "2024-08-01T00:00:00.000Z",
+        "id": "583807014896140293",
+        "monthly_votes": 1
+      },
+        ... more entries
+        ]
+      }
+      ```
+    </TabItem>
+    <TabItem label="Body">
+      <Card>
+        | Value | Description | Type |
+        | -------- | ------------------------------------------ | -------- |
+        | `time` | device ID | |
+        | `id` | inode number | |
+        | `value` | number of hard links | Yes |
+
+      </Card>
+    </TabItem>
+  </Tabs>
+
+</article>
