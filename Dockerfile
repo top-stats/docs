@@ -4,7 +4,7 @@ FROM node:18-alpine AS builder
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json if present
+# Copy package.json and package-lock.json (if present) to install dependencies
 COPY package*.json ./
 
 # Install dependencies
@@ -13,20 +13,23 @@ RUN npm install
 # Copy all project files
 COPY . .
 
-# Build the Astro project
+# Build the Astro project (output will go to /app/dist)
 RUN npm run build
 
-# Stage 2: Serve with Busybox HTTPd
-FROM busybox:stable AS production
+# Stage 2: Serve with nginx
+FROM nginx:alpine AS production
 
-# Set environment variable to force the server to use port 3000
-ENV PORT=3000
+# Set environment variable for production
+ENV NODE_ENV=production
 
-# Copy the built files from the previous stage
-COPY --from=builder /app/dist /var/www
+# Copy custom nginx config file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 3000
+# Copy the built static files from the previous build stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose port 3000 (the custom port for nginx to serve on)
 EXPOSE 3000
 
-# Start Busybox HTTPd server on port 3000, serving files from /var/www
-CMD ["httpd", "-f", "-p", "3000", "-h", "/var/www"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
