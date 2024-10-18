@@ -19,7 +19,7 @@ jobs:
     - name: Type Check
       run: |
         npm install --include=dev
-        npm run typecheck
+        npm run check
 
   build:
     needs: typecheck
