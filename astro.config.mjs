@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://docs.topstats.gg',
   integrations: [
     starlight({
-      title: 'TopStats.gg',
+      title: 'TopStats',
       social: {
         github: 'https://github.com/top-stats',
         discord: 'https://discord.com/invite/jjEauJXuZc',
