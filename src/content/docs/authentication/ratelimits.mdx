@@ -24,9 +24,11 @@ Continuously surpassing our **ratelimits** will result in a cooldown or a permen
 When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
 ```json
 {
-  "code": 429,
-  "message": "You are being rate-limited",
-  "retryAfter": "{time}"
+    "statusCode": 429,
+    "error": "Too Many Requests",
+    "message": "You can only make {amount} requests per {time} minute. Try again soon.",
+    "date": 1729335037519,
+    "expiresIn": "{milliseconds}"
 }
 ```
 
