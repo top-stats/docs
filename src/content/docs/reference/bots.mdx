@@ -60,30 +60,31 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
         </TabItem>
         <TabItem label="Body">
             <Card>
-                | Value                                                      | Description                              | Type                                                                           |
-                | ---------------------------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------ |
-                | `certified`                                                | Is the Bot Certified On Top.gg?          | <Badge text="boolean" variant="note" />                                        |
-                | `owners`  <Badge text={'Deprecated'} variant={'danger'} /> | Array of Discord ID's                    | <Badge text="array" variant="note" />  <Badge text="null" variant="caution" /> |
-                | `deleted`                                                  | Is the Bot deleted from Top.gg?          | <Badge text="boolean" variant="note" />                                        |
-                | `id`                                                       | Discord ID of the bot                    | <Badge text="string" variant="note" />                                         |
-                | `name`                                                     | Discord name of the bot                  | <Badge text="string" variant="note" />                                         |
-                | `def_avatar`                                               | Default discord avatar for the bot       | <Badge text="string" variant="note" />                                         |
-                | `avatar`                                                   | Discord avatar of the bot                | <Badge text="string" variant="note" /> <Badge text="null" variant="caution" /> |
-                | `short_desc`                                               | Bot Short Description from Top.gg        | <Badge text="string" variant="note" />                                         |
-                | `lib`   <Badge text={'Deprecated'} variant={'danger'} />   | Library in which the bot is written in   | <Badge text="string" variant="note" />                                         |
-                | `prefix`                                                   | Bot's prefix                             | <Badge text="string" variant="note" />                                         |
-                | `approved_at`                                              | Date when the bot was approved on Top.gg | <Badge text="string" variant="note" />                                         |
-                | `monthly_votes`                                            | Current monthly votes count              | <Badge text="number" variant="note" />                                         |
-                | `server_count`                                             | Current server count                     | <Badge text="number" variant="note" />                                         |
-                | `total_votes`                                              | Current count for all votes              | <Badge text="number" variant="note" />                                         |
-                | `shard_count`                                              | Current shard count                      | <Badge text="number" variant="note" />                                         |
-                | `monthly_votes_rank`                                       | Current monthly votes rank               | <Badge text="number" variant="note" />                                         |
-                | `server_count_rank`                                        | Current server count rank                | <Badge text="number" variant="note" />                                         |
-                | `total_votes_rank`                                         | Total votes rank                         | <Badge text="number" variant="note" />                                         |
-                | `shard_count_rank`                                         | Shard count rank                         | <Badge text="number" variant="note" />                                         |
-                | `timestamp`                                                | Last modified timestamp                  | <Badge text="string" variant="note" />                                         |
-                | `percentageChanges.daily`                                  | Percentage change of the last day        | <Badge text="string" variant="note" />                                         |
-                | `percentageChanges.monthly`                                | Percentage change of the last monthly    | <Badge text="string" variant="note" />                                         |
+              | Value                                                        | Description                              | Type                                                                           |
+              | ------------------------------------------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------ |
+              | `certified` <Badge text={'Deprecated'} variant={'danger'} /> | Is the Bot Certified On Top.gg?          | <Badge text="boolean" variant="note" />                                        |
+              | `owners`                                                     | Array of Discord ID's                    | <Badge text="array" variant="note" />  <Badge text="null" variant="caution" /> |
+              | `deleted`                                                    | Is the Bot deleted from Top.gg?          | <Badge text="boolean" variant="note" />                                        |
+              | `id`                                                         | Discord ID of the bot                    | <Badge text="string" variant="note" />                                         |
+              | `name`                                                       | Discord name of the bot                  | <Badge text="string" variant="note" />                                         |
+              | `def_avatar`                                                 | Default discord avatar for the bot       | <Badge text="string" variant="note" />                                         |
+              | `avatar`                                                     | Discord avatar of the bot                | <Badge text="string" variant="note" /> <Badge text="null" variant="caution" /> |
+              | `short_desc`                                                 | Bot Short Description from Top.gg        | <Badge text="string" variant="note" />                                         |
+              | `lib`   <Badge text={'Deprecated'} variant={'danger'} />     | Library in which the bot is written in   | <Badge text="string" variant="note" />                                         |
+              | `prefix`                                                     | Bot's prefix                             | <Badge text="string" variant="note" />                                         |
+              | `approved_at`                                                | Date when the bot was approved on Top.gg | <Badge text="string" variant="note" />                                         |
+              | `monthly_votes`                                              | Current monthly votes count              | <Badge text="number" variant="note" />                                         |
+              | `server_count`                                               | Current server count                     | <Badge text="number" variant="note" />                                         |
+              | `total_votes`                                                | Current count for all votes              | <Badge text="number" variant="note" />                                         |
+              | `shard_count`                                                | Current shard count                      | <Badge text="number" variant="note" />                                         |
+              | `monthly_votes_rank`                                         | Current monthly votes rank               | <Badge text="number" variant="note" />                                         |
+              | `server_count_rank`                                          | Current server count rank                | <Badge text="number" variant="note" />                                         |
+              | `total_votes_rank`                                           | Total votes rank                         | <Badge text="number" variant="note" />                                         |
+              | `shard_count_rank`                                           | Shard count rank                         | <Badge text="number" variant="note" />                                         |
+              | `timestamp`                                                  | Last modified timestamp                  | <Badge text="string" variant="note" />                                         |
+              | `unix_timestamp`                                             | Last modified  unix timestamp            | <Badge text="number" variant="note" />                                         |
+              | `percentageChanges.daily`                                    | Percentage change of the last day        | <Badge text="string" variant="note" />                                         |
+              | `percentageChanges.monthly`                                  | Percentage change of the last monthly    | <Badge text="string" variant="note" />                                         |
             </Card>
         </TabItem>
     </Tabs>
