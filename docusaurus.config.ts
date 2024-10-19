@@ -91,7 +91,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          to: '/blog',
+          to: 'https://blog.topstats.gg',
           label: 'Blog',
           position: 'left'
         },
