@@ -1,5 +1,5 @@
 # Stage 1: Build the Astro project
-FROM node:18-alpine AS builder
+FROM node:18-alpine AS app
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -16,20 +16,9 @@ COPY . .
 # Build the Astro project (output will go to /app/dist)
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine AS production
+ENV HOST=0.0.0.0
+ENV PORT=3000
 
-# Set environment variable for production
-ENV NODE_ENV=production
-
-# Copy custom nginx config file
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Copy the built static files from the previous build stage
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Expose port 3000 (the custom port for nginx to serve on)
 EXPOSE 3000
+CMD ["node", "/app/dist/server/entry.mjs"]
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]

@@ -1,6 +1,0 @@
-services:
-  docs_next:
-    container_name: docs_next
-    image: docs:test
-    ports:
-      - 3089:3000
