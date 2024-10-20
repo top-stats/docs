@@ -3,7 +3,7 @@
     auto_https off  # Disable HTTPS if not needed (or let Caddy handle Let's Encrypt automatically)
 }
 
-http://*:3000 {
+http://localhost:3000 {
     root * /srv
     file_server
     encode gzip
