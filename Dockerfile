@@ -1,35 +1,35 @@
-# Stage 1: Build the Astro site
-FROM node:18-alpine AS build
+# Stage 1: Build the Astro project
+FROM node:18-alpine AS builder
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json (if present) to install dependencies
+COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
-# Copy the rest of the application code
+# Copy all project files
 COPY . .
 
-# Build the Astro static site
+# Build the Astro project (output will go to /app/dist)
 RUN npm run build
 
-# Stage 2: Serve the built site with Caddy
-FROM caddy:2-alpine
+# Stage 2: Serve with nginx
+FROM nginx:alpine AS production
 
-# Set working directory
-WORKDIR /srv
+# Set environment variable for production
+ENV NODE_ENV=production
 
-# Copy the built static files from the previous stage
-COPY --from=build /app/dist /srv
+# Copy custom nginx config file
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy the Caddyfile (if you want custom Caddy configurations)
-COPY Caddyfile /etc/caddy/Caddyfile
+# Copy the built static files from the previous build stage
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 8080
+# Expose port 3000 (the custom port for nginx to serve on)
+EXPOSE 3000
 
-# Start Caddy (default configuration serves static files from /srv)
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
