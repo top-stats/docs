@@ -1,0 +1,20 @@
+{
+    # Global options block
+    auto_https off  # Disable HTTPS if not needed (or let Caddy handle Let's Encrypt automatically)
+}
+
+http://*:3000 {
+    root * /srv
+    file_server
+    encode gzip
+
+    # Error handling and 404 fallback
+    handle_errors {
+        @notfound {
+            file {
+                try_files /404.html
+            }
+        }
+        respond @notfound "Page Not Found" 404
+    }
+}
