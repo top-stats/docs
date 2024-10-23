@@ -11,7 +11,7 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
     ## Fetch a Bot
 
     ```sh
-    GET api.topstats.gg/bots/:id
+    GET api.topstats.gg/discord/bots/:id
     ```
 
     #### Query Parameters
@@ -52,8 +52,8 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
                 "timestamp": "2020-08-15T08:00:00.222Z",
                 "unix_timestamp": 1597478400,
                 "percentageChanges": {
-                    "daily": "0.00",
-                    "monthly": "200.00"
+                    "daily": 0,
+                    "monthly": 200
                 }
             }
             ```
@@ -83,8 +83,8 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
               | `shard_count_rank`                                           | Shard count rank                         | <Badge text="number" variant="note" />                                         |
               | `timestamp`                                                  | Last modified timestamp                  | <Badge text="string" variant="note" />                                         |
               | `unix_timestamp`                                             | Last modified  unix timestamp            | <Badge text="number" variant="note" />                                         |
-              | `percentageChanges.daily`                                    | Percentage change of the last day        | <Badge text="string" variant="note" />                                         |
-              | `percentageChanges.monthly`                                  | Percentage change of the last monthly    | <Badge text="string" variant="note" />                                         |
+              | `percentageChanges.daily`                                    | Percentage change of the last day        | <Badge text="number" variant="note" />                                         |
+              | `percentageChanges.monthly`                                  | Percentage change of the last monthly    | <Badge text="number" variant="note" />                                         |
             </Card>
         </TabItem>
     </Tabs>
@@ -92,7 +92,7 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
     ## Fetch a Bot's Historical Data (Graphs)
 
     ```sh
-    GET api.topstats.gg/bots/:id/historical
+    GET api.topstats.gg/discord/bots/:id/historical
     ```
 
     #### Query
@@ -150,7 +150,7 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
     ## Fetch a Bot's Recent Data
 
     ```sh
-    GET api.topstats.gg/bots/:id/recent
+    GET api.topstats.gg/discord/bots/:id/recent
     ```
 
     #### Query
