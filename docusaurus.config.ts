@@ -67,7 +67,7 @@ const config: Config = {
   themeConfig: {
     announcementBar: {
       id: `announcementBar`,
-      content: `🎉️ <b>Something new is brewing... <a target="_blank" href="https://discord.com/invite/jjEauJXuZc">Join Our Discord</a> to find out more!</b> 🥳️`,
+      content: `🎉️ <b>Something new is brewing... <a target="_blank" href="https://topstats.gg/discord?ref=legacyDocs">Join Our Discord</a> to find out more!</b> 🥳️`,
     },
     metadata: [
       {
