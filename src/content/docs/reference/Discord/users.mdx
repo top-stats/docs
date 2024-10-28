@@ -1,0 +1,96 @@
+---
+title: Users
+description: Fetch Discord Users From TopStats.gg
+---
+import { Card, TabItem, Tabs, Badge, Aside } from '@astrojs/starlight/components'
+
+
+<article>
+
+  ## Fetch a Users Bots
+
+  <Aside type="caution" title="Watch out!">
+    Data provided from this route may be inaccurate!
+
+    This is because bots moved to a team will remain on a users account irrespective of ownership.
+  </Aside>
+
+  ```sh
+  GET api.topstats.gg/discord/bots/:id
+  ```
+
+  #### Query Parameters
+  ```json
+  {
+    "id": "<string>"
+  }
+  ```
+  ### Response
+  <Tabs>
+    <TabItem label="Response">
+      ```json
+      "bots": [
+        {
+          "id": "461521980492087297",
+          "certified": true,
+          "owners": [
+            "205680187394752512"
+          ],
+          "deleted": false,
+          "name": "Shiro",
+          "def_avatar": "1.png",
+          "avatar": "55862c32c38731a1b71480cda915f5ad",
+          "short_desc": "Shiro provides modlogs, moderation, and music features that match the featuresets of popular bots such as Chip, Hydra, Rythm and Groovy!",
+          "lib": "discord.js",
+          "prefix": "s! (Customizable)",
+          "website": "https://shirobot.org",
+          "approved_at": "2018-09-22T11:25:10.962Z",
+          "monthly_votes": 3,
+          "server_count": 17762,
+          "total_votes": 61387,
+          "shard_count": 20,
+          "monthly_votes_rank": 7556,
+          "server_count_rank": 501,
+          "shard_count_rank": 289,
+          "total_votes_rank": 282,
+          "timestamp": "2024-10-28T18:00:00.000Z",
+          "unix_timestamp": "1730138400000"
+        },
+        {
+          "id": "583807014896140293",
+          "certified": false,
+          "owners": [
+            "321714991050784770",
+            "205680187394752512",
+            "116930717241311236"
+          ],
+          "deleted": false,
+          "name": "DBL Statistics",
+          "def_avatar": "1.png",
+          "avatar": "d9c16daef96dfa39e4b1235e5bcd9979",
+          "short_desc": "Get statistics of every bot listed on top.gg",
+          "lib": "",
+          "prefix": "dbl-",
+          "website": "https://dblstatistics.com/",
+          "approved_at": "2020-08-02T12:39:32.440Z",
+          "monthly_votes": 4,
+          "server_count": 80,
+          "total_votes": 251,
+          "shard_count": 0,
+          "monthly_votes_rank": 5846,
+          "server_count_rank": 6296,
+          "shard_count_rank": 17318,
+          "total_votes_rank": 4796,
+          "timestamp": "2024-10-28T18:00:00.000Z",
+          "unix_timestamp": "1730138400000"
+        }
+      ]
+      ```
+    </TabItem>
+    <TabItem label="Body">
+      <Card>
+        Please refer to the response body of [fetching a bot](http://localhost:4321/reference/discord/bots/#fetch-a-bot).
+      </Card>
+    </TabItem>
+  </Tabs>
+</article>
