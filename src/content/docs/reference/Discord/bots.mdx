@@ -105,7 +105,7 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
     #### Parameters
     ```json
     {
-        "timeFrame": "<string>" ['alltime','5y','3y','1y','90d','30d','7d','3d','1d','12h','6h']
+        "timeFrame": "<string>" ['alltime','5y','3y','1y','270d','180d','90d','30d','7d','3d','1d','12h','6h']
         "type": "<string>" ['monthly_votes','total_votes','server_count','shard_count']
     }
     ```
@@ -139,7 +139,7 @@ import {Card, TabItem, Tabs, Badge} from '@astrojs/starlight/components'
             <Card>
                 | Value   | Description                 | Type                                   |
                 | ------- | --------------------------- | -------------------------------------- |
-                | `date`  | Date of value               | <Badge text="string" variant="note" /> |
+                | `time`  | Date of value               | <Badge text="string" variant="note" /> |
                 | `id`    | Discord ID of the bot       | <Badge text="string" variant="note" /> |
                 | `value` | Value of the requested type | <Badge text="number" variant="note" /> |
             </Card>
