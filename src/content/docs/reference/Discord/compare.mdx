@@ -1,0 +1,409 @@
+---
+title: Compare
+description: Compare discord bots listed on TopStats.gg
+---
+
+import { Badge, Card, TabItem, Tabs } from '@astrojs/starlight/components'
+
+
+<article>
+  ## Compare Discord Bots
+
+  ```sh
+  GET api.topstats.gg/discord/compare/:id1/:id2/:id3/:id4
+  ```
+
+  #### Parameters
+  ```json
+  {
+    "ids": ["<string>"],
+  }
+  ```
+
+  <Tabs>
+    <TabItem label="Response">
+      ```json
+      {
+        "data": [
+          {
+            "id": "432610292342587392",
+            "certified": false,
+            "owners": [
+              "275748765166469120"
+            ],
+            "deleted": false,
+            "name": "Mudae",
+            "def_avatar": "1.png",
+            "avatar": "29cb28fbf65a3958105026ab03abd306",
+            "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+            "lib": "discord.js",
+            "prefix": "$",
+            "website": "https://www.patreon.com/mudae",
+            "approved_at": "2018-04-21T21:17:57.793Z",
+            "monthly_votes": 2432848,
+            "server_count": 3371839,
+            "total_votes": 207621432,
+            "shard_count": 1792,
+            "monthly_votes_rank": 1,
+            "server_count_rank": 13,
+            "shard_count_rank": 4,
+            "total_votes_rank": 1,
+            "timestamp": "2024-11-23T19:00:00.000Z",
+            "unix_timestamp": "1732388400000",
+            "tags": [
+              "anime",
+              "fun",
+              "game"
+            ],
+            "percentageChanges": {
+              "daily": 5.0428764919706195,
+              "monthly": -5.4295447491306446
+            }
+          },
+          {
+            "id": "646937666251915264",
+            "certified": false,
+            "owners": [
+              "141431182792458241",
+              "135694375647838208"
+            ],
+            "deleted": false,
+            "name": "Karuta",
+            "def_avatar": "1.png",
+            "avatar": "0e54d87446f106d1fd58385295ae9deb",
+            "short_desc": "EDITION 7 CARDS LIVE! 🎉 Over 160,000 anime cards to collect, trade, customize, date, fight, and more in a global economy.",
+            "lib": "discord.js",
+            "prefix": "k!",
+            "website": "https://karuta.com/",
+            "approved_at": "2020-02-06T10:09:04.845Z",
+            "monthly_votes": 1407882,
+            "server_count": 841460,
+            "total_votes": 99464443,
+            "shard_count": 416,
+            "monthly_votes_rank": 2,
+            "server_count_rank": 38,
+            "shard_count_rank": 31,
+            "total_votes_rank": 2,
+            "timestamp": "2024-11-23T19:00:00.000Z",
+            "unix_timestamp": "1732388400000",
+            "tags": [
+              "anime",
+              "art",
+              "economy",
+              "fun",
+              "game",
+              "gaming",
+              "genshin",
+              "leveling",
+              "pokemon",
+              "roleplay",
+              "social",
+              "utility"
+            ],
+            "percentageChanges": {
+              "daily": 4.848087315730963,
+              "monthly": -2.668112822544809
+            }
+          },
+        ... 2 more entries
+        ]
+      }
+      ```
+    </TabItem>
+  </Tabs>
+
+
+  ## Compare Discord Bots Historical Data
+
+  ```sh
+  GET api.topstats.gg/discord/compare/historical/:id1/:id2/:id3/:id4
+  ```
+
+  #### Parameters
+  ```json
+  {
+    "ids": ["<string>"],
+  }
+  ```
+
+  <Tabs>
+    <TabItem label="Response">
+      ```json
+      {
+        "data": {
+          "432610292342587392": [
+            {
+              "time": "2024-11-23T19:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 2432848
+            },
+            {
+              "time": "2024-10-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3157605
+            },
+            {
+              "time": "2024-09-30T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3242100
+            },
+            {
+              "time": "2024-08-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3429877
+            },
+            {
+              "time": "2024-07-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3163827
+            },
+            {
+              "time": "2024-06-30T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3170207
+            },
+            {
+              "time": "2024-05-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 3122312
+            },
+            {
+              "time": "2024-04-30T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 2910882
+            },
+            {
+              "time": "2024-03-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 2994019
+            },
+            {
+              "time": "2024-02-29T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 1938269
+            },
+            {
+              "time": "2024-01-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 63199
+            },
+            {
+              "time": "2023-12-31T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 2781878
+            },
+            {
+              "time": "2023-11-30T00:00:00.000Z",
+              "id": "432610292342587392",
+              "monthly_votes": 2743796
+            }
+          ],
+          "646937666251915264": [
+            {
+              "time": "2024-11-23T19:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1407882
+            },
+            {
+              "time": "2024-10-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1848793
+            },
+            {
+              "time": "2024-09-30T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1822779
+            },
+            {
+              "time": "2024-08-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1845849
+            },
+            {
+              "time": "2024-07-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1640492
+            },
+            {
+              "time": "2024-06-30T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1667835
+            },
+            {
+              "time": "2024-05-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1690786
+            },
+            {
+              "time": "2024-04-30T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1673539
+            },
+            {
+              "time": "2024-03-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1734668
+            },
+            {
+              "time": "2024-02-29T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1184242
+            },
+            {
+              "time": "2024-01-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 36181
+            },
+            {
+              "time": "2023-12-31T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 2052770
+            },
+            {
+              "time": "2023-11-30T00:00:00.000Z",
+              "id": "646937666251915264",
+              "monthly_votes": 1988825
+            }
+          ],
+          "716390085896962058": [
+            {
+              "time": "2024-11-23T19:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 387539
+            },
+            {
+              "time": "2024-10-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 537816
+            },
+            {
+              "time": "2024-09-30T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 499851
+            },
+            {
+              "time": "2024-08-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 487096
+            },
+            {
+              "time": "2024-07-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 554394
+            },
+            {
+              "time": "2024-06-30T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 540670
+            },
+            {
+              "time": "2024-05-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 527655
+            },
+            {
+              "time": "2024-04-30T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 553945
+            },
+            {
+              "time": "2024-03-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 531562
+            },
+            {
+              "time": "2024-02-29T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 369612
+            },
+            {
+              "time": "2024-01-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 12291
+            },
+            {
+              "time": "2023-12-31T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 708048
+            },
+            {
+              "time": "2023-11-30T00:00:00.000Z",
+              "id": "716390085896962058",
+              "monthly_votes": 676097
+            }
+          ],
+          "853629533855809596": [
+            {
+              "time": "2024-11-23T19:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 351109
+            },
+            {
+              "time": "2024-10-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 449698
+            },
+            {
+              "time": "2024-09-30T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 489877
+            },
+            {
+              "time": "2024-08-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 551118
+            },
+            {
+              "time": "2024-07-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 513136
+            },
+            {
+              "time": "2024-06-30T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 497151
+            },
+            {
+              "time": "2024-05-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 504144
+            },
+            {
+              "time": "2024-04-30T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 497505
+            },
+            {
+              "time": "2024-03-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 554225
+            },
+            {
+              "time": "2024-02-29T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 349853
+            },
+            {
+              "time": "2024-01-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 11218
+            },
+            {
+              "time": "2023-12-31T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 570983
+            },
+            {
+              "time": "2023-11-30T00:00:00.000Z",
+              "id": "853629533855809596",
+              "monthly_votes": 500102
+            }
+          ]
+        }
+      }
+      ```
+    </TabItem>
+  </Tabs>
+
+
+</article>
