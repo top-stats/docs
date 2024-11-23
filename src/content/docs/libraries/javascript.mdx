@@ -1,20 +1,212 @@
 ---
-title: JavaScript
-description: A guide in my new Starlight docs site.
+title: TopStats JavaScript SDK
+description: Official Node.js client for the topstats.gg API.
 ---
-
 
 import { Steps, TabItem, Tabs } from '@astrojs/starlight/components'
 
+# TopStats SDK
+
+Welcome to the official Node.js client for the [topstats.gg](https://topstats.gg) API.
 
 <Steps>
 
-1. Install TopStats NPM Package
+1. **Install TopStats SDK**
 
    ```sh
-    npm install
+   npm install @topstats/sdk
    ```
 
-2. More to come...
+2. **Initialize the Client**
+
+   ```typescript
+   import { Client } from "@topstats/sdk";
+   
+   const client = new Client("YOUR_TOKEN");
+   ```
+
+3. **Make Your First Request**
+
+   ```typescript
+   // Get information about a bot
+   const bot = await client.getBot("583807014896140293");
+   console.log(bot.name, bot.server_count);
+   ```
 
 </Steps>
+
+## Usage Examples
+
+<Tabs>
+  <TabItem label="Bot Info">
+    ```typescript
+    // Get detailed bot information
+    const bot = await client.getBot("583807014896140293");
+    console.log(bot.name, bot.server_count);
+    ```
+  </TabItem>
+  <TabItem label="Historical Data">
+    ```typescript
+    // Get historical statistics
+    const history = await client.getBotHistorical(
+      "583807014896140293",
+      "30d",
+      "monthly_votes"
+    );
+    console.log(history.data);
+    ```
+  </TabItem>
+  <TabItem label="Rankings">
+    ```typescript
+    // Get top bots
+    const rankings = await client.getRankings({
+      sortBy: "monthly_votes_rank",
+      sortMethod: "desc",
+      limit: 10
+    });
+    console.log(rankings.data);
+    ```
+  </TabItem>
+</Tabs>
+
+## API Reference
+
+### Methods
+
+<Tabs>
+  <TabItem label="getBot">
+    ```typescript
+    getBot(botId: string): Promise<BotData>
+    
+    // Example
+    const bot = await client.getBot("583807014896140293");
+    ```
+  </TabItem>
+  <TabItem label="getBotHistorical">
+    ```typescript
+    getBotHistorical(
+      botId: string, 
+      timeFrame: HistoricalTimeFrame, 
+      type: HistoricalDataType
+    ): Promise<HistoricalDataResponse>
+
+    // Available timeframes
+    enum HistoricalTimeFrame {
+      ALL_TIME = "alltime",
+      FIVE_YEARS = "5y",
+      THREE_YEARS = "3y",
+      ONE_YEAR = "1y",
+      NINETY_DAYS = "90d",
+      THIRTY_DAYS = "30d",
+      SEVEN_DAYS = "7d",
+      ONE_DAY = "1d",
+      TWELVE_HOURS = "12hr",
+      SIX_HOURS = "6hr",
+    }
+
+    // Available data types 
+    enum HistoricalDataType {
+      MONTHLY_VOTES = "monthly_votes",
+      TOTAL_VOTES = "total_votes",
+      SERVER_COUNT = "server_count",
+      SHARD_COUNT = "shard_count",
+    }
+    ```
+  </TabItem>
+  <TabItem label="getBotRecent">
+    ```typescript
+    getBotRecent(botId: string): Promise<RecentDataResponse>
+    
+    // Example
+    const recent = await client.getBotRecent("583807014896140293");
+    ```
+  </TabItem>
+  <TabItem label="getRankings">
+    ```typescript
+    getRankings(options: RankingsRequest): Promise<RankingsResponse>
+    
+    // Example
+    const rankings = await client.getRankings({
+      sortBy: "monthly_votes_rank",
+      sortMethod: "desc",
+      limit: 250, // Optional, defaults to 100
+    });
+    ```
+  </TabItem>
+</Tabs>
+
+### Response Types
+
+<Tabs>
+  <TabItem label="BotData">
+    ```typescript
+    interface BotData {
+      id: string;
+      name: string;
+      server_count: number;
+      monthly_votes: number;
+      total_votes: number;
+      // ... and more
+    }
+    ```
+  </TabItem>
+  <TabItem label="RecentDataResponse">
+    ```typescript
+    interface RecentDataResponse {
+      hourlyData: RecentData[];
+      dailyData: RecentData[];
+    }
+    ```
+  </TabItem>
+  <TabItem label="RankingsResponse">
+    ```typescript
+    interface RankingsResponse {
+      totalBotCount: number;
+      data: RankingsData[];
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Error Handling
+
+<Tabs>
+  <TabItem label="Basic">
+    ```typescript
+    try {
+      await client.getBot("invalid-id");
+    } catch (error) {
+      if (error instanceof RateLimitError) {
+        console.log("Rate limited, try again later");
+      } else if (error instanceof TopStatsError) {
+        console.error("API Error:", error.message);
+      }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Advanced">
+    ```typescript
+    try {
+      const bot = await client.getBot("invalid-id");
+    } catch (error) {
+      switch(true) {
+        case error instanceof RateLimitError:
+          // Handle rate limiting
+          console.log("Rate limited, retry after:", error.retryAfter);
+          break;
+        case error instanceof TopStatsError:
+          // Handle API errors
+          console.error("API Error:", error.message, error.code);
+          break;
+        default:
+          // Handle unexpected errors
+          console.error("Unknown error:", error);
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+## Rate Limits
+
+The API implements rate limiting to ensure fair usage. For detailed information about rate limits and best practices, please refer to our [rate limit documentation](https://docs.topstats.gg/authentication/ratelimits/).
