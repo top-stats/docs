@@ -66,8 +66,8 @@ const config: Config = {
   ],
   themeConfig: {
     announcementBar: {
-      id: `announcementBar`,
-      content: `🎉️ <b>Something new is brewing... <a target="_blank" href="https://topstats.gg/discord?ref=legacyDocs">Join Our Discord</a> to find out more!</b> 🥳️`,
+      id: `apiBetaRelease`,
+      content: `🎉️ <b>TopStats.gg's Beta has been released <a target="_blank" href="https://topstats.gg">check it out here</a> with it our new API, which you can <a target="_blank" href="https://docs.topstats.gg">check that out here</a>!</b> 🥳️`,
     },
     metadata: [
       {
