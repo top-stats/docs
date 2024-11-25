@@ -6,34 +6,35 @@ description: Read up on ratelimits for TopStats.gg
 
 :::caution
 
-Continuously surpassing our **ratelimits** will result in a cooldown or a permenant ban from using our API.
+Continuously surpassing our **ratelimits** will result in a cooldown or a permanent ban from using our API.
 
 :::
 
-| Route              | Requests Per Minute |
-|--------------------|---------------------|
-| /bots/:id          | 60                  |
-| /bots/:id/previous | 20                  |
-| /bots/top          | 20                  |
-| /auctions/tags     | 60                  |
-| /users/:id/bots    | 60                  |
-| /bots/top          | 60                  |
+| Route                | Requests Per Minute |
+|----------------------|---------------------|
+| /bots/:id            | 60                  |
+| /bots/:id/historical | 60                  |
+| /bots/:id/recent     | 60                  |
+| /compare             | 60                  |
+| /compare/historical  | 60                  |
+| /rankings            | 60                  |
+| /users/:id/bots      | 60                  |
 
 
 ## What Happens When I am RateLimited?
 When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
-```json
+```shell
 {
     "statusCode": 429,
     "error": "Too Many Requests",
     "message": "You can only make {amount} requests per {time} minute. Try again soon.",
     "date": 1729335037519,
-    "expiresIn": "{milliseconds}"
+    "expiresIn": {milliseconds}
 }
 ```
 
 ## Would You Like to Get Higher RateLimits?
-reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc). For any requests regarding ratelimits.
+Reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc). For any requests regarding ratelimits.
 
 ## I am Banned, What Can I Do?
 If you've been banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
