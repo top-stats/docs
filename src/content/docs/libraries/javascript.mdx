@@ -7,7 +7,7 @@ import { Steps, TabItem, Tabs } from '@astrojs/starlight/components'
 
 # TopStats SDK
 
-Welcome to the community maintained [Node.js client](https://www.npmjs.com/package/topstats) for the [topstats.gg](https://topstats.gg) API.
+Welcome to the community maintained [Node.js client](https://www.npmjs.com/package/@topstats/sdk) for the [topstats.gg](https://topstats.gg) API.
 
 <Steps>
 
@@ -21,7 +21,7 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
 
    ```typescript
    import { Client } from "@topstats/sdk";
-   
+
    const client = new Client("YOUR_TOKEN");
    ```
 
@@ -77,7 +77,7 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
   <TabItem label="getBot">
     ```typescript
     getBot(botId: string): Promise<BotData>
-    
+
     // Example
     const bot = await client.getBot("583807014896140293");
     ```
@@ -85,8 +85,8 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
   <TabItem label="getBotHistorical">
     ```typescript
     getBotHistorical(
-      botId: string, 
-      timeFrame: HistoricalTimeFrame, 
+      botId: string,
+      timeFrame: HistoricalTimeFrame,
       type: HistoricalDataType
     ): Promise<HistoricalDataResponse>
 
@@ -106,7 +106,7 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       SIX_HOURS = "6hr",
     }
 
-    // Available data types 
+    // Available data types
     enum HistoricalDataType {
       MONTHLY_VOTES = "monthly_votes",
       TOTAL_VOTES = "total_votes",
@@ -118,7 +118,7 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
   <TabItem label="getBotRecent">
     ```typescript
     getBotRecent(botId: string): Promise<RecentDataResponse>
-    
+
     // Example
     const recent = await client.getBotRecent("583807014896140293");
     ```
@@ -126,7 +126,7 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
   <TabItem label="getRankings">
     ```typescript
     getRankings(options: RankingsRequest): Promise<RankingsResponse>
-    
+
     // Example
     const rankings = await client.getRankings({
       sortBy: "monthly_votes_rank",
