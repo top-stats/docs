@@ -3,11 +3,9 @@ title: Python
 description: Community maintained Python client for the topstats.gg API.
 ---
 
-# [topstats][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url]
+# [topstats][pypi-url]
 
-[pypi-image]: https://img.shields.io/pypi/v/topstats.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/topstats/
-[downloads-image]: https://img.shields.io/pypi/dm/topstats?style=flat-square
 
 The community-maintained Python API wrapper for [topstats.gg](https://topstats.gg).
 
@@ -29,7 +27,7 @@ import asyncio
 import os
 
 async def main() -> None:
-  # declare the client. the measuring unit used defaults to the metric system (celcius, km/h, etc.)
+  # declare the client. to retrieve your topstats.gg token, see https://docs.topstats.gg/authentication/tokens/
   async with topstats.Client('your topstats.gg API token') as ts:
     # fetch a ranked bot from its bot ID
     bot = await ts.get_bot(432610292342587392)
