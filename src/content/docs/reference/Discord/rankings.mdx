@@ -4,10 +4,17 @@ description: Fetch rankings of the top bots listed on Top.gg
 ---
 
 
-import { Badge, Card, TabItem, Tabs } from '@astrojs/starlight/components'
+import { Badge, Card, TabItem, Tabs, Aside } from '@astrojs/starlight/components'
 
 
 <article>
+
+  <Aside type="danger" title="Deprecation">
+    All values pertaining to shard counts and ranks are deprecated and will be removed soon!
+
+    Please do not use or rely on these values, if you do please remove such usages.
+  </Aside>
+
   ## Fetch rankings for the top bots
 
   ```sh
