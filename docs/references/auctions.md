@@ -6,6 +6,12 @@ import Highlight from './../../src/components/Hightlight';
 
 # Auctions
 
+:::danger[API Shutting Down]
+The DBL Statistics API is shutting down as we move away from DBLStatistics and continue its development at [TopStats.gg](https://topstats.gg)
+
+You can check out the new api at our [docs here](https://docs.topstats.gg) and if you have any questions, you can contact us in our [Discord server](https://topstats.gg/discord)
+:::
+
 :::danger[deprecated]
 Auctions is currently deprecated, due to issues with fetching this data. 
 

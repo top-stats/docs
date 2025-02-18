@@ -5,6 +5,11 @@ sidebar_position: 1
 import Highlight from './../../src/components/Hightlight';
 
 # Bots
+:::danger[API Shutting Down]
+The DBL Statistics API is shutting down as we move away from DBLStatistics and continue its development at [TopStats.gg](https://topstats.gg)
+
+You can check out the new api at our [docs here](https://docs.topstats.gg) and if you have any questions, you can contact us in our [Discord server](https://topstats.gg/discord)
+:::
 
 ## Fetch a Bot <Highlight color="#25c2a0">GET</Highlight>
 

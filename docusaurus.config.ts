@@ -66,8 +66,10 @@ const config: Config = {
   ],
   themeConfig: {
     announcementBar: {
-      id: `apiBetaRelease`,
-      content: `🎉️ <b>TopStats.gg's Beta has been released <a target="_blank" href="https://topstats.gg">check it out here</a> with it our new API, which you can <a target="_blank" href="https://docs.topstats.gg">check that out here</a>!</b> 🥳️`,
+      id: `apiShutdown`,
+      content: `<b>The DBL Statistics API is being shutdown, please switch to our new API which you can <a target="_blank" href="https://docs.topstats.gg">check out here</a>!</b>`,
+      backgroundColor: '#ef4444',
+      textColor: 'white'
     },
     metadata: [
       {
