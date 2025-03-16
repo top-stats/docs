@@ -20,6 +20,11 @@ Continuously surpassing our **ratelimits** will result in a cooldown or a perman
 | /rankings            | 60                  |
 | /users/:id/bots      | 60                  |
 
+#### Global Ratelimit
+Global rate limits are applied on all routes
+| Route                | Requests Per Minute |
+|----------------------|---------------------|
+| *                    | 120                 |
 
 ## What Happens When I am RateLimited?
 When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
