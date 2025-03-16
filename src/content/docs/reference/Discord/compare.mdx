@@ -7,12 +7,6 @@ import { Badge, Card, TabItem, Tabs, Aside } from '@astrojs/starlight/components
 
 
 <article>
-  <Aside type="danger" title="Deprecation">
-    All values pertaining to shard counts and ranks are deprecated and will be removed soon!
-
-    Please do not use or rely on these values, if you do please remove such usages.
-  </Aside>
-
   ## Compare Discord Bots
 
   ```sh
@@ -121,7 +115,7 @@ import { Badge, Card, TabItem, Tabs, Aside } from '@astrojs/starlight/components
   ```json
   {
     "timeFrame": "<string>" ['alltime','5y','3y','1y','270d','180d','90d','30d','7d','3d','1d','12h','6h']
-    "type": "<string>" ['monthly_votes','total_votes','server_count','shard_count']
+    "type": "<string>" ['monthly_votes','total_votes','server_count']
   }
   ```
 
