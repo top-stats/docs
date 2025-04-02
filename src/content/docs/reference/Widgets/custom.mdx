@@ -1,0 +1,36 @@
+---
+title: Custom widgets
+description: TopStats.gg style widgets with custom datapoints.
+---
+
+import {Card, TabItem, Tabs, Badge, Aside} from '@astrojs/starlight/components'
+
+<article>
+    ## Fetch a Widget
+
+    ```sh
+    GET https://widgets.topstats.gg/custom/:type
+    ```
+
+    #### Query Parameters
+    ```json
+    {
+      "name": "<string>",
+      "type": "<string>" [
+        'graph',
+        'graph.png,
+      ],
+      "name": "<string>",
+      "data_points": "<JSON:string>",
+      "color": "<string>"
+    }
+  ```
+
+  ## Usage Example
+
+    ```sh
+    https://widgets.topstats.gg/custom/graph.png?name=<string>&data_points=<JSON>
+    ```
+    <img src={`http://localhost:3100/widgets/custom/graph.png?name=Hello+there&data_points=%5B%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712088373%2C%22y%22%3A492%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712171758%2C%22y%22%3A395%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712232779%2C%22y%22%3A174%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712309666%2C%22y%22%3A31%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712341388%2C%22y%22%3A214%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712396090%2C%22y%22%3A435%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712424424%2C%22y%22%3A280%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712445981%2C%22y%22%3A243%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712489001%2C%22y%22%3A56%7D%2C%7B%22id%22%3A%22Hello%22%2C%22x%22%3A1712509396%2C%22y%22%3A273%7D%5D`} alt="custom graph" />
+
+</article>
