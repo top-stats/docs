@@ -23,6 +23,9 @@ export default defineConfig({
       editLink: {
         baseUrl: 'https://github.com/top-stats/docs/edit/master/',
       },
+      customCss: [
+        './src/styles/landing.css',
+      ],
       favicon: './src/assets/favicon.svg',
       sidebar: [
         {
