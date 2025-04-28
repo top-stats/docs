@@ -3,49 +3,50 @@ title: JavaScript
 description: Community maintained Node.js client for the topstats.gg API.
 ---
 
-import { Steps, TabItem, Tabs } from '@astrojs/starlight/components'
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
 
-# TopStats SDK
 
-Welcome to the community maintained [Node.js client](https://www.npmjs.com/package/@topstats/sdk) for the [topstats.gg](https://topstats.gg) API.
+Welcome to the community maintained [Node.js client](https://www.npmjs.com/package/@topstats/sdk) for the [Topstats.gg](https://topstats.gg) API.
+```package-install
+@topstats/sdk
+```
 
 <Steps>
+<Step>
+  **Initialize the Client**
 
-1. **Install TopStats SDK**
+  ```typescript
+  import { Client } from "@topstats/sdk";
 
-   ```sh
-   npm install @topstats/sdk
-   ```
+  const client = new Client("YOUR_TOKEN");
+  ```
 
-2. **Initialize the Client**
+</Step>
+<Step>
+  **Make Your First Request**
 
-   ```typescript
-   import { Client } from "@topstats/sdk";
-
-   const client = new Client("YOUR_TOKEN");
-   ```
-
-3. **Make Your First Request**
-
-   ```typescript
-   // Get information about a bot
-   const bot = await client.getBot("583807014896140293");
-   console.log(bot.name, bot.server_count);
-   ```
+  ```typescript
+  // Get information about a bot
+  const bot = await client.getBot("583807014896140293");
+  console.log(bot.name, bot.server_count);
+  ```
+</Step>
 
 </Steps>
 
 ## Usage Examples
 
-<Tabs>
-  <TabItem label="Bot Info">
+<Tabs items={['Bot Info', 'Historical Data', 'Rankings']}>
+  <Tab value="Bot Info">
     ```typescript
     // Get detailed bot information
     const bot = await client.getBot("583807014896140293");
     console.log(bot.name, bot.server_count);
     ```
-  </TabItem>
-  <TabItem label="Historical Data">
+  </Tab>
+  <Tab value="Historical Data">
     ```typescript
     // Get historical statistics
     const history = await client.getBotHistorical(
@@ -55,8 +56,8 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
     );
     console.log(history.data);
     ```
-  </TabItem>
-  <TabItem label="Rankings">
+  </Tab>
+  <Tab value="Rankings">
     ```typescript
     // Get top bots
     const rankings = await client.getRankings({
@@ -66,23 +67,23 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
     });
     console.log(rankings.data);
     ```
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ## API Reference
 
 ### Methods
 
-<Tabs>
-  <TabItem label="getBot">
+<Tabs items={['getBot', 'getBotHistorical', 'getBotRecent', 'getRankings']}>
+  <Tab value="getBot">
     ```typescript
     getBot(botId: string): Promise<BotData>
 
     // Example
     const bot = await client.getBot("583807014896140293");
     ```
-  </TabItem>
-  <TabItem label="getBotHistorical">
+  </Tab>
+  <Tab value="getBotHistorical">
     ```typescript
     getBotHistorical(
       botId: string,
@@ -113,16 +114,16 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       SERVER_COUNT = "server_count",
     }
     ```
-  </TabItem>
-  <TabItem label="getBotRecent">
+  </Tab>
+  <Tab value="getBotRecent">
     ```typescript
     getBotRecent(botId: string): Promise<RecentDataResponse>
 
     // Example
     const recent = await client.getBotRecent("583807014896140293");
     ```
-  </TabItem>
-  <TabItem label="getRankings">
+  </Tab>
+  <Tab value="getRankings">
     ```typescript
     getRankings(options: RankingsRequest): Promise<RankingsResponse>
 
@@ -133,13 +134,13 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       limit: 250, // Optional, defaults to 100
     });
     ```
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ### Response Types
 
-<Tabs>
-  <TabItem label="BotData">
+<Tabs items={['BotData', 'RecentDataResponse', 'RankingsResponse']}>
+  <Tab value="BotData">
     ```typescript
     interface BotData {
       id: string;
@@ -150,29 +151,29 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       // ... and more
     }
     ```
-  </TabItem>
-  <TabItem label="RecentDataResponse">
+  </Tab>
+  <Tab value="RecentDataResponse">
     ```typescript
     interface RecentDataResponse {
       hourlyData: RecentData[];
       dailyData: RecentData[];
     }
     ```
-  </TabItem>
-  <TabItem label="RankingsResponse">
+  </Tab>
+  <Tab value="RankingsResponse">
     ```typescript
     interface RankingsResponse {
       totalBotCount: number;
       data: RankingsData[];
     }
     ```
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ## Error Handling
 
-<Tabs>
-  <TabItem label="Basic">
+<Tabs items={['Basic', 'Advanced']}>
+  <Tab value="Basic">
     ```typescript
     try {
       await client.getBot("invalid-id");
@@ -184,8 +185,8 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       }
     }
     ```
-  </TabItem>
-  <TabItem label="Advanced">
+  </Tab>
+  <Tab value="Advanced">
     ```typescript
     try {
       const bot = await client.getBot("invalid-id");
@@ -205,9 +206,14 @@ Welcome to the community maintained [Node.js client](https://www.npmjs.com/packa
       }
     }
     ```
-  </TabItem>
+  </Tab>
 </Tabs>
 
 ## Rate Limits
 
 The API implements rate limiting to ensure fair usage. For detailed information about rate limits and best practices, please refer to our [rate limit documentation](https://docs.topstats.gg/authentication/ratelimits/).
+
+<GithubInfo
+  owner="top-stats"
+  repo="javascript-sdk"
+/>

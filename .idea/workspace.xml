@@ -5,29 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8568cdbd-07a0-4157-a969-a3535efed3b8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/content/docs/meta.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openapi.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/generate-docs.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/astro.config.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/docs/authentication/ratelimits.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/docs/authentication/ratelimits.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/docs/authentication/tokens.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/docs/authentication/tokens.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/docs/introduction/introduction.mdx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/docs/libraries/javascript.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/docs/libraries/javascript.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/docs/libraries/python.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/content/docs/libraries/python.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/favicon.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/get-token.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/get-widget.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/authentication/ratelimits.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/authentication/ratelimits.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/authentication/tokens.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/authentication/tokens.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/index.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/index.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/introduction/introduction.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/introduction/introduction.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/libraries/javascript.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/libraries/javascript.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/libraries/python.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/libraries/python.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Discord/bots.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Discord/bots.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Discord/compare.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Discord/compare.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Discord/rankings.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Discord/rankings.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Discord/users.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Discord/users.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Widgets/custom.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Widgets/custom.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/content/docs/reference/Widgets/index.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/old/docs/reference/Widgets/index.mdx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/landing.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,11 +73,11 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\content\docs" />
+      <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\content\docs\libraries" />
+      <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\content" />
+      <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\src" />
       <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\old" />
-      <recent name="C:\Users\Xigno\Documents\GitHub\dblstats\docs\src\assets" />
-      <recent name="$PROJECT_DIR$/src/content/docs/reference" />
-      <recent name="$PROJECT_DIR$/static/img" />
-      <recent name="$PROJECT_DIR$/static/dblstats-dark.png" />
     </key>
   </component>
   <component name="SharedIndexes">

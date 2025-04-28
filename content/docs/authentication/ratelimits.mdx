@@ -2,8 +2,19 @@
 title: Ratelimits
 description: Read up on ratelimits for TopStats.gg
 ---
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-import {Card, TabItem, Tabs, Badge, Aside} from '@astrojs/starlight/components'
+<TypeTable
+  type={{
+    percentage: {
+      description:
+        'The percentage of scroll position to display the roll button',
+      type: 'number',
+      default: 0.2,
+    },
+  }}
+/>
 
 :::caution
 
@@ -29,30 +40,7 @@ Global rate limits are applied on all routes
 
 ## What Happens When I am RateLimited?
 When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
-<Tabs>
-    <TabItem label="Response">
-        ```shell
-        {
-            "statusCode": 429,
-            "error": "Too Many Requests",
-            "message": "You can only make {amount} requests per {time} minute. Try again soon.",
-            "date": 1729335037519,
-            "expiresIn": {milliseconds}
-        }
-        ```
-    </TabItem>
-    <TabItem label="Body">
-        <Card>
-        | Value        | Description                                         | Type                                   |
-        |--------------|-----------------------------------------------------|----------------------------------------|
-        | `statusCode` | HTTP status code of the response                    | <Badge text="number" variant="note" /> |
-        | `error`      | Error description                                   | <Badge text="string" variant="note" /> |
-        | `message`    | Message with details about the rate limit exceeded  | <Badge text="string" variant="note" /> |
-        | `date`       | Timestamp of when the rate limit was exceeded       | <Badge text="number" variant="note" /> |
-        | `expiresIn`  | Time in milliseconds until the rate limit is lifted | <Badge text="number" variant="note" /> |
-        </Card>
-    </TabItem>
-</Tabs>
+
 
 
 ## Would You Like to Get Higher RateLimits?
