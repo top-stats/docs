@@ -13,14 +13,6 @@ RUN npm install
 # Build the Astro project (output will go to /app/dist)
 RUN npm run build
 
-FROM node:22-alpine
-
-WORKDIR /app
-
-COPY --from=app /app/dist/ .
-COPY --from=app /app/node_modules/ .
-COPY --from=app /app/package.json .
-
 ENV HOST=0.0.0.0
 ENV PORT=3000
 
