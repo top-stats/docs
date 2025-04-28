@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "next build",
-    "check": "next lint",
-    "dev": "next dev --turbo",
-    "start": "next start",
+    "build": "npx next build",
+    "check": "npx next lint",
+    "dev": "npx next dev --turbo",
+    "start": "npx next start",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
