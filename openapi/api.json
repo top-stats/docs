@@ -276,7 +276,7 @@
                       "type": "integer",
                       "example": 278
                     },
-                    "shard_count": {
+                    "review_count": {
                       "type": "integer",
                       "example": 0
                     },
@@ -287,10 +287,6 @@
                     "server_count_rank": {
                       "type": "integer",
                       "example": 3420
-                    },
-                    "shard_count_rank": {
-                      "type": "integer",
-                      "example": 15841
                     },
                     "total_votes_rank": {
                       "type": "integer",
@@ -325,10 +321,6 @@
                     "avg_review_rating": {
                       "type": "number",
                       "example": 4.9
-                    },
-                    "review_count": {
-                      "type": "integer",
-                      "example": 10
                     },
                     "percentage_changes": {
                       "type": "object",
@@ -448,39 +440,23 @@
                             "type": "string",
                             "example": "583807014896140293"
                           },
+                          "monthly_votes": {
+                            "type": "integer",
+                            "example": 265
+                          },
                           "total_votes": {
                             "type": "integer",
                             "example": 265
                           },
-                          "type": {
-                            "type": "string",
-                            "enum": [
-                              "monthly_votes",
-                              "total_votes",
-                              "server_count",
-                              "review_count"
-                            ],
-                            "example": "total_votes"
+                          "server_count": {
+                            "type": "integer",
+                            "example": 265
+                          },
+                          "review_count": {
+                            "type": "integer",
+                            "example": 265
                           }
-                        },
-                        "if": {
-                          "properties": {
-                            "type": {
-                              "enum": [
-                                "total_votes"
-                              ]
-                            }
-                          }
-                        },
-                        "then": {
-                          "properties": {
-                            "total_votes": {
-                              "type": "integer",
-                              "example": 265
-                            }
-                          }
-                        },
-                        "else": {}
+                        }
                       }
                     }
                   },
@@ -525,43 +501,6 @@
         "parameters": [
           {
             "schema": {
-              "type": "string",
-              "enum": [
-                "monthly_votes",
-                "total_votes",
-                "server_count",
-                "review_count"
-              ]
-            },
-            "in": "query",
-            "name": "type",
-            "required": true
-          },
-          {
-            "schema": {
-              "type": "string",
-              "enum": [
-                "alltime",
-                "5y",
-                "3y",
-                "1y",
-                "270d",
-                "180d",
-                "90d",
-                "30d",
-                "7d",
-                "3d",
-                "1d",
-                "12h",
-                "6h"
-              ]
-            },
-            "in": "query",
-            "name": "timeFrame",
-            "required": true
-          },
-          {
-            "schema": {
               "type": "string"
             },
             "in": "path",
@@ -591,11 +530,15 @@
                             "type": "integer",
                             "example": 1800088
                           },
+                          "total_votes": {
+                            "type": "integer",
+                            "example": 204896149
+                          },
                           "server_count": {
                             "type": "integer",
                             "example": 3371839
                           },
-                          "total_votes": {
+                          "shard_count": {
                             "type": "integer",
                             "example": 204896149
                           },
@@ -614,6 +557,10 @@
                           "total_votes_change": {
                             "type": "integer",
                             "example": 5028
+                          },
+                          "review_count_change": {
+                            "type": "integer",
+                            "example": 1050
                           }
                         },
                         "required": [
