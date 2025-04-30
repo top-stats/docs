@@ -11,6 +11,7 @@
 /.next/
 /out/
 /build
+/dist
 *.tsbuildinfo
 
 # misc
@@ -26,3 +27,4 @@ yarn-error.log*
 .env*.local
 .vercel
 next-env.d.ts
+.idea
