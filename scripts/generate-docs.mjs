@@ -3,7 +3,7 @@
 
 /*
 void generateFiles({
-  input: ['./openapi.json'], // Path to your OpenAPI schema
+  input: ['./api.json'], // Path to your OpenAPI schema
   output: './content/docs/reference', // Output folder for docs
   includeDescription: true, // Include descriptions for each endpoint
   groupBy: 'tag',
