@@ -1,6 +1,6 @@
-import { docs } from '@/.source';
-import { loader } from 'fumadocs-core/source';
-import { createOpenAPI, attachFile } from 'fumadocs-openapi/server';
+import { docs } from '@/.source'
+import { loader } from 'fumadocs-core/source'
+import { attachFile, createOpenAPI } from 'fumadocs-openapi/server'
 
 // See https://fumadocs.vercel.app/docs/headless/source-api for more info
 export const source = loader({
@@ -11,8 +11,6 @@ export const source = loader({
   },
   baseUrl: '/docs',
   source: docs.toFumadocsSource(),
-});
+})
 
-export const openapi = createOpenAPI({
-  proxyUrl: '/api/proxy',
-});
+export const openapi = createOpenAPI({})
