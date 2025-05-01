@@ -9,6 +9,44 @@
     "schemas": {}
   },
   "paths": {
+    "/v1/custom/{type}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "type",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/custom/{type}": {
+      "get": {
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "type",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/v1/{id}/{type}": {
       "get": {
         "parameters": [
@@ -47,44 +85,6 @@
             "name": "id",
             "required": true
           },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "type",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/v1/custom/{type}": {
-      "get": {
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "type",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/custom/{type}": {
-      "get": {
-        "parameters": [
           {
             "schema": {
               "type": "string"
