@@ -5,6 +5,12 @@ _openapi:
   method: GET
 ---
 
+<Callout type={'warn'} title={'Watch out!'}>
+  Data provided from this route may be inaccurate!
+
+  This is because bots moved to a team will remain on a users account irrespective of ownership.
+</Callout>
+
 <APIPage document={"./openapi/api.json"} operations={[
   { "path": "/discord/users/{id}/bots", "method": "get" },
 ]} webhooks={[]} hasHead={true} />

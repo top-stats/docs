@@ -1,12 +1,15 @@
 ---
 title: Introduction
 description: A guide to using TopStats.gg's API.
-icon: Album
+icon: House
 ---
 
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-import { File, Folder, Files } from 'fumadocs-ui/components/files';
-import { GithubInfo } from 'fumadocs-ui/components/github-info';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { BracesIcon, CodeIcon, ImagePlusIcon, WorkflowIcon } from 'lucide-react'
+
+import { File, Files, Folder } from 'fumadocs-ui/components/files'
+import { GithubInfo } from 'fumadocs-ui/components/github-info'
 
 
 # Welcome to Topstats.gg's API documentation.
@@ -20,6 +23,25 @@ https://api.topstats.gg/
 ```
 
 
+
+<h4 className="text-fd-muted-foreground scroll-m-20">
+  <a className="not-prose group text-sm uppercase">Get Started</a>
+</h4>
+  <Cards>
+  <Card icon={<WorkflowIcon />} href="/docs/reference/widgets" title="API Reference">
+    Get started with our API and use our playground to send requests!
+  </Card>
+  <Card icon={<ImagePlusIcon />} href="/docs/reference/widgets" title="Widgets">
+    Embed your bot stats directly onto your site with no effort!
+  </Card>
+  <Card icon={<BracesIcon />} href="/docs/libraries/python" title="JavaScript Library">
+    Start using our community maintained JavaScript library, and forget writing requests yourself!
+  </Card>
+  <Card icon={<CodeIcon />} href="/docs/libraries/python" title="Python Library">
+    Use our API with ease in your Python application!
+  </Card>
+</Cards>
+
 ## FAQ
 
 Some common questions you may encounter.
@@ -30,24 +52,25 @@ Some common questions you may encounter.
     We currently use Fumadocs as our doc engine, you can contribute by creating merge requests in our docs repository:
     <GithubInfo
       owner="top-stats"
-      repo="javascript-sdk"
+      repo="docs"
     />
 
 
     We recommend getting started on any of our pages under content/docs and get familiar with the engine!
     <Files>
       <Folder name="/content" defaultOpen>
-        <Folder name="/app/(home)" defaultOpen >
+        <Folder name="/app/(home)" defaultOpen>
           <File name="index.mdx" />
         </Folder>
       </Folder>
       <Folder name="/app" defaultOpen className="opacity-50" disabled>
-        <Folder name="/app/(home)" defaultOpen className="opacity-50" disabled/>
+        <Folder name="/app/(home)" defaultOpen className="opacity-50" disabled />
       </Folder>
     </Files>
   </Accordion>
   <Accordion id='create-lib' title="How Do I Create My Own Library?">
-    You’re free to do so! If you would like to be listed on our website, please contact one of our team members in our Discord Server.
+    You’re free to do so! If you would like to be listed on our website, please contact one of our team members in our
+    Discord Server.
   </Accordion>
   <Accordion id='get-data' title="Where Do We Get Our Data?">
     We source our bot data from Top.gg once an hour, through Top.gg's API.
