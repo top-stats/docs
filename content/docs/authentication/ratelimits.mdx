@@ -4,6 +4,7 @@ description: Read up on ratelimits for TopStats.gg
 ---
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
 
 <TypeTable
   type={{
@@ -38,13 +39,16 @@ Global rate limits are applied on all routes
 |----------------------|---------------------|
 | *                    | 120                 |
 
-## What Happens When I am RateLimited?
-When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
 
-
-
-## Would You Like to Get Higher RateLimits?
-Reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc). For any requests regarding ratelimits.
-
-## I am Banned, What Can I Do?
-If you've been banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
+### FAQ
+<Accordions>
+  <Accordion id='what-happens' title="What Happens When I am RateLimited?">
+    When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
+  </Accordion>
+  <Accordion id='higher-limits' title="Would You Like to Get Higher RateLimits?">
+    Reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc). For any requests regarding ratelimits.
+  </Accordion>
+  <Accordion id='get-unban' title="I am Banned, What Can I Do?">
+    If you've been banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
+  </Accordion>
+</Accordions>
