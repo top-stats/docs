@@ -145,6 +145,8 @@
     },
     "/discord/tags/": {
       "get": {
+        "summary": "Fetch bots based off of Tag",
+        "description": "Search for bots based of their assigned tags",
         "parameters": [
           {
             "schema": {
@@ -176,7 +178,232 @@
         ],
         "responses": {
           "200": {
-            "description": "Default Response"
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "This is the count of all bots that have the tag provided, not the number returned."
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "topGGId",
+                              "name",
+                              "prefix",
+                              "timestamp"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "topGGId": {
+                                "type": "string"
+                              },
+                              "certified": {
+                                "type": "boolean"
+                              },
+                              "owners": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "deleted": {
+                                "type": "boolean"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "def_avatar": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "short_desc": {
+                                "type": "string"
+                              },
+                              "lib": {
+                                "type": "string"
+                              },
+                              "prefix": {
+                                "type": "string"
+                              },
+                              "website": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "approved_at": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "monthly_votes": {
+                                "type": "integer"
+                              },
+                              "server_count": {
+                                "type": "integer"
+                              },
+                              "total_votes": {
+                                "type": "integer"
+                              },
+                              "shard_count": {
+                                "type": "integer"
+                              },
+                              "monthly_votes_rank": {
+                                "type": "integer"
+                              },
+                              "server_count_rank": {
+                                "type": "integer"
+                              },
+                              "shard_count_rank": {
+                                "type": "integer"
+                              },
+                              "total_votes_rank": {
+                                "type": "integer"
+                              },
+                              "timestamp": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "unix_timestamp": {
+                                "type": "string"
+                              },
+                              "tags": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "avg_review_rating": {
+                                "type": "number"
+                              },
+                              "review_count": {
+                                "type": "integer"
+                              },
+                              "percentage_changes": {
+                                "type": "object",
+                                "properties": {
+                                  "daily": {
+                                    "type": "number"
+                                  },
+                                  "monthly": {
+                                    "type": "number"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "data": {
+                      "count": 19608,
+                      "results": [
+                        {
+                          "id": "432610292342587392",
+                          "topGGId": "432610292342587392",
+                          "certified": false,
+                          "owners": [
+                            "275748765166469120"
+                          ],
+                          "deleted": false,
+                          "name": "Mudae",
+                          "def_avatar": "1.png",
+                          "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                          "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                          "lib": "",
+                          "prefix": "$",
+                          "website": "https://www.patreon.com/mudae",
+                          "approved_at": "2018-04-21T21:17:57.793Z",
+                          "monthly_votes": 24852,
+                          "server_count": 3371839,
+                          "total_votes": 221182027,
+                          "shard_count": 0,
+                          "monthly_votes_rank": 1,
+                          "server_count_rank": 15,
+                          "shard_count_rank": 12288,
+                          "total_votes_rank": 1,
+                          "timestamp": "2025-05-01T08:00:00Z",
+                          "unix_timestamp": "1746086400000",
+                          "tags": [
+                            "anime",
+                            "fun",
+                            "game"
+                          ],
+                          "avg_review_rating": 4.526118704362479,
+                          "review_count": 10682,
+                          "percentage_changes": {
+                            "daily": 11.11,
+                            "monthly": 0.97
+                          }
+                        },
+                        {
+                          "id": "646937666251915264",
+                          "topGGId": "646937666251915264",
+                          "certified": false,
+                          "owners": [
+                            "141431182792458241",
+                            "135694375647838208"
+                          ],
+                          "deleted": false,
+                          "name": "Karuta",
+                          "def_avatar": "1.png",
+                          "avatar": "https://cdn.discordapp.com/avatars/646937666251915264/0e54d87446f106d1fd58385295ae9deb.png",
+                          "short_desc": "#1 ANIME CARD BOT! 🎴 Over 160,000 anime cards to collect, trade, customize, date, fight, and more in a global economy.",
+                          "lib": "",
+                          "prefix": "k!",
+                          "website": "https://karuta.com/",
+                          "approved_at": "2020-02-06T10:09:04.845Z",
+                          "monthly_votes": 12684,
+                          "server_count": 853288,
+                          "total_votes": 106918009,
+                          "shard_count": 0,
+                          "monthly_votes_rank": 2,
+                          "server_count_rank": 42,
+                          "shard_count_rank": 17451,
+                          "total_votes_rank": 2,
+                          "timestamp": "2025-05-01T08:00:00Z",
+                          "unix_timestamp": "1746086400000",
+                          "tags": [
+                            "anime",
+                            "art",
+                            "economy",
+                            "fun",
+                            "game",
+                            "gaming",
+                            "genshin",
+                            "leveling",
+                            "pokemon",
+                            "roleplay",
+                            "social",
+                            "utility"
+                          ],
+                          "avg_review_rating": 4.053977272727272,
+                          "review_count": 1056,
+                          "percentage_changes": {
+                            "daily": 12.55,
+                            "monthly": 0.98
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -184,6 +411,7 @@
     "/discord/bots/{id}": {
       "get": {
         "summary": "Fetch a Discord bot",
+        "description": "Get data from your favourite Discord bots",
         "parameters": [
           {
             "schema": {
@@ -359,7 +587,8 @@
                     }
                   },
                   "required": [
-                    "code, message"
+                    "code",
+                    "message"
                   ]
                 }
               }
@@ -371,6 +600,7 @@
     "/discord/bots/{id}/historical": {
       "get": {
         "summary": "Fetch historical Discord bot data",
+        "description": "Get historical data from Discord bots",
         "parameters": [
           {
             "schema": {
@@ -486,7 +716,8 @@
                     }
                   },
                   "required": [
-                    "code, message"
+                    "code",
+                    "message"
                   ]
                 }
               }
@@ -498,6 +729,7 @@
     "/discord/bots/{id}/recent": {
       "get": {
         "summary": "Fetch recent Discord bot data",
+        "description": "Get recent discord data from the last 30 days and 30 hours",
         "parameters": [
           {
             "schema": {
@@ -538,7 +770,7 @@
                             "type": "integer",
                             "example": 3371839
                           },
-                          "shard_count": {
+                          "review_count": {
                             "type": "integer",
                             "example": 204896149
                           },
@@ -609,6 +841,10 @@
                             "type": "integer",
                             "example": 204896149
                           },
+                          "review_count": {
+                            "type": "integer",
+                            "example": 204896149
+                          },
                           "monthly_votes_change": {
                             "type": "integer",
                             "example": 110263
@@ -624,6 +860,10 @@
                           "total_votes_change": {
                             "type": "integer",
                             "example": 79940
+                          },
+                          "review_count_change": {
+                            "type": "integer",
+                            "example": 1050
                           }
                         },
                         "required": [
@@ -678,7 +918,8 @@
                     }
                   },
                   "required": [
-                    "code, message"
+                    "code",
+                    "message"
                   ]
                 }
               }
@@ -689,6 +930,8 @@
     },
     "/discord/users/{id}/bots": {
       "get": {
+        "summary": "Fetch a users bots",
+        "description": "See which bots are owned by which users.",
         "parameters": [
           {
             "schema": {
@@ -883,6 +1126,8 @@
     },
     "/discord/rankings/{type}": {
       "get": {
+        "summary": "Fetch bot rankings",
+        "description": "Get the top ranked bots across Discord!",
         "parameters": [
           {
             "schema": {
@@ -976,6 +1221,9 @@
                           "server_count": {
                             "type": "integer"
                           },
+                          "review_count": {
+                            "type": "integer"
+                          },
                           "server_count_rank": {
                             "type": "integer"
                           },
@@ -993,6 +1241,9 @@
                           },
                           "total_votes_rank_change": {
                             "type": "integer"
+                          },
+                          "review_count_change": {
+                            "type": "integer"
                           }
                         },
                         "required": [
@@ -1004,6 +1255,7 @@
                           "server_count_rank",
                           "total_votes",
                           "total_votes_rank",
+                          "review_count",
                           "monthly_votes_rank_change",
                           "server_count_rank_change",
                           "total_votes_rank_change"
@@ -1026,6 +1278,7 @@
                         "server_count": 3371839,
                         "server_count_rank": 13,
                         "total_votes": 205265098,
+                        "review_count": 1050,
                         "total_votes_rank": 1,
                         "monthly_votes_rank_change": 1,
                         "server_count_rank_change": 2,
@@ -1040,6 +1293,7 @@
                         "server_count_rank": 38,
                         "total_votes": 97917149,
                         "total_votes_rank": 2,
+                        "review_count": 1050,
                         "monthly_votes_rank_change": 0,
                         "server_count_rank_change": 0,
                         "total_votes_rank_change": 0
@@ -1078,9 +1332,22 @@
                       "type": "array",
                       "items": {
                         "type": "object",
+                        "required": [
+                          "id",
+                          "topGGId",
+                          "name",
+                          "prefix",
+                          "timestamp"
+                        ],
                         "properties": {
                           "id": {
                             "type": "string"
+                          },
+                          "topGGId": {
+                            "type": "string"
+                          },
+                          "certified": {
+                            "type": "boolean"
                           },
                           "owners": {
                             "type": "array",
@@ -1092,6 +1359,9 @@
                             "type": "boolean"
                           },
                           "name": {
+                            "type": "string"
+                          },
+                          "def_avatar": {
                             "type": "string"
                           },
                           "avatar": {
@@ -1124,10 +1394,16 @@
                           "total_votes": {
                             "type": "integer"
                           },
+                          "shard_count": {
+                            "type": "integer"
+                          },
                           "monthly_votes_rank": {
                             "type": "integer"
                           },
                           "server_count_rank": {
+                            "type": "integer"
+                          },
+                          "shard_count_rank": {
                             "type": "integer"
                           },
                           "total_votes_rank": {
@@ -1146,6 +1422,12 @@
                               "type": "string"
                             }
                           },
+                          "avg_review_rating": {
+                            "type": "number"
+                          },
+                          "review_count": {
+                            "type": "integer"
+                          },
                           "percentage_changes": {
                             "type": "object",
                             "properties": {
@@ -1155,74 +1437,102 @@
                               "monthly": {
                                 "type": "number"
                               }
-                            },
-                            "required": [
-                              "daily",
-                              "monthly"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "owners",
-                          "deleted",
-                          "name",
-                          "avatar",
-                          "short_desc",
-                          "lib",
-                          "prefix",
-                          "website",
-                          "approved_at",
-                          "monthly_votes",
-                          "server_count",
-                          "total_votes",
-                          "monthly_votes_rank",
-                          "server_count_rank",
-                          "total_votes_rank",
-                          "timestamp",
-                          "unix_timestamp",
-                          "tags",
-                          "percentage_changes"
-                        ]
-                      },
-                      "example": [
-                        {
-                          "id": "432610292342587392",
-                          "owners": [
-                            "275748765166469120"
-                          ],
-                          "deleted": false,
-                          "name": "Mudae",
-                          "avatar": "https://cdn.discordapp.com/avatars/1026525568344264724/cd70e62e41f691f1c05c8455d8c31e23.png",
-                          "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
-                          "lib": "discord.js",
-                          "prefix": "$",
-                          "website": "https://www.patreon.com/mudae",
-                          "approved_at": "2018-04-21T21:17:57.793Z",
-                          "monthly_votes": 2432848,
-                          "server_count": 3371839,
-                          "total_votes": 207621432,
-                          "monthly_votes_rank": 1,
-                          "server_count_rank": 13,
-                          "total_votes_rank": 1,
-                          "timestamp": "2024-11-23T19:00:00.000Z",
-                          "unix_timestamp": "1732388400000",
-                          "tags": [
-                            "anime",
-                            "fun",
-                            "game"
-                          ],
-                          "percentage_changes": {
-                            "daily": 5.0428764919706195,
-                            "monthly": -5.4295447491306446
+                            }
                           }
                         }
-                      ]
+                      }
                     }
                   },
-                  "required": [
-                    "data"
-                  ]
+                  "example": {
+                    "data": [
+                      {
+                        "id": "432610292342587392",
+                        "topGGId": "432610292342587392",
+                        "certified": false,
+                        "owners": [
+                          "275748765166469120"
+                        ],
+                        "deleted": false,
+                        "name": "Mudae",
+                        "def_avatar": "1.png",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                        "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                        "lib": "",
+                        "prefix": "$",
+                        "website": "https://www.patreon.com/mudae",
+                        "approved_at": "2018-04-21T21:17:57.793Z",
+                        "monthly_votes": 22409,
+                        "server_count": 3371839,
+                        "total_votes": 221179584,
+                        "shard_count": 0,
+                        "monthly_votes_rank": 1,
+                        "server_count_rank": 15,
+                        "shard_count_rank": 12288,
+                        "total_votes_rank": 1,
+                        "timestamp": "2025-05-01T07:00:00Z",
+                        "unix_timestamp": "1746082800000",
+                        "tags": [
+                          "anime",
+                          "fun",
+                          "game"
+                        ],
+                        "avg_review_rating": 4.526118704362479,
+                        "review_count": 10682,
+                        "percentage_changes": {
+                          "daily": 11.12,
+                          "monthly": 0.97
+                        }
+                      },
+                      {
+                        "id": "646937666251915264",
+                        "topGGId": "646937666251915264",
+                        "certified": false,
+                        "owners": [
+                          "141431182792458241",
+                          "135694375647838208"
+                        ],
+                        "deleted": false,
+                        "name": "Karuta",
+                        "def_avatar": "1.png",
+                        "avatar": "https://cdn.discordapp.com/avatars/646937666251915264/0e54d87446f106d1fd58385295ae9deb.png",
+                        "short_desc": "#1 ANIME CARD BOT! 🎴 Over 160,000 anime cards to collect, trade, customize, date, fight, and more in a global economy.",
+                        "lib": "",
+                        "prefix": "k!",
+                        "website": "https://karuta.com/",
+                        "approved_at": "2020-02-06T10:09:04.845Z",
+                        "monthly_votes": 11297,
+                        "server_count": 853288,
+                        "total_votes": 106916622,
+                        "shard_count": 0,
+                        "monthly_votes_rank": 2,
+                        "server_count_rank": 42,
+                        "shard_count_rank": 17451,
+                        "total_votes_rank": 2,
+                        "timestamp": "2025-05-01T07:00:00Z",
+                        "unix_timestamp": "1746082800000",
+                        "tags": [
+                          "anime",
+                          "art",
+                          "economy",
+                          "fun",
+                          "game",
+                          "gaming",
+                          "genshin",
+                          "leveling",
+                          "pokemon",
+                          "roleplay",
+                          "social",
+                          "utility"
+                        ],
+                        "avg_review_rating": 4.053977272727272,
+                        "review_count": 1056,
+                        "percentage_changes": {
+                          "daily": 12.57,
+                          "monthly": 0.98
+                        }
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -1289,149 +1599,94 @@
                   "type": "object",
                   "properties": {
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "owners": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "deleted": {
-                            "type": "boolean"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "avatar": {
-                            "type": "string",
-                            "format": "uri"
-                          },
-                          "short_desc": {
-                            "type": "string"
-                          },
-                          "lib": {
-                            "type": "string"
-                          },
-                          "prefix": {
-                            "type": "string"
-                          },
-                          "website": {
-                            "type": "string",
-                            "format": "uri"
-                          },
-                          "approved_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "monthly_votes": {
-                            "type": "integer"
-                          },
-                          "server_count": {
-                            "type": "integer"
-                          },
-                          "total_votes": {
-                            "type": "integer"
-                          },
-                          "monthly_votes_rank": {
-                            "type": "integer"
-                          },
-                          "server_count_rank": {
-                            "type": "integer"
-                          },
-                          "total_votes_rank": {
-                            "type": "integer"
-                          },
-                          "timestamp": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "unix_timestamp": {
-                            "type": "string"
-                          },
-                          "tags": {
-                            "type": "array",
-                            "items": {
-                              "type": "string"
-                            }
-                          },
-                          "percentage_changes": {
-                            "type": "object",
-                            "properties": {
-                              "daily": {
-                                "type": "number"
-                              },
-                              "monthly": {
-                                "type": "number"
-                              }
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "string",
+                              "format": "date-time"
                             },
-                            "required": [
-                              "daily",
-                              "monthly"
-                            ]
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "owners",
-                          "deleted",
-                          "name",
-                          "avatar",
-                          "short_desc",
-                          "lib",
-                          "prefix",
-                          "website",
-                          "approved_at",
-                          "monthly_votes",
-                          "server_count",
-                          "total_votes",
-                          "monthly_votes_rank",
-                          "server_count_rank",
-                          "total_votes_rank",
-                          "timestamp",
-                          "unix_timestamp",
-                          "tags",
-                          "percentage_changes"
-                        ]
-                      },
-                      "example": [
-                        {
-                          "id": "432610292342587392",
-                          "owners": [
-                            "275748765166469120"
-                          ],
-                          "deleted": false,
-                          "name": "Mudae",
-                          "avatar": "https://cdn.discordapp.com/avatars/1026525568344264724/cd70e62e41f691f1c05c8455d8c31e23.png",
-                          "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
-                          "lib": "discord.js",
-                          "prefix": "$",
-                          "website": "https://www.patreon.com/mudae",
-                          "approved_at": "2018-04-21T21:17:57.793Z",
-                          "monthly_votes": 2432848,
-                          "server_count": 3371839,
-                          "total_votes": 207621432,
-                          "monthly_votes_rank": 1,
-                          "server_count_rank": 13,
-                          "total_votes_rank": 1,
-                          "timestamp": "2024-11-23T19:00:00.000Z",
-                          "unix_timestamp": "1732388400000",
-                          "tags": [
-                            "anime",
-                            "fun",
-                            "game"
-                          ],
-                          "percentage_changes": {
-                            "daily": 5.0428764919706195,
-                            "monthly": -5.4295447491306446
-                          }
+                            "id": {
+                              "type": "string"
+                            },
+                            "monthly_votes": {
+                              "type": "integer"
+                            },
+                            "total_votes": {
+                              "type": "integer"
+                            },
+                            "server_count": {
+                              "type": "integer"
+                            },
+                            "review_count": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "time",
+                            "id"
+                          ]
                         }
-                      ]
+                      },
+                      "example": {
+                        "432610292342587392": [
+                          {
+                            "time": "2024-11-23T19:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 2432848
+                          },
+                          {
+                            "time": "2024-10-31T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 3157605
+                          },
+                          {
+                            "time": "2024-09-30T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 3242100
+                          },
+                          {
+                            "time": "2024-08-31T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 3429877
+                          },
+                          {
+                            "time": "2024-07-31T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 3163827
+                          }
+                        ],
+                        "646937666251915264": [
+                          {
+                            "time": "2024-11-23T19:00:00.000Z",
+                            "id": "646937666251915264",
+                            "monthly_votes": 1407882
+                          },
+                          {
+                            "time": "2024-10-31T00:00:00.000Z",
+                            "id": "646937666251915264",
+                            "monthly_votes": 1848793
+                          },
+                          {
+                            "time": "2024-09-30T00:00:00.000Z",
+                            "id": "646937666251915264",
+                            "monthly_votes": 1822779
+                          },
+                          {
+                            "time": "2024-08-31T00:00:00.000Z",
+                            "id": "646937666251915264",
+                            "monthly_votes": 1845849
+                          },
+                          {
+                            "time": "2024-07-31T00:00:00.000Z",
+                            "id": "646937666251915264",
+                            "monthly_votes": 1640492
+                          }
+                        ]
+                      }
                     }
                   },
                   "required": [
