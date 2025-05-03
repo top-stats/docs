@@ -6,12 +6,13 @@
 
 @theme {
     --color-fd-background: hsl(0, 0%, 96%);
+    --color-fd-primary: #5e84f3;
 }
 
 .dark {
     --color-fd-background: #04050e;
     --color-fd-card: #04050e;
-
+    --color-fd-primary: #8a9de4;
 }
 
 .dark #nd-sidebar {
@@ -28,3 +29,4 @@
     opacity: 1;
     background: linear-gradient(360deg, rgba(138, 157, 228, 0) 34.33%, rgba(138, 157, 228, 0.1) 100%);
 }
+
