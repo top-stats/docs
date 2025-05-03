@@ -2,3 +2,23 @@
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
+
+.background-solid {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    background: #04050e;
+    opacity: 1;
+  }
+  
+  .background-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background: linear-gradient(360deg, rgba(138, 157, 228, 0) 34.33%, rgba(138, 157, 228, 0.1) 100%);
+  }

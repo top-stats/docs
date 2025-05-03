@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import LogoSvg from '@/app/logo.svg';
-import { BookOpen, Image as LucideImage, ArrowRight } from 'lucide-react'
+import { BookOpen, Image as LucideImage, ArrowRight } from 'lucide-react';
 
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Background */}
+      <>
+        <div className="background-solid" /> {/* Background layer */}
+        <div className="background-gradient" /> {/* Colour gradient layer */}
+      </>
+
       {/* Title */}
       <section className="container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32">
         <div className="mx-auto max-w-3xl text-center">
