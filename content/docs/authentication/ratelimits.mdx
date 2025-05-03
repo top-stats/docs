@@ -42,13 +42,30 @@ Global rate limits are applied on all routes
 
 ### FAQ
 <Accordions>
-  <Accordion id='what-happens' title="What Happens When I am RateLimited?">
-    When you are rate-limited, you will receive this response, you can use this to wait until your ratelimit has been lifted before sending another response.
+  <Accordion id='what-happens' title="What happens when I am ratelimited?">
+    When you are rate-limited, you will receive a response like the one below, you can use this to wait until your ratelimit has been lifted before sending another response.
+
+  ```json
+    {
+      "code": 429,
+      "message": "You are being rate limited limit, Try again soon.",
+      // Seconds till the rate limit expires
+      "expiresIn": 26
+    }
+  ```
   </Accordion>
-  <Accordion id='higher-limits' title="Would You Like to Get Higher RateLimits?">
-    Reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc). For any requests regarding ratelimits.
+  <Accordion id='higher-limits' title="Would you like higher rate limits?">
+    For any requests regarding ratelimits, please reach out to our development team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
   </Accordion>
-  <Accordion id='get-unban' title="I am Banned, What Can I Do?">
-    If you've been banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
+  <Accordion id='perm-banned' title="I am permanently banned from the API, what can I do?">
+    If you've been permanently banned from using our API, you can reach out to our team in [Our Discord](https://discord.com/invite/jjEauJXuZc).
+
+
+    ```json
+    {
+      "code": 403,
+      "message": "You have been permanently banned from using our API, please contact our team to appeal.",
+    }
+    ```
   </Accordion>
 </Accordions>
