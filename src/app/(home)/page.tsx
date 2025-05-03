@@ -6,12 +6,6 @@ import { BookOpen, Image as LucideImage, ArrowRight } from 'lucide-react';
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Background */}
-      <>
-        <div className="background-solid" /> {/* Background layer */}
-        <div className="background-gradient" /> {/* Colour gradient layer */}
-      </>
-
       {/* Title */}
       <section className="container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32">
         <div className="mx-auto max-w-3xl text-center">
@@ -34,7 +28,7 @@ export default function HomePage() {
       {/* Cards */}
       <section className="container px-4 pb-16 flex-grow">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          
+
           {/* Get Building */}
           <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex hover:border-[#8A9DE4]">
             <div className="w-8 h-8 relative flex items-center justify-center">
