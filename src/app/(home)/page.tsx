@@ -1,14 +1,29 @@
+"use client";
 import Link from 'next/link';
 import Image from 'next/image';
 import LogoSvg from '@/app/logo.svg';
 import { BookOpen, Image as LucideImage, ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function HomePage() {
+  // Animation States
+  const [showTitle, setShowTitle] = useState(false);
+  const [showCards, setShowCards] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setShowTitle(true), 100);
+    setTimeout(() => setShowCards(true), 400);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Title */}
       <section className="container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32">
-        <div className="mx-auto max-w-3xl text-center">
+        <div
+          className={`mx-auto max-w-3xl text-center transition-all duration-700 ease-out
+            ${showTitle ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          `}
+        >
           <h1 className="mb-6 flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-[80px] font-semibold tracking-[-1px] md:tracking-[-2.4px] leading-[110%] font-['Inter']">
             <Image
               src={LogoSvg}
@@ -27,10 +42,13 @@ export default function HomePage() {
 
       {/* Cards */}
       <section className="container px-4 pb-16 flex-grow">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-
+        <div
+          className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-700
+            ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          `}
+        >
           {/* Get Building */}
-          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4]">
+          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
             <div className="w-8 h-8 relative flex items-center justify-center">
               <BookOpen className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
@@ -55,7 +73,7 @@ export default function HomePage() {
           </div>
 
           {/* Support Server */}
-          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4]">
+          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
             <div className="w-8 h-8 relative flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +105,7 @@ export default function HomePage() {
           </div>
 
           {/* Widgets */}
-          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4]">
+          <div className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
             <div className="w-8 h-8 relative flex items-center justify-center">
               <LucideImage className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
