@@ -10,9 +10,12 @@ const inter = Inter({
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
-        <RootProvider>{children}
-          <div className="background-gradient" />
+    <head>
+      <script defer data-domain="docs.topstats.gg" src="https://analytics.dbot.dev/js/script.js"></script>
+    </head>
+    <body className="flex flex-col min-h-screen">
+    <RootProvider>{children}
+      <div className="background-gradient" />
         </RootProvider>
       </body>
     </html>
