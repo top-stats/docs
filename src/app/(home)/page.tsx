@@ -4,7 +4,6 @@ import Image from 'next/image'
 import LogoSvg from '@/app/logo.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Metadata } from 'next'
 
 
 export default function HomePage() {
