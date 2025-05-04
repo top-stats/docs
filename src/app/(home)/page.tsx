@@ -116,7 +116,7 @@ export default function HomePage() {
                 Get graphs as an image, to display them directly in Discord.
             </div>
             <div className="home-card-button justify-start items-center inline-flex">
-              <Link href="/docs/reference/widgets/bots">
+              <Link href="/docs/reference/widgets">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                 <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">

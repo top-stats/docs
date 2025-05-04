@@ -1,0 +1,26 @@
+---
+title: Get Started
+description: Display bot or custom data with our widgets
+---
+
+
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { BotIcon, ImageIcon } from 'lucide-react'
+
+<Callout type={'info'} title={'Widget documentation is still work in progress'}>
+  Expect more detailed documentation and guides to be available soon!
+</Callout>
+
+## Get Started
+<h4 className="text-fd-muted-foreground scroll-m-20">
+  <a className="not-prose group text-sm uppercase">What kind of Widget would you like to use?</a>
+</h4>
+  <Cards>
+  <Card icon={<BotIcon className="text-blue-300" />} href="./bots" title="Discord Bot Widgets">
+    Start displaying your bot's widgets directly without any configuration!
+  </Card>
+  <Card icon={<ImageIcon className="text-pink-300" />} href="./custom" title="Custom Widgets">
+    Display your own kind of data with our custom widgets!
+  </Card>
+</Cards>
