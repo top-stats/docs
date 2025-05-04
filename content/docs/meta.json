@@ -1,0 +1,14 @@
+{
+  "title": "stacks",
+  "root": true,
+  "pages": [
+    "index",
+    "get-started",
+    "---Authentication---",
+    "...authentication",
+    "---Libraries---",
+    "...libraries",
+    "---Reference---",
+    "...reference"
+  ]
+}

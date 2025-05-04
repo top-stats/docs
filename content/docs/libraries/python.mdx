@@ -1,0 +1,88 @@
+---
+title: Python
+description: Community maintained Python client for the topstats.gg API.
+---
+
+import { BookmarkIcon, CodeIcon } from 'lucide-react'
+
+A simple API wrapper for [Topstats.gg](https://topstats.gg) written in Python.
+<Cards>
+  <Card icon={<CodeIcon className="text-green-300" />} title={'Pypi Project'} href={'https://pypi.org/project/topstats/'}>
+    View documentation and the pypi project page for TopStats' Python SDK
+  </Card>
+  <Card icon={<BookmarkIcon className="text-purple-300" />} title={'Read the Docs Documentation'} href={'https://topstats.readthedocs.io/en/latest/'}>
+    Read readthedocs.io documentation
+  </Card>
+</Cards>
+
+## Getting started
+
+Make sure you already have an API token handy. See [this page](https://docs.topstats.gg/authentication/tokens) on how to retrieve it.
+
+After that, run the following command in your terminal:
+
+```bash
+pip install topstats
+```
+
+## Example
+
+For more information, please read the [documentation](https://topstats.readthedocs.io/en/latest/).
+
+```py
+# Import the module.
+import topstats
+
+import asyncio
+import os
+
+
+async def main() -> None:
+
+  # Declare the client.
+  async with topstats.Client(os.getenv('TOPSTATS_TOKEN')) as ts:
+
+    # Fetch a bot from its ID.
+    bot = await ts.get_bot(432610292342587392)
+
+    print(bot)
+
+    # Fetch topstats.gg's top bots.
+    bots = await ts.get_top_bots(sort_by=topstats.SortBy.server_count())
+
+    for b in bots:
+      print(b)
+
+    # Fetch a bot's historical server count.
+    sc = await ts.get_historical_bot_server_count(432610292342587392)
+
+    for server_count in sc:
+      print(server_count)
+
+    # Compare two bots' historical server count.
+    vs = await ts.compare_bot_server_count(432610292342587392, 437808476106784770)
+
+    for first, second in vs:
+      print(first, second)
+
+    # Compare up to four bots' historical total vote count.
+    vs2 = await ts.compare_bot_total_votes(
+      topstats.Period.LAST_YEAR,
+      339254240012664832,
+      432610292342587392,
+      408785106942164992,
+      437808476106784770
+    )
+
+    for first, second, third, fourth in vs2:
+      print(first, second, third, fourth)
+
+if __name__ == '__main__':
+
+  # See https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+  # for more details.
+  if os.name == 'nt':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+  asyncio.run(main())
+```

@@ -1,0 +1,38 @@
+---
+title: Get Started
+description: Welcome to our Community Maintained Libraries.
+---
+
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { BracesIcon, CodeIcon } from 'lucide-react'
+import { GithubInfo } from 'fumadocs-ui/components/github-info'
+
+
+## Get Started
+<h4 className="text-fd-muted-foreground scroll-m-20">
+  <a className="not-prose group text-sm uppercase">Choose your library</a>
+</h4>
+  <Cards>
+  <Card icon={<BracesIcon className="text-yellow-300"/>} href="/docs/libraries/python" title="JavaScript Library">
+    Start using our community maintained JavaScript library, and forget writing requests yourself!
+  </Card>
+  <Card icon={<CodeIcon className="text-green-300" />} href="/docs/libraries/python" title="Python Library">
+    Use our API with ease in your Python application!
+  </Card>
+</Cards>
+
+<h4 className="text-fd-muted-foreground scroll-m-20">
+  <a className="not-prose group text-sm uppercase">Github Repositories</a>
+</h4>
+<GithubInfo
+  owner="top-stats"
+  repo="JavaScript-sdk"
+/>
+<GithubInfo
+  owner="top-stats"
+  repo="python-sdk"
+/>
+
+## Contribute to our SDKs
+If you would like to contribute to one of our existing SDK's or create your own, contact our team in our Discord.
