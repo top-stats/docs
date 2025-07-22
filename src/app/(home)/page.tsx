@@ -148,10 +148,16 @@ export default function HomePage() {
           </div>
           <div className="flex gap-3">
             <Link
-              href="https://topstats.gg/policies"
+              href="https://topstats.gg/policies/terms-of-service"
               className="text-sm text-gray-400 hover:text-white"
             >
-              Terms & Conditions
+              Terms of Service
+            </Link>
+            <Link
+              href="https://topstats.gg/policies/privacy-policy"
+              className="text-sm text-gray-400 hover:text-white"
+            >
+              Privacy Policy
             </Link>
             <Link
               href="https://discord.gg/x48WXcTFVD"
