@@ -52,7 +52,9 @@ export default function HomePage() {
         >
           {/* Get Building */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="h-[251px] p-6 bg-card rounded-xl border border-[1.5px] border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <BookOpen className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
@@ -66,7 +68,7 @@ export default function HomePage() {
               <Link href="/docs/">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-[#10111a] font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Get Started Here
                     </div>
@@ -79,7 +81,9 @@ export default function HomePage() {
 
           {/* Support Server */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="h-[251px] p-6 bg-card rounded-xl border border-[1.5px] border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +105,7 @@ export default function HomePage() {
               <Link href="https://discord.gg/x48WXcTFVD" target="_blank" rel="noopener noreferrer">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-[#10111a] font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Join our Discord
                     </div>
@@ -114,7 +118,9 @@ export default function HomePage() {
 
           {/* Widgets */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="h-[251px] p-6 bg-card rounded-xl border border-[1.5px] border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <LucideImage className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
@@ -128,7 +134,7 @@ export default function HomePage() {
               <Link href="/docs/reference/widgets">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-[#10111a] font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Discover widgets
                     </div>
