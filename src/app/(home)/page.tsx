@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoSvg from '@/app/logo.svg'
+import BannerSvg from '@/app/banner.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -142,29 +143,84 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 mt-auto">
+
         <div className="container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row">
-          <div className="text-sm text-gray-400">
-            TopStats is also not affiliated in any way with Discord, its services, or its API.
+          <div className="flex flex-col items-center justify-center gap-4">
+            <ul className="flex flex-col items-start justify-center gap-3 text-sm">
+              <Image
+                src={BannerSvg}
+                alt="TopStats Banner"
+              />
+              <div className="text-sm text-gray-400">
+                TopStats is also not affiliated in any way with Discord, its services, or its API.
+              </div>
+            </ul>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="https://topstats.gg/policies/terms-of-service"
-              className="text-sm text-gray-400 hover:text-white"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="https://topstats.gg/policies/privacy-policy"
-              className="text-sm text-gray-400 hover:text-white"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="https://discord.gg/x48WXcTFVD"
-              className="text-sm text-gray-400 hover:text-white"
-            >
-              Support
-            </Link>
+
+          <div className="flex flex-row items-start justify-end gap-16 w-full md:w-auto">
+            <div className="flex flex-col items-start justify-center gap-1">
+              <p className="font-medium">Other</p>
+              <ul className="flex flex-col items-start justify-center gap-1 text-sm">
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://discord.gg/x48WXcTFVD"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Join our Community
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://discord.com/oauth2/authorize?client_id=583807014896140293&redirect_uri=https%3A%2F%2Fdblstatistics.com%2Fauthorize&auth&response_type=code&scope=bot+identify"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Invite our Discord Bot
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://blog.topstats.gg/"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Blog & Updates
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-start justify-center gap-1">
+              <p className="font-medium">Terms & Conditions</p>
+              <ul className="flex flex-col items-start justify-center gap-1 text-sm">
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/terms-of-service"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/privacy-policy"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/developers"
+                    className="text-sm text-gray-400 hover:text-white"
+                  >
+                    Developer Guidelines
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </footer>
