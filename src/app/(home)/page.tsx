@@ -46,13 +46,13 @@ export default function HomePage() {
       {/* Cards */}
       <section className="container px-4 pb-16 flex-grow">
         <div
-          className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-700
+          className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
             ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
           {/* Get Building */}
           <div
-            className="h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -64,7 +64,7 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get analytical data straight from your favourite bots using our API!
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="/docs/">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
@@ -81,7 +81,7 @@ export default function HomePage() {
 
           {/* Support Server */}
           <div
-            className="h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -101,7 +101,7 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Need some help getting started, wanna stay up to date, or join our awesome community!
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="https://discord.gg/x48WXcTFVD" target="_blank" rel="noopener noreferrer">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
@@ -118,7 +118,7 @@ export default function HomePage() {
 
           {/* Widgets */}
           <div
-            className="h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -130,7 +130,7 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get graphs as an image, to display them directly in Discord.
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="/docs/reference/widgets">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
@@ -163,7 +163,7 @@ export default function HomePage() {
             </ul>
           </div>
 
-          <div className="flex flex-row items-start justify-end gap-16 w-full md:w-auto">
+          <div className="flex flex-col md:flex-row items-start justify-end gap-8 md:gap-16 w-full md:w-auto">
             <div className="flex flex-col items-start justify-center gap-1">
               <p className="font-medium">Other</p>
               <ul className="flex flex-col items-start justify-center gap-1 text-sm">
