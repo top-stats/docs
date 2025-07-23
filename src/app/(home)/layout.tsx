@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     links={[
       {
         icon: <BookIcon />,
-        text: 'Docs',
+        text: 'API-Documentation',
         url: '/docs',
       },
     ]}
