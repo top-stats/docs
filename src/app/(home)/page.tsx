@@ -2,6 +2,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import LogoSvg from '@/app/logo.svg'
+import BannerSvg from '@/app/banner.svg'
+import BannerLightSvg from '@/app/banner-light.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -45,13 +47,15 @@ export default function HomePage() {
       {/* Cards */}
       <section className="container px-4 pb-16 flex-grow">
         <div
-          className={`grid gap-6 md:grid-cols-2 lg:grid-cols-3 transition-all duration-700
+          className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
             ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
           `}
         >
           {/* Get Building */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <BookOpen className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
@@ -61,11 +65,11 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get analytical data straight from your favourite bots using our API!
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="/docs/">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Get Started Here
                     </div>
@@ -78,7 +82,9 @@ export default function HomePage() {
 
           {/* Support Server */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -96,11 +102,11 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Need some help getting started, wanna stay up to date, or join our awesome community!
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="https://discord.gg/x48WXcTFVD" target="_blank" rel="noopener noreferrer">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Join our Discord
                     </div>
@@ -113,7 +119,9 @@ export default function HomePage() {
 
           {/* Widgets */}
           <div
-            className="h-[251px] p-6 bg-card rounded-xl border border-border flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group">
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
+          >
             <div className="w-8 h-8 relative flex items-center justify-center">
               <LucideImage className="w-full h-full transition-transform duration-300 group-hover:rotate-12" />
             </div>
@@ -123,11 +131,11 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get graphs as an image, to display them directly in Discord.
             </div>
-            <div className="home-card-button justify-start items-center inline-flex">
+            <div className="home-card-button mt-4 justify-start items-center flex flex-wrap">
               <Link href="/docs/reference/widgets">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Discover widgets
                     </div>
@@ -141,24 +149,83 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 mt-auto">
+      <footer className="border-t border-gray-200 dark:border-white/10 mt-auto">
+
         <div className="container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row">
-          <div className="text-sm text-gray-400">
-            TopStats is also not affiliated in any way with Discord, its services, or its API.
+          <div className="flex flex-col items-center justify-center gap-4">
+            <ul className="flex flex-col items-start justify-center gap-3 text-sm">
+              <Image src={BannerLightSvg} alt="TopStats Banner Light" className="block dark:hidden" />
+              <Image src={BannerSvg} alt="TopStats Banner" className="hidden dark:block" />
+              <div className="text-sm text-gray-700 dark:text-gray-400">
+                TopStats is also not affiliated in any way with Discord, its services, or its API.
+              </div>
+            </ul>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href="https://topstats.gg/policies"
-              className="text-sm text-gray-400 hover:text-white"
-            >
-              Terms & Conditions
-            </Link>
-            <Link
-              href="https://discord.gg/x48WXcTFVD"
-              className="text-sm text-gray-400 hover:text-white"
-            >
-              Support
-            </Link>
+
+          <div className="flex flex-col md:flex-row items-start justify-end gap-8 md:gap-16 w-full md:w-auto">
+            <div className="flex flex-col items-start justify-center gap-1">
+              <p className="font-medium">Other</p>
+              <ul className="flex flex-col items-start justify-center gap-1 text-sm">
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://discord.gg/x48WXcTFVD"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Join our Community
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://discord.com/oauth2/authorize?client_id=583807014896140293&redirect_uri=https%3A%2F%2Fdblstatistics.com%2Fauthorize&auth&response_type=code&scope=bot+identify"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Invite our Discord Bot
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    target="_blank"
+                    href="https://blog.topstats.gg/"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Blog & Updates
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-start justify-center gap-1">
+              <p className="font-medium">Terms & Conditions</p>
+              <ul className="flex flex-col items-start justify-center gap-1 text-sm">
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/terms-of-service"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/privacy-policy"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="https://topstats.gg/policies/developers"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                  >
+                    Developer Guidelines
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
           </div>
         </div>
       </footer>
