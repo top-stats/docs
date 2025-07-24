@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import LogoSvg from '@/app/logo.svg'
 import BannerSvg from '@/app/banner.svg'
+import BannerLightSvg from '@/app/banner-light.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -52,7 +53,7 @@ export default function HomePage() {
         >
           {/* Get Building */}
           <div
-            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -68,7 +69,7 @@ export default function HomePage() {
               <Link href="/docs/">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-gray-100 dark:bg-[#10111a] font-['Inter']">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Get Started Here
                     </div>
@@ -81,7 +82,7 @@ export default function HomePage() {
 
           {/* Support Server */}
           <div
-            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -105,7 +106,7 @@ export default function HomePage() {
               <Link href="https://discord.gg/x48WXcTFVD" target="_blank" rel="noopener noreferrer">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-gray-100 dark:bg-[#10111a] font-['Inter']">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Join our Discord
                     </div>
@@ -118,7 +119,7 @@ export default function HomePage() {
 
           {/* Widgets */}
           <div
-            className="min-h-[251px] p-6 bg-white rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
+            className="min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group"
             style={{background: "linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)"}}
           >
             <div className="w-8 h-8 relative flex items-center justify-center">
@@ -134,7 +135,7 @@ export default function HomePage() {
               <Link href="/docs/reference/widgets">
                 <div className="h-[42px] rounded-[10px] justify-center items-center flex group">
                   <div
-                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-border dark:border-white justify-center items-center gap-2 flex transition-colors duration-300 hover:bg-accent hover:text-white bg-gray-100 dark:bg-[#10111a] font-['Inter']">
+                    className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Discover widgets
                     </div>
@@ -148,16 +149,14 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 mt-auto">
+      <footer className="border-t border-gray-200 dark:border-white/10 mt-auto">
 
         <div className="container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row">
           <div className="flex flex-col items-center justify-center gap-4">
             <ul className="flex flex-col items-start justify-center gap-3 text-sm">
-              <Image
-                src={BannerSvg}
-                alt="TopStats Banner"
-              />
-              <div className="text-sm text-gray-400">
+              <Image src={BannerLightSvg} alt="TopStats Banner Light" className="block dark:hidden" />
+              <Image src={BannerSvg} alt="TopStats Banner" className="hidden dark:block" />
+              <div className="text-sm text-gray-700 dark:text-gray-400">
                 TopStats is also not affiliated in any way with Discord, its services, or its API.
               </div>
             </ul>
@@ -171,7 +170,7 @@ export default function HomePage() {
                   <Link
                     target="_blank"
                     href="https://discord.gg/x48WXcTFVD"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Join our Community
                   </Link>
@@ -180,7 +179,7 @@ export default function HomePage() {
                   <Link
                     target="_blank"
                     href="https://discord.com/oauth2/authorize?client_id=583807014896140293&redirect_uri=https%3A%2F%2Fdblstatistics.com%2Fauthorize&auth&response_type=code&scope=bot+identify"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Invite our Discord Bot
                   </Link>
@@ -189,7 +188,7 @@ export default function HomePage() {
                   <Link
                     target="_blank"
                     href="https://blog.topstats.gg/"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Blog & Updates
                   </Link>
@@ -203,7 +202,7 @@ export default function HomePage() {
                 <li>
                   <Link
                     href="https://topstats.gg/policies/terms-of-service"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Terms of Service
                   </Link>
@@ -211,7 +210,7 @@ export default function HomePage() {
                 <li>
                   <Link
                     href="https://topstats.gg/policies/privacy-policy"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Privacy Policy
                   </Link>
@@ -219,7 +218,7 @@ export default function HomePage() {
                 <li>
                   <Link
                     href="https://topstats.gg/policies/developers"
-                    className="text-sm text-gray-400 hover:text-white"
+                    className="text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
                   >
                     Developer Guidelines
                   </Link>
