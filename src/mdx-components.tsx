@@ -1,6 +1,6 @@
-import defaultMdxComponents from 'fumadocs-ui/mdx';
-import { APIPage } from '@/components/api-page';
-import type { MDXComponents } from 'mdx/types';
+import defaultMdxComponents from 'fumadocs-ui/mdx'
+import { APIPage } from '@/components/api-page'
+import type { MDXComponents } from 'mdx/types'
 
 // make sure you can use it in MDX files
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
@@ -8,5 +8,5 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...defaultMdxComponents,
     APIPage,
     ...components,
-  };
+  }
 }

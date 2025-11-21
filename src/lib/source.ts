@@ -1,4 +1,4 @@
-import { docs } from 'fumadocs-mdx:collections/server';
+import { docs } from 'fumadocs-mdx:collections/server'
 import { loader } from 'fumadocs-core/source'
 import { createOpenAPI, openapiPlugin } from 'fumadocs-openapi/server'
 import { icons } from 'lucide-react'
