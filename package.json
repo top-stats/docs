@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "npx next build",
-    "check": "npx next lint",
+    "check": "npx eslint .",
     "dev": "npx next dev --turbo",
     "start": "npx next start",
     "postinstall": "fumadocs-mdx"
