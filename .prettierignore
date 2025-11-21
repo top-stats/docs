@@ -1,0 +1,2 @@
+# Ignore all .mjs files in .source directory and its subdirectories
+.source/**/*.mjs

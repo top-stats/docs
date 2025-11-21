@@ -10,6 +10,7 @@ export default [
   //
   {
     files: ['**/*.mjs'],
+    ignores: ['.source/**/*'], // ignore generated files
     languageOptions: {
       // no parser → espree (default JS parser)
       parserOptions: {
