@@ -10,14 +10,18 @@ export const metadata: Metadata = {
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <HomeLayout
-    {...baseOptions}
-    links={[
-      {
-        icon: <BookIcon />,
-        text: 'Docs',
-        url: '/docs',
-      },
-    ]}
-  >{children}</HomeLayout>
+  return (
+    <HomeLayout
+      {...baseOptions}
+      links={[
+        {
+          icon: <BookIcon />,
+          text: 'Docs',
+          url: '/docs',
+        },
+      ]}
+    >
+      {children}
+    </HomeLayout>
+  )
 }

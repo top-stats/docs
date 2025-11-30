@@ -1,11 +1,13 @@
-import { createMDX } from 'fumadocs-mdx/next';
-
-const withMDX = createMDX();
+import { createMDX } from 'fumadocs-mdx/next'
 
 /** @type {import('next').NextConfig} */
 const config = {
-  distDir: './dist',
   reactStrictMode: true,
-};
+}
 
-export default withMDX(config);
+const withMDX = createMDX({
+  // customise the config file path
+  // configPath: "source.config.ts"
+})
+
+export default withMDX(config)
