@@ -11,17 +11,14 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
           transform(option, node) {
             const meta = source.getNodeMeta(node)
             if (!meta || !node.icon) return option
-            console.log(meta)
 
             const color = `var(--${meta.path.split('/')[0]}-color, var(--color-fd-foreground))`
-
-            console.log(1000, color)
 
             return {
               ...option,
               icon: (
                 <div
-                  className='[&_svg]:size-full rounded-lg size-full text-(--tab-color) max-md:bg-(--tab-color)/10 max-md:border max-md:p-1.5'
+                  className="[&_svg]:size-full rounded-lg size-full text-(--tab-color) max-md:bg-(--tab-color)/10 max-md:border max-md:p-1.5"
                   style={
                     {
                       '--tab-color': color,
