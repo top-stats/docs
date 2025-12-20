@@ -18,7 +18,7 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className='min-h-screen flex flex-col'>
+    <div className='min-h-screen flex flex-col items-center'>
       {/* Title */}
       <section className='container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32'>
         <div
