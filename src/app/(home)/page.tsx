@@ -69,7 +69,7 @@ export default function HomePage() {
               API!
             </div>
             <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
-              <Link href='/docs/'>
+              <Link href='/docs/api'>
                 <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
                   <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
@@ -143,7 +143,7 @@ export default function HomePage() {
               Get graphs as an image, to display them directly in Discord.
             </div>
             <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
-              <Link href='/docs/reference/widgets'>
+              <Link href='/docs/api/reference/widgets'>
                 <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
                   <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">

@@ -1,5 +1,6 @@
 {
-  "title": "stacks",
+  "title": "API",
+  "icon": "Code",
   "root": true,
   "pages": [
     "index",

@@ -8,6 +8,12 @@
     --color-fd-primary: #5e84f3;
 }
 
+:root {
+    --api-color: var(--color-purple-400);
+    --bots-color: var(--color-fd-primary);
+    --servers-color: var(--color-red-400);
+}
+
 .dark {
     --color-fd-background: #04050e;
     --color-fd-card: #04050e;
