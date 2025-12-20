@@ -4,6 +4,21 @@ description: Getting Started with TopStats Discord App
 icon: House
 ---
 
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Star, SquarePlus } from 'lucide-react'
+
+<h4 className="text-fd-muted-foreground scroll-m-20">
+  <a className="not-prose group text-sm uppercase">Get Started</a>
+</h4>
+  <Cards>
+  <Card icon={<SquarePlus className="text-red-300" />} href="https://discord.com/oauth2/authorize?client_id=583807014896140293" title="Add TopStats to your Server">
+    Add the TopStats bot to your Discord server in just a few clicks!
+  </Card>
+  <Card icon={<Star className="text-yellow-500" />} href="https://top.gg/bot/583807014896140293#reviews" title="Leave us a Review">
+    Enjoying TopStats? Leave us a review on Top.gg to help us grow!
+  </Card>
+</Cards>
+
 <Callout type={'info'}>
   Please note: You may be asked to log in to your Discord account to add the bot, and you must have the `Manage Server` permission in the server you want to add Topstats to.
 </Callout>
