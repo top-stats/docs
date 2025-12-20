@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { HomeLayout } from 'fumadocs-ui/layouts/home'
 import { baseOptions } from '@/app/layout.config'
-import { BookIcon } from 'lucide-react'
+import { BookIcon, BotIcon } from 'lucide-react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -15,9 +15,14 @@ export default function Layout({ children }: { children: ReactNode }) {
       {...baseOptions}
       links={[
         {
+          icon: <BotIcon />,
+          text: 'Bots',
+          url: '/docs/bots',
+        },
+        {
           icon: <BookIcon />,
-          text: 'Docs',
-          url: '/docs',
+          text: 'API',
+          url: '/docs/api',
         },
       ]}
     >

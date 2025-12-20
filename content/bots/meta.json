@@ -3,6 +3,7 @@
   "icon": "Bot",
   "root": true,
   "pages": [
-    "index"
+    "index",
+    "premium"
   ]
 }
