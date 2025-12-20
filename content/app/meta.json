@@ -1,0 +1,9 @@
+{
+  "title": "TopStats Discord App",
+  "icon": "SquareSlash",
+  "root": true,
+  "pages": [
+    "index",
+    "faq"
+  ]
+}

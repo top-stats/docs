@@ -1,0 +1,34 @@
+---
+title: FAQ
+description: Frequently Asked Questions about TopStats.gg's App.
+icon: TextSearch
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+
+<Accordions type="single">
+  <Accordion title="How can I disable a command?">
+    <Steps>
+      <Step>
+        Go to your Discord **Server Settings**.
+        ![server-settings-image](/faq/app/server-settings.png)
+      </Step>
+      <Step>
+        Click **Integrations**. You should see **TopStats** listed there.
+      </Step>
+      <Step>
+        Click **TopStats** to open an overview of its commands.
+        ![get-bot-image](/faq/app/get-bot.png)
+      </Step>
+      <Step>
+        Click the command you want to disable, select the **@everyone** role, set it to **❌**, then click **Save**.
+        ![edit-permissions-image](/faq/app/edit-permissions.png)
+      </Step>
+    </Steps>
+    <Callout type={'info'}>
+        This hides the command for members, but it will remain visible to administrators.
+    </Callout>
+  </Accordion>
+</Accordions>
