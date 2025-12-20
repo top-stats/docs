@@ -1,0 +1,68 @@
+---
+title: FAQ
+description: Frequently Asked Questions about TopStats.gg's API.
+icon: TextSearch
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { File, Files, Folder } from 'fumadocs-ui/components/files'
+import { GithubInfo } from 'fumadocs-ui/components/github-info'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+
+<Accordions>
+  <Accordion id='contribute' title="How To Contribute To Documentation?">
+
+    We currently use Fumadocs as our doc engine, you can contribute by creating merge requests in our docs repository:
+    <GithubInfo
+      owner="top-stats"
+      repo="docs"
+    />
+
+
+    We recommend getting started on any of our pages under content/docs and get familiar with the engine!
+    <Files>
+      <Folder name="/content" defaultOpen>
+        <Folder name="/app/(home)" defaultOpen>
+          <File name="index.mdx" />
+        </Folder>
+      </Folder>
+      <Folder name="/app" defaultOpen className="opacity-50" disabled>
+        <Folder name="/app/(home)" defaultOpen className="opacity-50" disabled />
+      </Folder>
+    </Files>
+
+  </Accordion>
+  <Accordion id='create-lib' title="How Do I Create My Own Library?">
+    You’re free to do so! If you would like to be listed on our website, please contact one of our team members in our
+    Discord Server.
+  </Accordion>
+  <Accordion id='get-data' title="Where Do We Get Our Data?">
+    We source our bot data from Top.gg once an hour, through Top.gg's API.
+  </Accordion>
+  <Accordion id='update-frequency' title="When are the statistics updated?">
+    Our data is refreshed at the beginning of every hour, and the daily schedule is updated at midnight (00:00 UTC).
+      <Callout type={'info'}>
+            It may take a few minutes for the statistics of all bots to be updated.
+      </Callout>
+  </Accordion>
+  <Accordion id='get-api-key' title="How I get My API token?">
+    You can get your API token by navigating to your dashboard and clicking on the "Toggle showing your API token" button.
+    <Steps>
+      <Step>
+        ### Open the settings
+        Click on the settings icon on the [home page](https://topstats.gg).
+        ![settings-image](/api-docs/settings.png)
+      </Step>
+      <Step>
+        ### Open the developer settings
+        Click on the "Developer" tab in the settings menu.
+        ![developer-image](/api-docs/developer.png)
+      </Step>
+      <Step>
+        ### Reveal your API token
+        Click on the "Toggle showing your API token" button to reveal your API token.
+        ![reveal-token-image](/api-docs/reveal-token.png)
+      </Step>
+    </Steps>
+  </Accordion>
+</Accordions>
