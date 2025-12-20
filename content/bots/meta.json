@@ -1,0 +1,8 @@
+{
+  "title": "Bots",
+  "icon": "Bot",
+  "root": true,
+  "pages": [
+    "index"
+  ]
+}
