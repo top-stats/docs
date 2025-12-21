@@ -5,6 +5,7 @@
   "pages": [
     "index",
     "premium",
-    "bot"
+    "bot",
+    "faq"
   ]
 }
