@@ -1,0 +1,64 @@
+---
+title: Bot Page
+description: A guide for the bots page on TopStats.gg.
+icon: Bot
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Data collection
+Data is fetched hourly from Top.gg, all times displayed on our site are localised to your countries date formatting,and the timezone that you are in!
+
+
+## Bot Profile
+
+### Ticker
+
+
+## Graphs
+We currently display four different graphs on our bot pages:
+- **Monthly Votes**
+- **Total Votes**
+- **Server Count**
+- **Total Reviews**
+
+### Server Count
+The server count graph is fetched from
+
+### Using our Graphs
+
+#### Tooltips
+Hovering over the graphs, you can see the exact data points, their dates and values. The value in brackets, indicates the growth or loss compared to the previous data point. So for example if would show the growth from the previous hour.
+
+
+<Tabs items={['Free', 'Premium']}>
+  <Tab value="Free">
+    ![bot-tables-image](/content/bot-graph.png)
+  </Tab>
+  <Tab value="Premium">
+    #### Compare Previous Data
+    <Callout type={'idea'} title={'Unlock This Feature'}>
+      Want to unlock this feature?
+      <a target={'_blank'} href={'https://topstats.gg/premium'}>Subscribe</a> Today!
+    </Callout>
+
+    As a supporter, one of the features you will get, is the ability to directly compare the previous time period's data
+    directly within the graph itself. Up to a year. For example if you select the 1 month timeframe, you will be able to
+    see the same value for the month before within the tooltip!
+
+    ![bot-tables-image](/content/bot-premium-graph.png)
+  </Tab>
+</Tabs>
+
+
+
+
+## Hourly and Daily Tables
+Data is fetched hourly and is updated here, the times are localised to your countries date formatting,and the timezone that you are in!
+![bot-tables-image](/content/bot-tables.png)
+
+
+## Recommend Bots (More Bots Like ...)
+The recommended bots listed at the bottom of the page as picked based off one of the random tags that a bot has been assigned, and picks the bots with the most traffic to display.
+
+![recommended-bots-image](/content/recommended-bots.png)

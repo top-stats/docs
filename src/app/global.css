@@ -15,6 +15,7 @@
     --bots-color: var(--color-fd-primary);
     --servers-color: var(--color-red-400);
     --app-color: #B9BABE;
+    --color-fd-idea: var(--colors-brand);
 }
 
 .dark {
