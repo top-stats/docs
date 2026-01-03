@@ -3,6 +3,15 @@ import { createMDX } from 'fumadocs-mdx/next'
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com',
+        pathname: '/avatars/**',
+      },
+    ],
+  },
 }
 
 const withMDX = createMDX({
