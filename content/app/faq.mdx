@@ -4,9 +4,8 @@ description: Frequently Asked Questions about TopStats.gg's App.
 icon: TextSearch
 ---
 
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-import { Step, Steps } from 'fumadocs-ui/components/steps';
-
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
 
 <Accordions type='single'>
   <Accordion id='disable-command' title='How can I disable a command?'>
@@ -23,12 +22,16 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
         ![get-bot-image](/faq/app/get-bot.png)
       </Step>
       <Step>
-        Click the command you want to disable, select the **@everyone** role, set it to **❌**, then click **Save**.
+        Click the command you want to disable, select the **@everyone** role,
+        set it to **❌**, then click **Save**.
         ![edit-permissions-image](/faq/app/edit-permissions.png)
       </Step>
     </Steps>
     <Callout type={'info'}>
-        This hides the command for members, but it will remain visible to administrators.
+      This hides the command for members, but it will remain visible to
+      administrators.
     </Callout>
+    [Learn more about Discord Command
+    Permissions](https://discord.com/blog/slash-commands-permissions-discord-apps-bots)
   </Accordion>
 </Accordions>
