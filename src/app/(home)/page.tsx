@@ -196,7 +196,7 @@ export default function HomePage() {
                 <li>
                   <Link
                     target='_blank'
-                    href='https://discord.com/oauth2/authorize?client_id=583807014896140293&redirect_uri=https%3A%2F%2Fdblstatistics.com%2Fauthorize&auth&response_type=code&scope=bot+identify'
+                    href='https://discord.com/oauth2/authorize?client_id=583807014896140293'
                     className='text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
                   >
                     Invite our Discord Bot
