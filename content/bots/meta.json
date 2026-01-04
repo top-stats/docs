@@ -4,9 +4,10 @@
   "root": true,
   "pages": [
     "index",
+    "faq",
     "premium",
+    "---Pages---",
     "bot",
-    "compare",
-    "faq"
+    "compare"
   ]
 }
