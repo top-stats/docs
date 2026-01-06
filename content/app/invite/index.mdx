@@ -1,0 +1,48 @@
+---
+title: Install the App
+description: Ready to track? Follow our simple steps to install TopStats to your server or account.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { UserIcon, UsersIcon } from 'lucide-react'
+
+## There are 2 ways to install TopStats:
+
+<Cards>
+  <Card
+    icon={<UsersIcon className='text-white' />}
+    href='./install/server'
+    title='Add to Server'
+  >
+    If you own or manage a server, you might want to add the app directly to it.
+    This allows you to use the full feature set of TopStats to enhance your
+    server.
+  </Card>
+  <Card
+    icon={<UserIcon className='text-white' />}
+    href='./install/app'
+    title='Add to My Apps'
+  >
+    In most cases, adding the App to My Apps, is the easiest way to install. It
+    allows you to use the App anywhere with most of it's features.
+  </Card>
+</Cards>
+
+---
+
+# Invite troubleshooting
+
+<Accordions type='single'>
+  <Accordion title="I can't find my server. What's the reason?">
+    The main reason for your server not appearing in the drop-down menu is the
+    use of the wrong account. Make sure you're logged into the right account
+    which you can check on the top of the invite screen. You should see your
+    profile picture and Discord tag. If it's the wrong account, press the **Not
+    you?** button.
+  </Accordion>
+  <Accordion title='Discord asks me to verify my e-mail address.'>
+    If you like to add a bot to a server you require an account with a verified
+    e-mail. Head over to your user settings and verify your e-mail.
+  </Accordion>
+</Accordions>

@@ -5,6 +5,7 @@
   "pages": [
     "index",
     "faq",
-    "commands"
+    "commands",
+    "invite"
   ]
 }
