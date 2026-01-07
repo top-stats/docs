@@ -12,6 +12,20 @@ const config = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/authentication/:path*',
+        destination: '/docs/api/authentication/:path*',
+        permanent: true,
+      },
+      {
+        source: '/reference/:path*',
+        destination: '/docs/api/reference/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const withMDX = createMDX({
