@@ -70,7 +70,7 @@ function HeroSection() {
         Get started using TopStats API and power your service with analytics.
       </p>
       <div className='grid w-full max-w-[500px] grid-cols-1 gap-3 sm:w-fit sm:grid-cols-2'>
-        <Link href='/docs/api' target='_blank'>
+        <Link href='/docs/api'>
           <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
             <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
               <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
