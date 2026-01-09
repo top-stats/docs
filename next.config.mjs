@@ -24,6 +24,11 @@ const config = {
         destination: '/docs/api/reference/:path*',
         permanent: true,
       },
+      {
+        source: '/libraries/:path*',
+        destination: '/docs/api/libraries/:path*',
+        permanent: true,
+      },
     ]
   },
 }
