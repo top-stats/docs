@@ -5,6 +5,7 @@ icon: Bot
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 ## Data collection
 Data is fetched hourly from Top.gg, all times displayed on our site are localised to your countries date formatting,and the timezone that you are in!
@@ -52,9 +53,39 @@ Hovering over the graphs, you can see the exact data points, their dates and val
 
 
 #### Average Growth Percentage
-Beneath each graph, we display the average growth percentage for the selected time period.
-This gives you a quick overview of how much the bot has grown or declined over the selected time frame.
-![avg-growth.png](/bots/avg-growth.png)
+  The **average growth** represents the mean percentage change over a selected time range.  
+  It is calculated by averaging the growth percentages of each individual time period.
+
+  ![avg-growth.png](/bots/avg-growth.png)
+
+<Callout>
+  The average growth is calculated using the following formula:
+
+  ```math
+  Average Growth = \frac{1}{n} \sum_{i=1}^{n} g_i
+  ```
+
+  - $g_i$ = Growth rate of the $i$-th time period (e.g. day, week, or month) in percent
+  - $n$ = Total number of time periods included in the calculation
+
+  <Accordions type="single">
+    <Accordion title="Example">
+      Suppose you select a **1-week period** and measure the growth for each day:
+
+      - Day 1: **+10%**  
+      - Day 2: **+5%**  
+      - Day 3: **+2%**
+
+      The average growth is calculated as:
+
+      ```math
+      \text{Average Growth} = \frac{10 + 5 + 2}{3} = \frac{17}{3} \approx 5.67\%
+      ```
+
+      This means that, on average, the value increased by **approximately 5.67% per day** over the selected period.
+    </Accordion>
+  </Accordions>
+</Callout>
 
 
 ## Hourly and Daily Tables
