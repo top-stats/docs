@@ -194,14 +194,14 @@ function Widgets() {
             </div>
             <div
               className={clsx(
-                '-ml-[1rem] -mt-[14rem] sm:-mt-[15rem] xl:-mt-[25rem] relative w-fit xl:mr-[14%] xl:ml-auto max-sm:static max-sm:mt-6 max-sm:-ml-0 max-sm:w-full',
+                '-ml-4 -mt-56 sm:-mt-60 xl:-mt-100 relative w-fit xl:mr-[14%] xl:ml-auto max-sm:static max-sm:mt-6 max-sm:ml-0 max-sm:w-full',
               )}
             >
               {featureImages.map((feature) => (
                 <motion.button
                   key={feature.label}
                   className={clsx(
-                    'mt-4 flex flex-row items-center gap-3 rounded-xl p-4 text-secondary-foreground shadow-2xl shadow-blue-800/30 xl:pr-[4rem] dark:shadow-black/60',
+                    'mt-4 flex flex-row items-center gap-3 rounded-xl p-4 text-secondary-foreground shadow-2xl shadow-blue-800/30 xl:pr-16 dark:shadow-black/60',
                     'cursor-pointer bg-secondary hover:bg-secondary/80 transition-colors border-2',
                     currentImage === feature.url &&
                       'border-blue-500 ring-2 ring-blue-400',
@@ -311,7 +311,7 @@ function Statistics() {
               ))}
             </motion.div>
           </div>
-          <div className='aspect-square w-[150px] rounded-md fill-black max-[430px]:hidden dark:fill-white mt-auto mb-4 max-w-[20rem] border-black lg:mb-0 lg:ml-4 lg:w-full dark:border-white'>
+          <div className='aspect-square w-37.5 rounded-md fill-black max-[430px]:hidden dark:fill-white mt-auto mb-4 max-w-[20rem] border-black lg:mb-0 lg:ml-4 lg:w-full dark:border-white'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 42 42'
@@ -431,14 +431,14 @@ function Search() {
       whileInView={{ opacity: 1, y: 0 }}
       initial={{ opacity: 0, y: 30 }}
       transition={{ duration: 0.4 }}
-      className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border bg-gradient-to-br from-secondary p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr]'
+      className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border bg-linear-to-br from-secondary p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr]'
       style={{
         background:
           'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
       }}
     >
       <div className='green-gradient' />
-      <div className='flex max-w-[750px] flex-col gap-3 sm:p-5 lg:max-w-none'>
+      <div className='flex max-w-187.5 flex-col gap-3 sm:p-5 lg:max-w-none'>
         <h2 className='mb-2 font-bold text-3xl sm:text-4xl'>Search for bots</h2>
         <p className='text-lg text-muted-foreground'>
           Get statistics from any top.gg bot
@@ -446,7 +446,7 @@ function Search() {
         <div className='mt-3 flex flex-row gap-2.5'>
           <Link
             className={clsx(
-              'rounded-full bg-gradient-to-r from-cyan-500 to-green-500 px-6 py-3 font-medium text-base text-white',
+              'rounded-full bg-linear-to-r from-cyan-500 to-green-500 px-6 py-3 font-medium text-base text-white',
               'flex h-fit flex-row items-center gap-2',
             )}
             href='/docs/api/reference/discord/bots'
@@ -455,9 +455,9 @@ function Search() {
           </Link>
         </div>
       </div>
-      <div className='absolute top-0 right-8 z-[2] max-sm:hidden lg:right-16'>
-        <div className='mx-auto h-36 w-[2px] bg-gradient-to-b from-green-400 to-cyan-600' />
-        <div className='rounded-full bg-gradient-to-br from-green-400 to-cyan-600 p-4 text-white shadow-green-300/50 shadow-lg'>
+      <div className='absolute top-0 right-8 z-2 max-sm:hidden lg:right-16'>
+        <div className='mx-auto h-36 w-0.5 bg-linear-to-b from-green-400 to-cyan-600' />
+        <div className='rounded-full bg-linear-to-br from-green-400 to-cyan-600 p-4 text-white shadow-green-300/50 shadow-lg'>
           <SearchIcon className='h-8 w-8' />
         </div>
       </div>
@@ -467,12 +467,12 @@ function Search() {
         transition={{ duration: 0.5 }}
         className={clsx(
           'mt-4 flex w-full flex-col max-md:ml-0 max-lg:ml-0',
-          'lg:mt-[3rem] lg:w-[650px] lg:-mr-[8rem] lg:max-h-full',
+          'lg:mt-12 lg:w-162.5 lg:-mr-32 lg:max-h-full',
         )}
       >
-        <div className='stats-card mr-20 translate-y-[5px]'>
-          <div className='flex w-full max-w-[400px] flex-col gap-6 rounded-2xl bg-white p-5 dark:bg-zinc-900 h-full justify-center'>
-            <div className='flex flex-row items-center w-full h-full min-h-[120px]'>
+        <div className='stats-card mr-20 translate-y-1.25'>
+          <div className='flex w-full max-w-100 flex-col gap-6 rounded-2xl bg-white p-5 dark:bg-zinc-900 h-full justify-center'>
+            <div className='flex flex-row items-center w-full h-full min-h-30'>
               <div className='flex flex-col justify-center'>
                 <span className='text-zinc-400 text-lg font-semibold mb-2 tracking-wide'>
                   Servers
@@ -495,7 +495,7 @@ function Search() {
           </div>
         </div>
         <div className='search-results z-[2]'>
-          <div className='-mt-[60px] ml-[150px] flex flex-col gap-5 max-md:mt-6 max-md:ml-0'>
+          <div className='-mt-15 ml-37.5 flex flex-col gap-5 max-md:mt-6 max-md:ml-0'>
             <BotCard
               img='https://cdn.discordapp.com/avatars/282859044593598464/156a0d2872579f1ffcaa5d2127239bfd.webp'
               duration='All-in-one bot: welcome, logs, social, moderation & more'
@@ -517,11 +517,11 @@ function Search() {
 
 function Growth() {
   return (
-    <div className='z-10 mt-[5rem]'>
+    <div className='z-10 mt-20'>
       <div className='flex flex-col items-center gap-5 text-center'>
         <div
           className={clsx(
-            'h-[9rem] w-1 bg-gradient-to-b',
+            'h-36 w-1 bg-linear-to-b',
             'from-transparent via-purple-400 to-purple-600 dark:to-purple-100',
           )}
         />
@@ -535,7 +535,7 @@ function Growth() {
         <motion.div
           className={clsx(
             'row-span-2',
-            'text-secondary-foreground bg-gradient-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col',
+            'text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col',
           )}
           style={{
             background:
@@ -568,7 +568,7 @@ function Growth() {
           />
         </motion.div>
         <motion.div
-          className='text-secondary-foreground bg-gradient-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
+          className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
             background:
               'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
@@ -589,13 +589,13 @@ function Growth() {
           </div>
           <Link
             href='/docs/api/faq#get-api-key'
-            className='mt-auto rounded-xl bg-gradient-to-b from-purple-400 to-purple-600 px-6 py-3 text-center font-medium text-sm text-white'
+            className='mt-auto rounded-xl bg-linear-to-b from-purple-400 to-purple-600 px-6 py-3 text-center font-medium text-sm text-white'
           >
             + Read the FAQ
           </Link>
         </motion.div>
         <motion.div
-          className='text-secondary-foreground bg-gradient-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
+          className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
             background:
               'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
@@ -620,7 +620,7 @@ function Growth() {
           <Link
             href='https://discord.com/oauth2/authorize?client_id=583807014896140293'
             target='_blank'
-            className='mt-auto rounded-xl bg-gradient-to-b from-teal-500 to-cyan-600 px-6 py-3 text-center font-medium text-sm text-white'
+            className='mt-auto rounded-xl bg-linear-to-b from-teal-500 to-cyan-600 px-6 py-3 text-center font-medium text-sm text-white'
           >
             + Read the FAQ
           </Link>
@@ -632,7 +632,7 @@ function Growth() {
 
 export default function Page() {
   return (
-    <main className='mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-8'>
+    <main className='mx-auto w-full max-w-360 px-4 sm:px-6 lg:px-8'>
       <HeroSection />
       <Widgets />
       <Statistics />
@@ -643,7 +643,7 @@ export default function Page() {
       <div
         className={clsx(
           'relative flex flex-col items-center gap-5 text-center',
-          'z-10 mt-[5rem]',
+          'z-10 mt-20',
         )}
       >
         <div
@@ -653,7 +653,7 @@ export default function Page() {
           )}
         />
         <h2 className='font-bold text-3xl sm:text-5xl'>Easy to use API</h2>
-        <p className='max-w-[680px] text-muted-foreground text-lg sm:text-xl'>
+        <p className='max-w-170 text-muted-foreground text-lg sm:text-xl'>
           Our API is designed to be simple and easy to use
         </p>
 
@@ -663,7 +663,7 @@ export default function Page() {
         >
           <div className='mt-10 grid grid-cols-1 gap-6 text-start lg:grid-cols-2 xl:grid-cols-3'>
             <div
-              className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
+              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
                 background:
                   'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
@@ -693,7 +693,7 @@ export default function Page() {
               </div>
             </div>
             <div
-              className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
+              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
                 background:
                   'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
@@ -734,7 +734,7 @@ export default function Page() {
               </div>
             </div>
             <div
-              className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
+              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
                 background:
                   'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
