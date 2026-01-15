@@ -39,8 +39,8 @@ function Step({
         className={cn(
           'absolute top-0 left-0 rounded-full font-bold text-white',
           'inline-flex flex-col items-center justify-center',
-          '-ml-[3.5rem] h-12 w-12 text-xl shadow-2xl',
-          'sm:-ml-[4.5rem] sm:h-16 sm:w-16 sm:text-3xl',
+          '-ml-14 h-12 w-12 text-xl shadow-2xl',
+          'sm:-ml-18 sm:h-16 sm:w-16 sm:text-3xl',
           icon?.className,
         )}
       />
@@ -53,26 +53,26 @@ function HeroSection() {
   return (
     <div
       className={clsx(
-        'relative z-[2] mt-[6rem] flex w-full flex-col items-center gap-10 text-center sm:mt-[8rem] xl:mt-[10rem]',
+        'relative z-2 mt-24 flex w-full flex-col items-center gap-10 text-center sm:mt-32 xl:mt-40',
       )}
     >
       <h1 className='mb-6 flex font-bold gap-4 text-4xl min-[360px]:text-5xl sm:text-7xl xl:text-8xl'>
         <Image
           src={LogoSvg}
           alt='TopStats Logo'
-          className='h-[60px] w-[60px] sm:h-[88px] sm:w-[88px] xl:h-[120px] xl:w-[120px]'
+          className='h-15 w-15 sm:h-22 sm:w-22 xl:h-30 xl:w-30'
           width={120}
           height={120}
         />
         TopStats.gg
       </h1>
-      <p className='max-w-[680px] text-muted-foreground text-xl lg:text-2xl'>
+      <p className='max-w-170 text-muted-foreground text-xl lg:text-2xl'>
         Get started using TopStats API and power your service with analytics.
       </p>
-      <div className='grid w-full max-w-[500px] grid-cols-1 gap-3 sm:w-fit sm:grid-cols-2'>
+      <div className='grid w-full max-w-125 grid-cols-1 gap-3 sm:w-fit sm:grid-cols-2'>
         <Link href='/docs/api'>
-          <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
+          <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
+            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
               <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                 Get Started
               </div>
@@ -81,8 +81,8 @@ function HeroSection() {
           </div>
         </Link>
         <Link href='https://topstats.gg/' target='_blank'>
-          <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
+          <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
+            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
               <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                 Our Site
               </div>
@@ -146,9 +146,9 @@ function Widgets() {
 
   return (
     <>
-      <div className='mt-[6rem] flex flex-col gap-10 text-center sm:mt-[12rem]'></div>
+      <div className='mt-24 flex flex-col gap-10 text-center sm:mt-48'></div>
       <div
-        className='z-[2] ml-[1.3rem] w-full border-l pr-4 pb-10 pl-1 min-h-[110vh] sm:ml-1 sm:min-h-[125vh] sm:pl-[2.5rem] lg:pr-8 lg:min-h-[140vh] xl:min-h-[150vh] max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
+        className='z-2 ml-[1.3rem] w-full border-l pr-4 pb-10 pl-1 min-h-[110vh] sm:ml-1 sm:min-h-[125vh] sm:pl-10 lg:pr-8 lg:min-h-[140vh] xl:min-h-[150vh] max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
         style={{
           borderImage: `linear-gradient(
             to bottom,
@@ -183,7 +183,7 @@ function Widgets() {
             <p className='text-lg text-muted-foreground sm:text-xl'>
               Visualize your statistics
             </p>
-            <div className='relative mt-8 w-full max-w-[45rem] aspect-[6/3] rounded-lg shadow-xl overflow-hidden'>
+            <div className='relative mt-8 w-full max-w-180 aspect-6/3 rounded-lg shadow-xl overflow-hidden'>
               {loadedImages.has(currentImage) && (
                 <img
                   src={currentImage}
@@ -271,7 +271,7 @@ function Statistics() {
               everything in one place.
             </p>
             <Link
-              className='mt-6 inline-block rounded-full bg-gradient-to-br from-orange-400 to-pink-500 px-6 py-3 font-bold text-lg text-white'
+              className='mt-6 inline-block rounded-full bg-linear-to-br from-orange-400 to-pink-500 px-6 py-3 font-bold text-lg text-white'
               href='/docs/bots'
             >
               Learn more
@@ -294,7 +294,7 @@ function Statistics() {
                     show: { y: 0, opacity: 1, transition: { duration: 0.2 } },
                   }}
                   className={cn(
-                    'flex flex-col gap-4 rounded-3xl border bg-gradient-to-b from-secondary p-5 text-center transition-colors duration-500',
+                    'flex flex-col gap-4 rounded-3xl border bg-linear-to-b from-secondary p-5 text-center transition-colors duration-500',
                     active &&
                       'border-2 border-blue-400 from-black to-blue-800 text-cyan-200 shadow-blue-600/50 shadow-xl max-sm:col-span-full max-sm:row-start-1',
                   )}
@@ -681,8 +681,8 @@ export default function Page() {
               </div>
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/'>
-                  <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Get Started Here
                       </div>
@@ -722,8 +722,8 @@ export default function Page() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Join our Discord
                       </div>
@@ -751,8 +751,8 @@ export default function Page() {
               </div>
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/reference/widgets'>
-                  <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Discover widgets
                       </div>
@@ -765,7 +765,7 @@ export default function Page() {
           </div>
         </motion.div>
       </div>
-      <section className='container px-4 pb-16 flex-grow'>
+      <section className='container px-4 pb-16 grow'>
         <div
           className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
           `}
