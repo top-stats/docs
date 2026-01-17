@@ -1,0 +1,80 @@
+---
+title: API Changelog
+description: Changelog for TopStats.gg's API.
+icon: History
+---
+
+import { InlineTOC } from 'fumadocs-ui/components/inline-toc'
+
+import {
+  Changelog,
+  ChangelogItem,
+  ChangelogItemTitle,
+  ChangelogItemDescription,
+  ChangelogTitle,
+} from '@/components/changelog'
+
+<Callout type={'info'} title={'Changelog documentation is still work in progress'}>
+  Expect more detailed changelogs to be available soon!
+</Callout>
+
+<InlineTOC items={toc}>Changelogs</InlineTOC>
+
+---
+
+<Changelog>
+  <ChangelogItem date="March 16, 2025">
+    <ChangelogTitle>
+
+    ## New API Ratelimits
+
+    </ChangelogTitle>
+    <ChangelogItemDescription>
+
+    We’ve deployed a fix to our API ratelimits. Previously, ratelimits were entirely global, which limited usage to **60 requests per minute** across all routes combined. This behavior has now been corrected.
+
+    </ChangelogItemDescription>
+
+    <ChangelogItemTitle>New Ratelimit Structure</ChangelogItemTitle>
+
+    - **Per-route ratelimit**: 60 requests per minute
+    - **Global ratelimit**: 120 requests per minute
+
+    <Callout title="Important Notice" type="warn">
+      Excessively exceeding either the per-route ratelimit or the global ratelimit will result in a ban.
+    </Callout>
+
+
+    <ChangelogItemTitle>Additional Information</ChangelogItemTitle>
+
+    - Shard-related values (for example rankings or graph data) can no longer be fetched via the API.
+    - These fields may still appear in the bot schema, but they will now always return 0.
+  </ChangelogItem>
+
+  <ChangelogItem date="Feb 17, 2025">
+    <ChangelogTitle>
+
+    ## API Changes and Upcoming Deprecations
+
+    </ChangelogTitle>
+    <ChangelogItemDescription>
+
+    Top.gg has announced changes to their API, which affect some of the data displayed on our site. As a result, the following fields are now deprecated and will be removed in the coming weeks.
+
+    </ChangelogItemDescription>
+    <ChangelogItemTitle>Deprecated Response Fields</ChangelogItemTitle>
+    The following fields are deprecated and will be removed once the Top.gg update is fully released:
+
+    - `defAvatar`
+    - `certifiedBot`
+    - `lib`
+    - `shard_count`
+    - `shard_count_rank`
+
+    <ChangelogItemTitle>Impact</ChangelogItemTitle>
+
+    The removal of `shard_count` has a **significant impact on one of the major statistics** we currently track on our site. We are aware of this and will publish a separate announcement soon with more details on how this affects statistics going forward.
+
+    [Top.gg API Changes](https://discord.com/channels/264445053596991498/412006692125933568/1340946248596717568)
+  </ChangelogItem>
+</Changelog>
