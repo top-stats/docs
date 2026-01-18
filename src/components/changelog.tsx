@@ -45,11 +45,11 @@ export const ChangelogTitle = ({
 export const ChangelogItemTitle = ({
   children,
   ...props
-}: React.ComponentProps<'h3'>) => {
+}: React.ComponentProps<'span'>) => {
   return (
-    <h3 className='mt-0 mb-2.5 text-lg' {...props}>
+    <span className='block mt-0 mb-2.5 text-lg font-semibold' {...props}>
       {children}
-    </h3>
+    </span>
   )
 }
 
