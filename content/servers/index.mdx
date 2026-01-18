@@ -4,10 +4,35 @@ description: A guide for Servers.
 icon: House
 ---
 
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { LogInIcon, SquarePlus } from 'lucide-react'
+
 <Callout type={'warn'} title={'Server Analytics'}>
   This product is still being developed!
 </Callout>
 
-
 ## Welcome!
+
 Our team is currently working towards providing analytics for Discord servers as well! If you're interested in our development or would like to suggest a cool feature, head over to our [Discord server](https://topstats.gg/discord).
+
+---
+
+<h4 className='text-fd-muted-foreground scroll-m-20'>
+  <a className='not-prose group text-sm uppercase'>Get Started</a>
+</h4>
+<Cards>
+  <Card
+    title='Add TopStats to your Server'
+    icon={<SquarePlus className='text-fd-primary' />}
+    href='/servers/invite'
+  >
+    Add the TopStats bot to your Discord server in just a few clicks!
+  </Card>
+  <Card
+    title='Login to your Server Dashboard'
+    icon={<LogInIcon className='text-fd-primary' />}
+    href='https://topstats.gg'
+  >
+    Access your server's analytics dashboard by logging in with Discord.
+  </Card>
+</Cards>

@@ -3,6 +3,7 @@
   "icon": "Server",
   "root": true,
   "pages": [
-    "index"
+    "index",
+    "invite"
   ]
 }
