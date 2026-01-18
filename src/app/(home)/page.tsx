@@ -72,7 +72,7 @@ function HeroSection() {
       <div className='grid w-full max-w-125 grid-cols-1 gap-3 sm:w-fit sm:grid-cols-2'>
         <Link href='/docs/api'>
           <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
+            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
               <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                 Get Started
               </div>
@@ -82,7 +82,7 @@ function HeroSection() {
         </Link>
         <Link href='https://topstats.gg/' target='_blank'>
           <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
+            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
               <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                 Our Site
               </div>
@@ -242,7 +242,7 @@ function Statistics() {
 
   return (
     <div
-      className='z-[2] ml-[1.3rem] min-h-[120vh] w-full border-l pt-[6rem] pr-4 pb-10 pl-1 sm:ml-1 sm:min-h-[130vh] sm:pl-[2.5rem] md:min-h-[140vh] lg:min-h-[136vh] lg:pr-8 max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
+      className='z-2 ml-[1.3rem] min-h-[120vh] w-full border-l pt-24 pr-4 pb-10 pl-1 sm:ml-1 sm:min-h-[130vh] sm:pl-10 md:min-h-[140vh] lg:min-h-[136vh] lg:pr-8 max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
       style={{
         borderImage:
           'linear-gradient(to bottom, theme("colors.orange.400"), transparent) 1 100%',
@@ -482,7 +482,7 @@ function Search() {
                 </span>
               </div>
               <div className='ml-auto flex flex-col items-center justify-center'>
-                <div className='rounded-2xl border-2 border-zinc-200 dark:border-zinc-700 bg-zinc-100/80 dark:bg-zinc-900/70 px-7 py-4 flex flex-col items-center min-w-[90px] shadow-md'>
+                <div className='rounded-2xl border-2 border-zinc-200 dark:border-zinc-700 bg-zinc-100/80 dark:bg-zinc-900/70 px-7 py-4 flex flex-col items-center min-w-22.5 shadow-md'>
                   <span className='text-xs text-zinc-500 font-bold tracking-widest mb-1'>
                     RANK
                   </span>
@@ -494,7 +494,7 @@ function Search() {
             </div>
           </div>
         </div>
-        <div className='search-results z-[2]'>
+        <div className='search-results z-2'>
           <div className='-mt-15 ml-37.5 flex flex-col gap-5 max-md:mt-6 max-md:ml-0'>
             <BotCard
               img='https://cdn.discordapp.com/avatars/282859044593598464/156a0d2872579f1ffcaa5d2127239bfd.webp'
@@ -531,7 +531,7 @@ function Growth() {
           over time.
         </p>
       </div>
-      <div className='mt-[2rem] grid grid-cols-1 gap-5 sm:grid-cols-2'>
+      <div className='mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2'>
         <motion.div
           className={clsx(
             'row-span-2',
@@ -648,7 +648,7 @@ export default function Page() {
       >
         <div
           className={clsx(
-            'h-[9rem] w-1 bg-gradient-to-b',
+            'h-36 w-1 bg-linear-to-b',
             'from-transparent via-purple-400 to-purple-600 dark:to-purple-100',
           )}
         />
@@ -682,7 +682,7 @@ export default function Page() {
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/'>
                   <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Get Started Here
                       </div>
@@ -723,7 +723,7 @@ export default function Page() {
                   rel='noopener noreferrer'
                 >
                   <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Join our Discord
                       </div>
@@ -752,7 +752,7 @@ export default function Page() {
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/reference/widgets'>
                   <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Discover widgets
                       </div>
