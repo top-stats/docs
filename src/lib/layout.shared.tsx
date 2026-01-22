@@ -15,6 +15,7 @@ export function baseOptions(): BaseLayoutProps {
             height='36'
             viewBox='0 0 36 36'
             fill='none'
+            aria-label='TopStats Homepage'
           >
             <path
               fillRule='evenodd'
@@ -39,7 +40,7 @@ export function baseOptions(): BaseLayoutProps {
       },
       {
         type: 'icon',
-        url: 'https://top-stats.github.io/api-docs/',
+        url: 'https://discord.gg/x48WXcTFVD',
         text: 'API Docs',
         icon: (
           <svg
@@ -47,7 +48,7 @@ export function baseOptions(): BaseLayoutProps {
             fill='currentColor'
             strokeWidth='0'
             viewBox='0 0 640 512'
-            aria-hidden='true'
+            aria-label='Discord API Documentation'
             className='text-muted-foreground/80 group-hover:text-brand'
             height='36'
             width='36'
@@ -68,6 +69,7 @@ export function baseOptions(): BaseLayoutProps {
             height='36'
             viewBox='0 0 36 36'
             fill='none'
+            aria-label='TopStats Logo'
           >
             <path
               fillRule='evenodd'
