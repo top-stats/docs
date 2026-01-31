@@ -5,21 +5,26 @@ icon: Rocket
 ---
 
 import { CheckIcon, RocketIcon } from 'lucide-react'
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
 import { Card, Cards } from 'fumadocs-ui/components/card'
-import { Step, Steps } from 'fumadocs-ui/components/steps';
-
+import { Step, Steps } from 'fumadocs-ui/components/steps'
 
 <Callout type={'info'} title={'Bots Premium'}>
-  This page refers to premium plans pertaining to our **Bots** products, not servers.
+  This page refers to premium plans pertaining to our **Bots** products, not
+  servers.
 </Callout>
 
-<Card icon={<RocketIcon className="text-green-300" />} target={'_blank'} href="https://topstats.gg/premium" title="Purchase Premium">
+<Card
+  icon={<RocketIcon className='text-green-300' />}
+  target={'_blank'}
+  href='https://topstats.gg/premium'
+  title='Purchase Premium'
+>
   Enhance your TopStats experience, and get deeper insights with premium today!
 </Card>
 
-
 ## FAQ
+
 <Accordions type="single">
   <Accordion id='refund-policy' title="What is your refund policy?">
     We will process refund requests up to 14 days after purchase. Your refund will be sent to the payment method used.
@@ -60,6 +65,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
     - **iDEAL**
 
     *Don't see a payment method, you would like us to support? Reach out to us!*
+
   </Accordion>
   <Accordion id='edit-premium' title="Can I change or cancel my premium plan?">
     You can modify or cancel your plan at any time. If you cancel your plan, it will be cancelled from the next billing
@@ -84,12 +90,12 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
   </Accordion>
 </Accordions>
 
-
 ## Features
+
 All features that come with the premium plan of TopStats!
 
 | Feature                                            | Free Plan | Paid Plan                          |
-|----------------------------------------------------|-----------|------------------------------------|
+| -------------------------------------------------- | --------- | ---------------------------------- |
 | Previous time period comparisons                   | —         | <CheckIcon color={'lightgreen'} /> |
 | Greater data granularity (weekly data)             | —         | <CheckIcon color={'lightgreen'} /> |
 | More comparisons (up to 8 bots)                    | —         | <CheckIcon color={'lightgreen'} /> |

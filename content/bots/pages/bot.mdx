@@ -4,10 +4,11 @@ description: A guide for the bots page on TopStats.gg.
 icon: Bot
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
 
 ## Data collection
+
 Data is fetched hourly from [Top.gg](https://top.gg), all times displayed on our site are localised to your countries date formatting, and the timezone that you are in!
 
 <Accordions>
@@ -31,16 +32,16 @@ Data is fetched hourly from [Top.gg](https://top.gg), all times displayed on our
 ---
 
 ## Bot Profile
+
 You can quickly see the most important information in the bot profile. You can also be redirected directly to the Top.gg page or compare the bot.
 
 ![bot-profile-image](/content/bots/bot-profile.png)
 
-
 ### Trends
+
 We also display the trend of the bot, which is calculated based on the growth over the last day and month.
 
 ![bot-trends-image](/content/bots/trends.png)
-
 
 ### Rank
 
@@ -51,22 +52,25 @@ The rank indicates the bot's position in the [leaderboard](https://topstats.gg/d
 ---
 
 ## Graphs
+
 We currently display four different graphs on our bot pages:
+
 - **Monthly Votes**
 - **Total Votes**
 - **Server Count**
 - **Total Reviews**
 
-<Callout title="Monthly Vote Reset removed" type="info">
-  Since January 31, 2026, top.gg no longer resets votes at the start of each month. Instead, we show you your total votes for the last 31 days. Votes now keep adding up over time and are not set back to zero monthly.
+<Callout title='Monthly Vote Reset removed' type='info'>
+  Since January 31, 2026, top.gg no longer resets votes at the start of each
+  month. Instead, we show you your total votes for the last 31 days. Votes now
+  keep adding up over time and are not set back to zero monthly.
 </Callout>
-
 
 ### Using our Graphs
 
 #### Tooltips
-Hovering over the graphs, you can see the exact data points, their dates and values. The value in brackets, indicates the growth or loss compared to the previous data point. So for example if would show the growth from the previous hour.
 
+Hovering over the graphs, you can see the exact data points, their dates and values. The value in brackets, indicates the growth or loss compared to the previous data point. So for example if would show the growth from the previous hour.
 
 <Tabs items={['Free', 'Premium']}>
   <Tab value="Free">
@@ -84,32 +88,33 @@ Hovering over the graphs, you can see the exact data points, their dates and val
     see the same value for the month before within the tooltip!
 
     ![bot-premium-graph-image](/content/bot-premium-graph.png)
+
   </Tab>
 </Tabs>
 
-
 #### Average Growth Percentage
-  The **average growth** represents the mean percentage change over a selected time range.  
-  It is calculated by averaging the growth percentages of each individual time period.
 
-  ![avg-growth.png](/content/bots/avg-growth.png)
+The **average growth** represents the mean percentage change over a selected time range.  
+ It is calculated by averaging the growth percentages of each individual time period.
+
+![avg-growth.png](/content/bots/avg-growth.png)
 
 <Callout>
   The average growth is calculated using the following formula:
 
-  ```math
-  Average Growth = \frac{1}{n} \sum_{i=1}^{n} g_i
-  ```
+```math
+Average Growth = \frac{1}{n} \sum_{i=1}^{n} g_i
+```
 
-  - $g_i$ = Growth rate of the $i$-th time period (e.g. day, week, or month) in percent
-  - $n$ = Total number of time periods included in the calculation
+- $g_i$ = Growth rate of the $i$-th time period (e.g. day, week, or month) in percent
+- $n$ = Total number of time periods included in the calculation
 
   <Accordions type="single">
     <Accordion title="Example">
       Suppose you select a **1-week period** and measure the growth for each day:
 
-      - Day 1: **+10%**  
-      - Day 2: **+5%**  
+      - Day 1: **+10%**
+      - Day 2: **+5%**
       - Day 3: **+2%**
 
       The average growth is calculated as:
@@ -120,19 +125,21 @@ Hovering over the graphs, you can see the exact data points, their dates and val
 
       This means that, on average, the value increased by **approximately 5.67% per day** over the selected period.
     </Accordion>
+
   </Accordions>
 </Callout>
 
 ---
 
-
 ## Hourly and Daily Tables
+
 Data is fetched hourly and is updated here, the times are localised to your countries date formatting,and the timezone that you are in!
 ![bot-tables-image](/content/bot-tables.png)
 
 ---
 
 ## Recommend Bots (More Bots Like ...)
+
 The recommended bots listed at the bottom of the page as picked based off one of the random tags that a bot has been assigned, and picks the bots with the most traffic to display.
 
 ![recommended-bots-image](/content/recommended-bots.png)
