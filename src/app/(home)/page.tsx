@@ -28,14 +28,17 @@ import { cn } from '../../lib/cn'
 
 import './homepage.css'
 
-function Step({
-  icon,
-  ...props
-}: { icon?: React.ComponentProps<'div'> } & React.ComponentProps<'div'>) {
+interface StepProps extends React.HTMLAttributes<HTMLDivElement> {
+  icon?: {
+    className?: string
+    children?: React.ReactNode
+  }
+}
+
+function Step({ icon, children, className, ...rest }: StepProps) {
   return (
-    <div {...props}>
+    <div className={className} {...rest}>
       <div
-        {...icon}
         className={cn(
           'absolute top-0 left-0 rounded-full font-bold text-white',
           'inline-flex flex-col items-center justify-center',
@@ -43,8 +46,10 @@ function Step({
           'sm:-ml-18 sm:h-16 sm:w-16 sm:text-3xl',
           icon?.className,
         )}
-      />
-      {props.children}
+      >
+        {icon?.children}
+      </div>
+      {children}
     </div>
   )
 }
