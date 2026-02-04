@@ -208,7 +208,11 @@ function Widgets() {
                     currentImage === feature.url &&
                       'border-blue-500 ring-2 ring-blue-400',
                   )}
-                  style={{ height: '100%', width: '100%' }}
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    background: 'var(--background-linear-gradient)',
+                  }}
                   variants={{
                     show: { y: 0, opacity: 1 },
                     hidden: { opacity: 0, y: '5rem' },
@@ -300,8 +304,7 @@ function Statistics() {
                       'border-2 border-blue-400 from-black to-blue-800 text-cyan-200 shadow-blue-600/50 shadow-xl max-sm:col-span-full max-sm:row-start-1',
                   )}
                   style={{
-                    background:
-                      'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                    background: 'var(--background-linear-gradient)',
                   }}
                 >
                   <div className='flex flex-col items-center justify-center text-3xl sm:text-6xl lg:text-7xl'>
@@ -434,8 +437,7 @@ function Search() {
       transition={{ duration: 0.4 }}
       className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border bg-linear-to-br from-secondary p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr]'
       style={{
-        background:
-          'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+        background: 'var(--background-linear-gradient)',
       }}
     >
       <div className='green-gradient' />
@@ -539,8 +541,7 @@ function Growth() {
             'text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col',
           )}
           style={{
-            background:
-              'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            background: 'var(--background-linear-gradient)',
           }}
           whileInView={{ x: 0, opacity: 1 }}
           initial={{ x: '8rem', opacity: 0 }}
@@ -571,8 +572,7 @@ function Growth() {
         <motion.div
           className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
-            background:
-              'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            background: 'var(--background-linear-gradient)',
           }}
           whileInView={{ y: 0 }}
           initial={{ y: '10rem' }}
@@ -598,8 +598,7 @@ function Growth() {
         <motion.div
           className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
-            background:
-              'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            background: 'var(--background-linear-gradient)',
           }}
           whileInView={{ y: 0 }}
           initial={{ y: '10rem' }}
@@ -666,8 +665,7 @@ export default function Page() {
             <div
               className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
-                background:
-                  'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                background: 'var(--background-linear-gradient)',
               }}
             >
               <div className='w-8 h-8 relative flex items-center justify-center'>
@@ -696,8 +694,7 @@ export default function Page() {
             <div
               className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
-                background:
-                  'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                background: 'var(--background-linear-gradient)',
               }}
             >
               <div className='w-8 h-8 relative flex items-center justify-center'>
@@ -737,8 +734,7 @@ export default function Page() {
             <div
               className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
               style={{
-                background:
-                  'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+                background: 'var(--background-linear-gradient)',
               }}
             >
               <div className='w-8 h-8 relative flex items-center justify-center'>

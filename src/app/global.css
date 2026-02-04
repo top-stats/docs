@@ -16,6 +16,7 @@
     --servers-color: var(--color-green-300);
     --app-color: #B9BABE;
     --color-fd-idea: var(--colors-brand);
+    --background-linear-gradient: linear-gradient(91.94deg, #ffffff05, #ffffff03);
 }
 
 .dark {
