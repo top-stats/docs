@@ -155,11 +155,8 @@ function Widgets() {
       <div
         className='z-2 ml-[1.3rem] w-full border-l pr-4 pb-10 pl-1 min-h-[110vh] sm:ml-1 sm:min-h-[125vh] sm:pl-10 lg:pr-8 lg:min-h-[140vh] xl:min-h-[150vh] max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
         style={{
-          borderImage: `linear-gradient(
-            to bottom,
-            theme("colors.purple.400") 60%,
-            theme("colors.orange.400")
-          ) 1 100%`,
+          borderImage:
+            'linear-gradient(to bottom, #a78bfa 60%, #fb923c) 1 100%',
         }}
         ref={containerRef}
       >
@@ -249,8 +246,7 @@ function Statistics() {
     <div
       className='z-2 ml-[1.3rem] min-h-[120vh] w-full border-l pt-24 pr-4 pb-10 pl-1 sm:ml-1 sm:min-h-[130vh] sm:pl-10 md:min-h-[140vh] lg:min-h-[136vh] lg:pr-8 max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
       style={{
-        borderImage:
-          'linear-gradient(to bottom, theme("colors.orange.400"), transparent) 1 100%',
+        borderImage: 'linear-gradient(to bottom, #fb923c, transparent) 1 100%',
       }}
     >
       <motion.div
