@@ -152,10 +152,10 @@ function Widgets() {
                 <motion.button
                   key={feature.label}
                   className={clsx(
-                    'mt-4 flex flex-row items-center gap-3 rounded-lg p-4 text-secondary-foreground shadow-2xl shadow-blue-800/30 xl:pr-16 dark:shadow-black/60',
-                    'transition-colors border-2',
+                    'mt-4 flex flex-row items-center gap-3 rounded-lg p-4 shadow-2xl xl:pr-16 ',
+                    'border-2',
                     currentImage === feature.url &&
-                      'border-blue-500 ring-2 ring-blue-400',
+                      'ring-2 ring-purple-500 border-transparent',
                   )}
                   style={{
                     height: '100%',
