@@ -24,6 +24,7 @@ import BannerLightSvg from '@/app/banner-light.svg'
 import BannerSvg from '@/app/banner.svg'
 import LogoSvg from '@/app/logo.svg'
 import { cn } from '../../lib/cn'
+import { buttonVariants } from 'fumadocs-ui/components/ui/button'
 
 import './homepage.css'
 
@@ -47,27 +48,20 @@ function HeroSection() {
       <p className='max-w-170 text-muted-foreground text-xl lg:text-2xl'>
         Get started using TopStats API and power your service with analytics.
       </p>
-      <div className='grid w-full max-w-125 grid-cols-1 gap-3 sm:w-fit sm:grid-cols-2'>
-        <Link href='/docs/api'>
-          <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
-              <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                Get Started
-              </div>
-              <ArrowRightIcon className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
-            </div>
-          </div>
-        </Link>
-        <Link href='https://topstats.gg/' target='_blank'>
-          <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-            <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-200 dark:border-[#ffffff1a] shadow-sm justify-center items-center gap-2 flex transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-[#8A9DE4] bg-white dark:bg-[#10111a] font-['Inter']">
-              <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                Our Site
-              </div>
-              <ArrowRightIcon className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
-            </div>
-          </div>
-        </Link>
+      <div className='grid w-auto gap-3 sm:w-fit sm:grid-cols-2'>
+        <a
+          href='/docs/api'
+          className={cn(buttonVariants({ variant: 'primary' }), 'mt-6 sm:mt-6')}
+        >
+          Get Started
+        </a>
+        <a
+          href='https://topstats.gg/'
+          target='_blank'
+          className={cn(buttonVariants({ variant: 'primary' }), 'mt-6 sm:mt-6')}
+        >
+          Our Site
+        </a>
       </div>
     </div>
   )
