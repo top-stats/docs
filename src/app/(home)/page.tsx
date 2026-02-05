@@ -232,7 +232,6 @@ function Widgets() {
               ))}
             </div>
           </Step>
-          <div className='purple-gradient' />
         </motion.div>
       </div>
     </>
