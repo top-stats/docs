@@ -321,7 +321,7 @@ function Growth() {
         </p>
       </div>
       <div className='mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2'>
-        <motion.div
+        <div
           className={clsx(
             'row-span-2',
             'text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col',
@@ -329,9 +329,6 @@ function Growth() {
           style={{
             background: 'var(--background-linear-gradient)',
           }}
-          whileInView={{ x: 0, opacity: 1 }}
-          initial={{ x: '8rem', opacity: 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white'>
@@ -354,14 +351,12 @@ function Growth() {
             height={500}
             className='mt-auto rounded-3xl w-full h-auto'
           />
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
             background: 'var(--background-linear-gradient)',
           }}
-          whileInView={{ y: 0 }}
-          initial={{ y: '10rem' }}
         >
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500 text-white'>
@@ -380,14 +375,12 @@ function Growth() {
           >
             + Read the FAQ
           </Link>
-        </motion.div>
-        <motion.div
+        </div>
+        <div
           className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
           style={{
             background: 'var(--background-linear-gradient)',
           }}
-          whileInView={{ y: 0 }}
-          initial={{ y: '10rem' }}
         >
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-600 text-white'>
@@ -410,7 +403,7 @@ function Growth() {
           >
             + Read the FAQ
           </Link>
-        </motion.div>
+        </div>
       </div>
     </div>
   )
