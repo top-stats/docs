@@ -7,7 +7,6 @@ import Link from 'next/link'
 import {
   ArrowRightCircleIcon,
   ArrowRightIcon,
-  Axis3dIcon,
   BarChartIcon,
   BookIcon,
   BookOpenIcon,
@@ -58,7 +57,7 @@ function HeroSection() {
   return (
     <div
       className={clsx(
-        'relative z-2 mt-24 flex w-full flex-col items-center gap-10 text-center sm:mt-32 xl:mt-40',
+        'relative z-2 mt-24 flex w-full flex-col items-center gap-1 text-center sm:mt-32 xl:mt-40',
       )}
     >
       <h1 className='mb-6 flex font-bold gap-4 text-4xl min-[360px]:text-5xl sm:text-7xl xl:text-8xl'>
@@ -153,11 +152,7 @@ function Widgets() {
     <>
       <div className='mt-24 flex flex-col gap-10 text-center sm:mt-48'></div>
       <div
-        className='z-2 ml-[1.3rem] w-full border-l pr-4 pb-10 pl-1 min-h-[110vh] sm:ml-1 sm:min-h-[125vh] sm:pl-10 lg:pr-8 lg:min-h-[140vh] xl:min-h-[150vh] max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
-        style={{
-          borderImage:
-            'linear-gradient(to bottom, #a78bfa 60%, #fb923c) 1 100%',
-        }}
+        className='z-2 w-full pr-4 pb-10 pl-1 sm:pl-10 lg:pr-8 max-sm:pl-0 max-sm:pr-0'
         ref={containerRef}
       >
         <motion.div
@@ -173,14 +168,7 @@ function Widgets() {
             hidden: { y: -20, opacity: 0 },
           }}
         >
-          <Step
-            icon={{
-              className:
-                'bg-secondary text-secondary-foreground shadow-none sm:bg-gradient-to-br sm:from-purple-400 sm:to-purple-600 sm:shadow-purple-400',
-              children: <Axis3dIcon className='inline sm:h-8 sm:w-8' />,
-            }}
-            className='relative z-10'
-          >
+          <div className='relative z-10'>
             <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
             <p className='text-lg text-muted-foreground sm:text-xl'>
               Visualize your statistics
@@ -231,172 +219,10 @@ function Widgets() {
                 </motion.button>
               ))}
             </div>
-          </Step>
+          </div>
         </motion.div>
       </div>
     </>
-  )
-}
-
-function Statistics() {
-  const items = [
-    { icon: <ServerIcon className='h-8 w-8' />, label: 'Servers' },
-    { icon: <BotIcon className='h-8 w-8' />, label: 'Bots' },
-    { icon: <BookIcon className='h-8 w-8' />, label: 'API', active: true },
-  ]
-
-  return (
-    <div
-      className='z-2 ml-[1.3rem] min-h-[120vh] w-full border-l pt-24 pr-4 pb-10 pl-1 sm:ml-1 sm:min-h-[130vh] sm:pl-10 md:min-h-[140vh] lg:min-h-[136vh] lg:pr-8 max-sm:ml-0 max-sm:border-none max-sm:pl-0 max-sm:pr-0'
-      style={{
-        borderImage: 'linear-gradient(to bottom, #fb923c, transparent) 1 100%',
-      }}
-    >
-      <motion.div
-        className='md:sticky top-[20vh] gap-5'
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-      >
-        <Step
-          icon={{
-            className:
-              'bg-gradient-to-br from-orange-400 to-pink-600 shadow-purple-400',
-            children: <BarChartIcon className='inline h-8 w-8' />,
-          }}
-          className='flex flex-col-reverse gap-5 rounded-2xl w-full lg:flex-row lg:justify-between'
-        >
-          <div className='flex-1'>
-            <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>
-              All statistics in one place
-            </h2>
-            <p className='text-lg text-muted-foreground sm:text-xl'>
-              Whether it's bot statistics or server statistics, you'll find
-              everything in one place.
-            </p>
-            <Link
-              className='mt-6 inline-block rounded-full bg-linear-to-br from-orange-400 to-pink-500 px-6 py-3 font-bold text-lg text-white'
-              href='/docs/bots'
-            >
-              Learn more
-            </Link>
-            <motion.div
-              className='mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3'
-              initial='hidden'
-              whileInView='show'
-              variants={{
-                show: {
-                  transition: { staggerChildren: 0.05, staggerDirection: -1 },
-                },
-              }}
-            >
-              {items.map(({ icon, label, active }) => (
-                <motion.div
-                  key={label}
-                  variants={{
-                    hidden: { y: 100, opacity: 0 },
-                    show: { y: 0, opacity: 1, transition: { duration: 0.2 } },
-                  }}
-                  className={cn(
-                    'flex flex-col gap-4 rounded-3xl border bg-linear-to-b from-secondary p-5 text-center transition-colors duration-500',
-                    active &&
-                      'border-2 border-blue-400 from-black to-blue-800 text-cyan-200 shadow-blue-600/50 shadow-xl max-sm:col-span-full max-sm:row-start-1',
-                  )}
-                  style={{
-                    background: 'var(--background-linear-gradient)',
-                  }}
-                >
-                  <div className='flex flex-col items-center justify-center text-3xl sm:text-6xl lg:text-7xl'>
-                    {icon}
-                  </div>
-                  <p className='font-semibold text-lg sm:text-xl'>{label}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-          <div className='aspect-square w-37.5 rounded-md fill-black max-[430px]:hidden dark:fill-white mt-auto mb-4 max-w-[20rem] border-black lg:mb-0 lg:ml-4 lg:w-full dark:border-white'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              viewBox='0 0 42 42'
-              fill='none'
-            >
-              <g filter='url(#filter0_d_1213_4138)'>
-                <path
-                  d='M14.6367 17.0054C14.8192 16.8259 15.1195 16.9434 15.1426 17.189V18.4517L15.1416 18.6987C15.1416 18.7019 15.1425 18.7053 15.1426 18.7085V32.0005C15.1424 33.1049 14.2451 34.0005 13.1406 34.0005H8.00391C6.89944 34.0005 6.00015 33.1049 6 32.0005V25.6255C6.00012 25.5452 6.03261 25.4679 6.08984 25.4116L14.6367 17.0054ZM26.0479 16.9976C26.236 16.8115 26.5552 16.942 26.5586 17.2065L26.5713 18.2876V32.0005C26.5711 33.1049 25.6758 34.0005 24.5713 34.0005H19.4287C18.3242 34.0005 17.4289 33.1049 17.4287 32.0005V18.7271C17.4295 18.7186 17.4316 18.7103 17.4316 18.7017L17.4375 17.2134C17.4388 16.9479 17.7592 16.8149 17.9482 17.0015L21.7891 20.7925C21.906 20.9076 22.0942 20.9069 22.2109 20.7915L26.0479 16.9976ZM36 11.0005C37.1046 11.0005 38 11.8959 38 13.0005V32.0005C37.9998 33.1049 37.0966 34.0004 35.9922 34.0005H30.8604C29.756 34.0003 28.8576 33.1048 28.8574 32.0005V14.2778C28.8693 14.2239 28.8955 14.1736 28.9346 14.1333L31 12.0005L32 11.0005H36Z'
-                  fill='url(#paint0_linear_1213_4138)'
-                ></path>
-                <path
-                  d='M15.5932 11.5796L6.20382 20.8824C5.57253 21.5079 4.5 21.0607 4.5 20.1721V19.9882C4.5 19.721 4.60698 19.4648 4.79707 19.2769L15.0996 9.09504C15.4893 8.70997 16.1162 8.71007 16.5057 9.09528L21.5953 14.1286C21.7115 14.2435 21.8981 14.2443 22.0153 14.1306L29.152 7.20293L35.1717 1.33184C35.2889 1.21757 35.476 1.21829 35.5923 1.33345L36.133 1.86893L36.6669 2.40773C36.7855 2.5274 36.7823 2.72126 36.6599 2.83698L29.6814 9.43181L22.5031 16.5408C22.1153 16.9249 21.4912 16.9271 21.1008 16.5458L16.0139 11.5781C15.8968 11.4637 15.7095 11.4644 15.5932 11.5796Z'
-                  fill='white'
-                  stroke='white'
-                  strokeWidth='0.75'
-                ></path>
-                <path
-                  d='M37.7 -1.31134e-08L30.7243 -3.18032e-07C30.457 -3.29715e-07 30.3231 0.323142 30.5121 0.512132L37.4879 7.48787C37.6769 7.67686 38 7.54301 38 7.27574L38 0.3C38 0.134315 37.8657 -5.87108e-09 37.7 -1.31134e-08Z'
-                  fill='white'
-                ></path>
-              </g>
-              <defs>
-                <filter
-                  id='filter0_d_1213_4138'
-                  x='0.125'
-                  y='0'
-                  width='41.875'
-                  height='42.0005'
-                  filterUnits='userSpaceOnUse'
-                  colorInterpolationFilters='sRGB'
-                >
-                  <feFlood
-                    floodOpacity='0'
-                    result='BackgroundImageFix'
-                  ></feFlood>
-                  <feColorMatrix
-                    in='SourceAlpha'
-                    type='matrix'
-                    values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0'
-                    result='hardAlpha'
-                  ></feColorMatrix>
-                  <feOffset dy='4'></feOffset>
-                  <feGaussianBlur stdDeviation='2'></feGaussianBlur>
-                  <feComposite in2='hardAlpha' operator='out'></feComposite>
-                  <feColorMatrix
-                    type='matrix'
-                    values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'
-                  ></feColorMatrix>
-                  <feBlend
-                    mode='normal'
-                    in2='BackgroundImageFix'
-                    result='effect1_dropShadow_1213_4138'
-                  ></feBlend>
-                  <feBlend
-                    mode='normal'
-                    in='SourceGraphic'
-                    in2='effect1_dropShadow_1213_4138'
-                    result='shape'
-                  ></feBlend>
-                </filter>
-                <linearGradient
-                  id='paint0_linear_1213_4138'
-                  x1='22'
-                  y1='11.1431'
-                  x2='22'
-                  y2='34.0002'
-                  gradientUnits='userSpaceOnUse'
-                >
-                  <stop stopColor='white'></stop>
-                  <stop
-                    offset='0.75'
-                    stopColor='white'
-                    stopOpacity='0.5'
-                  ></stop>
-                  <stop offset='1' stopColor='white' stopOpacity='0.15'></stop>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-        </Step>
-      </motion.div>
-    </div>
   )
 }
 
@@ -634,7 +460,6 @@ export default function Page() {
     <main className='mx-auto w-full max-w-360 px-4 sm:px-6 lg:px-8'>
       <HeroSection />
       <Widgets />
-      <Statistics />
       <Search />
       <Growth />
 
