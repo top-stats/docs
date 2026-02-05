@@ -27,32 +27,6 @@ import { cn } from '../../lib/cn'
 
 import './homepage.css'
 
-interface StepProps extends React.HTMLAttributes<HTMLDivElement> {
-  icon?: {
-    className?: string
-    children?: React.ReactNode
-  }
-}
-
-function Step({ icon, children, className, ...rest }: StepProps) {
-  return (
-    <div className={className} {...rest}>
-      <div
-        className={cn(
-          'absolute top-0 left-0 rounded-full font-bold text-white',
-          'inline-flex flex-col items-center justify-center',
-          '-ml-14 h-12 w-12 text-xl shadow-2xl',
-          'sm:-ml-18 sm:h-16 sm:w-16 sm:text-3xl',
-          icon?.className,
-        )}
-      >
-        {icon?.children}
-      </div>
-      {children}
-    </div>
-  )
-}
-
 function HeroSection() {
   return (
     <div
@@ -151,10 +125,7 @@ function Widgets() {
   return (
     <>
       <div className='mt-24 flex flex-col gap-10 text-center sm:mt-48'></div>
-      <div
-        className='z-2 w-full pr-4 pb-10 pl-1 sm:pl-10 lg:pr-8 max-sm:pl-0 max-sm:pr-0'
-        ref={containerRef}
-      >
+      <div>
         <motion.div
           className='md:sticky top-[20vh] flex flex-col gap-5'
           initial='hidden'
@@ -168,31 +139,27 @@ function Widgets() {
             hidden: { y: -20, opacity: 0 },
           }}
         >
-          <div className='relative z-10'>
+          <div className='flex flex-col ml-8'>
             <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
             <p className='text-lg text-muted-foreground sm:text-xl'>
               Visualize your statistics
             </p>
-            <div className='relative mt-8 w-full max-w-180 aspect-6/3 rounded-lg shadow-xl overflow-hidden'>
+            <div className='mt-8 w-auto max-w-180 rounded-lg shadow-xl overflow-hidden'>
               {loadedImages.has(currentImage) && (
                 <img
                   src={currentImage}
                   alt='Server Statistic Widget'
-                  className='w-full h-full'
+                  className='w-auto h-auto'
                 />
               )}
             </div>
-            <div
-              className={clsx(
-                '-ml-4 -mt-56 sm:-mt-60 xl:-mt-100 relative w-fit xl:mr-[14%] xl:ml-auto max-sm:static max-sm:mt-6 max-sm:ml-0 max-sm:w-full',
-              )}
-            >
+            <div className={clsx(' xl:-mt-80 mr-[15%] ml-auto  ')}>
               {featureImages.map((feature) => (
                 <motion.button
                   key={feature.label}
                   className={clsx(
-                    'mt-4 flex flex-row items-center gap-3 rounded-xl p-4 text-secondary-foreground shadow-2xl shadow-blue-800/30 xl:pr-16 dark:shadow-black/60',
-                    'cursor-pointer bg-secondary hover:bg-secondary/80 transition-colors border-2',
+                    'mt-4 flex flex-row items-center gap-3 rounded-lg p-4 text-secondary-foreground shadow-2xl shadow-blue-800/30 xl:pr-16 dark:shadow-black/60',
+                    'transition-colors border-2',
                     currentImage === feature.url &&
                       'border-blue-500 ring-2 ring-blue-400',
                   )}
