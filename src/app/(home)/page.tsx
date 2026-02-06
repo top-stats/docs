@@ -383,14 +383,9 @@ export default function Page() {
           initial={{ y: '5rem', opacity: 0 }}
         >
           <div className='mt-10 grid grid-cols-1 gap-6 text-start lg:grid-cols-2 xl:grid-cols-3'>
-            <div
-              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-              style={{
-                background: 'var(--background-linear-gradient)',
-              }}
-            >
+            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
               <div className='w-8 h-8 relative flex items-center justify-center'>
-                <BookOpenIcon className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
+                <BookOpenIcon className='w-full h-full' />
               </div>
               <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
                 Get Building
@@ -406,18 +401,13 @@ export default function Page() {
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Get Started Here
                       </div>
-                      <ArrowRightIcon className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                      <ArrowRightIcon />
                     </div>
                   </div>
                 </Link>
               </div>
             </div>
-            <div
-              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-              style={{
-                background: 'var(--background-linear-gradient)',
-              }}
-            >
+            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
               <div className='w-8 h-8 relative flex items-center justify-center'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
@@ -446,18 +436,13 @@ export default function Page() {
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Join our Discord
                       </div>
-                      <ArrowRightIcon className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                      <ArrowRightIcon />
                     </div>
                   </div>
                 </Link>
               </div>
             </div>
-            <div
-              className='min-h-62.75 p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-              style={{
-                background: 'var(--background-linear-gradient)',
-              }}
-            >
+            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
               <div className='w-8 h-8 relative flex items-center justify-center'>
                 <ImageIcon className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
               </div>
@@ -474,7 +459,7 @@ export default function Page() {
                       <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                         Discover widgets
                       </div>
-                      <ArrowRightIcon className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                      <ArrowRightIcon />
                     </div>
                   </div>
                 </Link>
