@@ -48,17 +48,23 @@ function HeroSection() {
       <p className='max-w-170 text-muted-foreground text-xl lg:text-2xl'>
         Get started using TopStats API and power your service with analytics.
       </p>
-      <div className='grid w-auto gap-3 sm:w-fit sm:grid-cols-2'>
+      <div className='mt-6 mb-10 grid w-full max-w-sm gap-3 sm:mb-0 sm:w-fit sm:max-w-none sm:grid-cols-2'>
         <a
           href='/docs/api'
-          className={cn(buttonVariants({ variant: 'primary' }), 'mt-6 sm:mt-6')}
+          className={cn(
+            buttonVariants({ variant: 'primary' }),
+            'w-full justify-center sm:w-auto',
+          )}
         >
           Get Started
         </a>
         <a
           href='https://topstats.gg/'
           target='_blank'
-          className={cn(buttonVariants({ variant: 'primary' }), 'mt-6 sm:mt-6')}
+          className={cn(
+            buttonVariants({ variant: 'primary' }),
+            'w-full justify-center sm:w-auto',
+          )}
         >
           Our Site
         </a>
