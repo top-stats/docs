@@ -23,8 +23,21 @@ import {
 import BannerLightSvg from '@/app/banner-light.svg'
 import BannerSvg from '@/app/banner.svg'
 import LogoSvg from '@/app/logo.svg'
+import ChartServersSvg from 'public/homepage/servers-chart.svg'
+import ChartCustomSvg from 'public/homepage/custom-chart.svg'
+import ChartCompareSvg from 'public/homepage/compare-chart.svg'
 import { cn } from '../../lib/cn'
 import { buttonVariants } from 'fumadocs-ui/components/ui/button'
+import { cva } from 'class-variance-authority'
+
+import {
+  type ComponentProps,
+  Fragment,
+  type HTMLAttributes,
+  type ReactElement,
+  type ReactNode,
+  type RefObject,
+} from 'react'
 
 import './homepage.css'
 
@@ -67,121 +80,81 @@ function HeroSection() {
   )
 }
 
-function Widgets() {
-  const featureImages = [
+const previewButtonVariants = cva(
+  'w-20 h-8 text-sm font-medium transition-colors rounded-full',
+  {
+    variants: {
+      active: {
+        true: 'text-fd-primary-foreground',
+        false: 'text-fd-muted-foreground',
+      },
+    },
+  },
+)
+export function PreviewImages(props: ComponentProps<'div'>) {
+  const [active, setActive] = useState(0)
+  const previews = [
     {
-      label: 'Servers',
-      icon: <ServerIcon />,
-      url: '/homepage/servers-chart.svg',
+      image: ChartServersSvg,
+      name: 'Servers',
     },
     {
-      label: 'Custom',
-      icon: <Settings2Icon />,
-      url: '/homepage/custom-chart.svg',
+      image: ChartCustomSvg,
+      name: 'Custom',
     },
     {
-      label: 'Compare',
-      icon: <SparklesIcon />,
-      url: '/homepage/compare-chart.svg',
+      image: ChartCompareSvg,
+      name: 'Compare',
     },
   ]
 
-  const [currentImage, setCurrentImage] = useState(featureImages[0].url)
-  const [loadedImages, setLoadedImages] = useState(
-    new Set([featureImages[0].url]),
-  )
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const handleImageSwitch = (url: string) => {
-    setCurrentImage(url)
-    setLoadedImages((prev) => new Set([...prev, url]))
-  }
-
   return (
     <>
-      <div className='mt-24 flex flex-col gap-10 text-center sm:mt-48'></div>
-      <div>
-        <motion.div
-          className='md:sticky top-[20vh] flex flex-col gap-5'
-          initial='hidden'
-          whileInView='show'
-          transition={{
-            duration: 0.5,
-            delayChildren: 0.2,
-          }}
-          variants={{
-            show: { y: 0, opacity: 1 },
-            hidden: { y: -20, opacity: 0 },
-          }}
-        >
-          <div className='flex flex-col ml-8'>
-            <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
-            <p className='text-lg text-muted-foreground sm:text-xl'>
-              Visualize your statistics
-            </p>
-            <div className='mt-8 w-auto max-w-180 rounded-lg shadow-xl overflow-hidden'>
-              {loadedImages.has(currentImage) && (
-                <img
-                  src={currentImage}
-                  alt='Server Statistic Widget'
-                  className='w-auto h-auto'
-                />
-              )}
-            </div>
-            <div className={clsx(' xl:-mt-80 mr-[15%] ml-auto  ')}>
-              {featureImages.map((feature) => (
-                <motion.button
-                  key={feature.label}
-                  className={clsx(
-                    'mt-4 flex flex-row items-center gap-3 rounded-lg p-4 shadow-2xl xl:pr-16 ',
-                    'border-2',
-                    currentImage === feature.url &&
-                      'ring-2 ring-purple-500 border-transparent',
-                  )}
-                  style={{
-                    height: '100%',
-                    width: '100%',
-                    background: 'var(--background-linear-gradient)',
-                  }}
-                  variants={{
-                    show: { y: 0, opacity: 1 },
-                    hidden: { opacity: 0, y: '5rem' },
-                  }}
-                  transition={{ duration: 0.5 }}
-                  onClick={() => handleImageSwitch(feature.url)}
-                  type='button'
-                  tabIndex={0}
-                >
-                  <div className='rounded-full bg-purple-500 p-2 text-white text-xl sm:text-2xl dark:bg-purple-500'>
-                    {feature.icon}
-                  </div>
-                  <p className='font-medium text-lg w-full text-left'>
-                    {feature.label}
-                  </p>
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+      <div className='flex flex-col ml-8 sm:mt-48'>
+        <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
+        <p className='text-lg text-muted-foreground sm:text-xl'>
+          Visualize your statistics
+        </p>
+      </div>
+
+      <div
+        {...props}
+        className={cn(
+          'relative grid gap-3 rounded-xl border-2 bg-card p-5 text-card-foreground bg-fd-accent/25 mt-8',
+          props.className,
+        )}
+      >
+        <div className='absolute flex flex-row left-1/2 -translate-1/2 bottom-0 z-2 p-0.5 rounded-full bg-fd-card border shadow-xl'>
+          <div
+            role='none'
+            className='absolute bg-fd-primary rounded-full w-20 h-8 transition-transform z-[-1]'
+            style={{
+              transform: `translateX(calc(var(--spacing) * 20 * ${active}))`,
+            }}
+          />
+          {previews.map((item, i) => (
+            <button
+              key={i}
+              className={cn(previewButtonVariants({ active: active === i }))}
+              onClick={() => setActive(i)}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+        {previews.map((item, i) => (
+          <Image
+            key={i}
+            src={item.image}
+            alt='preview'
+            className={cn(
+              'col-start-1 row-start-1 select-none',
+              active === i
+                ? 'animate-in fade-in slide-in-from-bottom-12 duration-800'
+                : 'invisible',
+            )}
+          />
+        ))}
       </div>
     </>
   )
@@ -413,7 +386,7 @@ export default function Page() {
   return (
     <main className='mx-auto w-full max-w-360 px-4 sm:px-6 lg:px-8'>
       <HeroSection />
-      <Widgets />
+      <PreviewImages />
       <Search />
       <Growth />
 
