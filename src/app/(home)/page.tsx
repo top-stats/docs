@@ -91,7 +91,7 @@ const previewButtonVariants = cva(
     },
   },
 )
-export function PreviewImages(props: ComponentProps<'div'>) {
+export function Widgets(props: ComponentProps<'div'>) {
   const [active, setActive] = useState(0)
   const previews = [
     {
@@ -110,7 +110,7 @@ export function PreviewImages(props: ComponentProps<'div'>) {
 
   return (
     <>
-      <div className='flex flex-col ml-8 sm:mt-48'>
+      <div className='flex flex-col sm:mt-48'>
         <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
         <p className='text-lg text-muted-foreground sm:text-xl'>
           Visualize your statistics
@@ -386,7 +386,7 @@ export default function Page() {
   return (
     <main className='mx-auto w-full max-w-360 px-4 sm:px-6 lg:px-8'>
       <HeroSection />
-      <PreviewImages />
+      <Widgets />
       <Search />
       <Growth />
 
