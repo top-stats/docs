@@ -1,43 +1,29 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { type ComponentProps, useState } from 'react'
+import { cva } from 'class-variance-authority'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
+import { buttonVariants } from 'fumadocs-ui/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowRightCircleIcon,
   ArrowRightIcon,
   BarChartIcon,
-  BookIcon,
   BookOpenIcon,
-  BotIcon,
   CirclePlusIcon,
   ImageIcon,
   SearchIcon,
-  ServerIcon,
-  Settings2Icon,
   SettingsIcon,
-  SparklesIcon,
 } from 'lucide-react'
 
 import BannerLightSvg from '@/app/banner-light.svg'
 import BannerSvg from '@/app/banner.svg'
 import LogoSvg from '@/app/logo.svg'
-import ChartServersSvg from 'public/homepage/servers-chart.svg'
-import ChartCustomSvg from 'public/homepage/custom-chart.svg'
-import ChartCompareSvg from 'public/homepage/compare-chart.svg'
 import { cn } from '../../lib/cn'
-import { buttonVariants } from 'fumadocs-ui/components/ui/button'
-import { cva } from 'class-variance-authority'
-
-import {
-  type ComponentProps,
-  Fragment,
-  type HTMLAttributes,
-  type ReactElement,
-  type ReactNode,
-  type RefObject,
-} from 'react'
+import ChartCompareSvg from 'public/homepage/compare-chart.svg'
+import ChartCustomSvg from 'public/homepage/custom-chart.svg'
+import ChartServersSvg from 'public/homepage/servers-chart.svg'
 
 import './homepage.css'
 
