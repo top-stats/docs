@@ -31,18 +31,19 @@ function HeroSection() {
   return (
     <div
       className={clsx(
-        'relative z-2 mt-24 flex w-full flex-col items-center gap-1 text-center sm:mt-32 xl:mt-40',
+        'relative z-2 mt-16 flex w-full flex-col items-center gap-1 text-center sm:mt-32 xl:mt-40',
+        'px-2 sm:px-0',
       )}
     >
-      <h1 className='mb-6 flex font-bold gap-4 text-4xl min-[360px]:text-5xl sm:text-7xl xl:text-8xl'>
+      <h1 className='mb-4 flex font-bold gap-2 text-3xl min-[360px]:text-4xl sm:text-7xl xl:text-8xl items-center'>
         <Image
           src={LogoSvg}
           alt='TopStats Logo'
-          className='h-15 w-15 sm:h-22 sm:w-22 xl:h-30 xl:w-30'
-          width={120}
-          height={120}
+          className='h-12 w-12 min-[360px]:h-16 min-[360px]:w-16 sm:h-22 sm:w-22 xl:h-30 xl:w-30'
+          width={80}
+          height={80}
         />
-        TopStats.gg
+        <span className='truncate'>TopStats.gg</span>
       </h1>
       <p className='max-w-170 text-muted-foreground text-xl lg:text-2xl'>
         Get started using TopStats API and power your service with analytics.
