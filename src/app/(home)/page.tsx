@@ -364,7 +364,7 @@ export default function Page() {
       <div
         className={clsx(
           'relative flex flex-col items-center gap-5 text-center',
-          'z-10 mt-20',
+          'z-10 mt-20 mb-15',
         )}
       >
         <div
@@ -396,13 +396,9 @@ export default function Page() {
               </div>
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/'>
-                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
-                      <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                        Get Started Here
-                      </div>
-                      <ArrowRightIcon />
-                    </div>
+                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
+                    Get Started Here
+                    <ArrowRightIcon />
                   </div>
                 </Link>
               </div>
@@ -431,13 +427,9 @@ export default function Page() {
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
-                      <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                        Join our Discord
-                      </div>
-                      <ArrowRightIcon />
-                    </div>
+                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
+                    Join our Discord
+                    <ArrowRightIcon />
                   </div>
                 </Link>
               </div>
@@ -454,13 +446,9 @@ export default function Page() {
               </div>
               <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
                 <Link href='/docs/reference/widgets'>
-                  <div className='h-10.5 rounded-[10px] justify-center items-center flex group'>
-                    <div className="grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
-                      <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                        Discover widgets
-                      </div>
-                      <ArrowRightIcon />
-                    </div>
+                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
+                    Discover widgets
+                    <ArrowRightIcon />
                   </div>
                 </Link>
               </div>
@@ -468,12 +456,6 @@ export default function Page() {
           </div>
         </motion.div>
       </div>
-      <section className='container px-4 pb-16 grow'>
-        <div
-          className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
-          `}
-        ></div>
-      </section>
 
       {/* Footer */}
       <footer className='border-t border-gray-200 dark:border-white/10 mt-auto'>
