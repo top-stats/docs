@@ -1,471 +1,165 @@
 'use client'
-import { type ComponentProps, useState } from 'react'
-import { cva } from 'class-variance-authority'
-import clsx from 'clsx'
-import { motion } from 'framer-motion'
-import { buttonVariants } from 'fumadocs-ui/components/ui/button'
-import Image from 'next/image'
 import Link from 'next/link'
-import {
-  ArrowRightCircleIcon,
-  ArrowRightIcon,
-  BarChartIcon,
-  BookOpenIcon,
-  CirclePlusIcon,
-  ImageIcon,
-  SearchIcon,
-  SettingsIcon,
-} from 'lucide-react'
-
-import BannerLightSvg from '@/app/banner-light.svg'
-import BannerSvg from '@/app/banner.svg'
+import Image from 'next/image'
 import LogoSvg from '@/app/logo.svg'
-import { cn } from '../../lib/cn'
-import ChartCompareSvg from 'public/homepage/compare-chart.svg'
-import ChartCustomSvg from 'public/homepage/custom-chart.svg'
-import ChartServersSvg from 'public/homepage/servers-chart.svg'
+import BannerSvg from '@/app/banner.svg'
+import BannerLightSvg from '@/app/banner-light.svg'
+import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
-import './homepage.css'
+export default function HomePage() {
+  // Animation States
+  const [showTitle, setShowTitle] = useState(false)
+  const [showCards, setShowCards] = useState(false)
 
-function HeroSection() {
-  return (
-    <div
-      className={clsx(
-        'relative z-2 mt-16 flex w-full flex-col items-center gap-1 text-center sm:mt-32 xl:mt-40',
-        'px-2 sm:px-0',
-      )}
-    >
-      <h1 className='mb-4 flex font-bold gap-2 text-3xl min-[360px]:text-4xl sm:text-7xl xl:text-8xl items-center'>
-        <Image
-          src={LogoSvg}
-          alt='TopStats Logo'
-          className='h-12 w-12 min-[360px]:h-16 min-[360px]:w-16 sm:h-22 sm:w-22 xl:h-30 xl:w-30'
-          width={80}
-          height={80}
-        />
-        <span className='truncate'>TopStats.gg</span>
-      </h1>
-      <p className='max-w-170 text-muted-foreground text-xl lg:text-2xl'>
-        Get started using TopStats API and power your service with analytics.
-      </p>
-      <div className='mt-6 mb-10 grid w-full max-w-sm gap-3 sm:mb-0 sm:w-fit sm:max-w-none sm:grid-cols-2'>
-        <a
-          href='/docs/api'
-          className={cn(
-            buttonVariants({ variant: 'primary' }),
-            'w-full justify-center sm:w-auto',
-          )}
-        >
-          Get Started
-        </a>
-        <a
-          href='https://topstats.gg/'
-          target='_blank'
-          className={cn(
-            buttonVariants({ variant: 'primary' }),
-            'w-full justify-center sm:w-auto',
-          )}
-        >
-          Our Site
-        </a>
-      </div>
-    </div>
-  )
-}
-
-const previewButtonVariants = cva(
-  'w-20 h-8 text-sm font-medium transition-colors rounded-full',
-  {
-    variants: {
-      active: {
-        true: 'text-fd-primary-foreground',
-        false: 'text-fd-muted-foreground',
-      },
-    },
-  },
-)
-export function Widgets(props: ComponentProps<'div'>) {
-  const [active, setActive] = useState(0)
-  const previews = [
-    {
-      image: ChartServersSvg,
-      name: 'Servers',
-    },
-    {
-      image: ChartCustomSvg,
-      name: 'Custom',
-    },
-    {
-      image: ChartCompareSvg,
-      name: 'Compare',
-    },
-  ]
+  useEffect(() => {
+    setTimeout(() => setShowTitle(true), 100)
+    setTimeout(() => setShowCards(true), 400)
+  }, [])
 
   return (
-    <>
-      <div className='flex flex-col sm:mt-48'>
-        <h2 className='mb-2 font-bold text-2xl sm:text-3xl'>Widgets</h2>
-        <p className='text-lg text-muted-foreground sm:text-xl'>
-          Visualize your statistics
-        </p>
-      </div>
+    <div className='min-h-screen flex flex-col items-center'>
+      {/* Title */}
+      <section className='container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32'>
+        <div
+          className={`mx-auto max-w-3xl text-center transition-all duration-700 ease-out
+            ${showTitle ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          `}
+        >
+          <h1 className="mb-6 flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-[80px] font-semibold tracking-[-1px] md:tracking-[-2.4px] leading-[110%] font-['Inter']">
+            <Image
+              src={LogoSvg}
+              alt='TopStats Logo'
+              className='h-[44px] w-[44px] md:h-[88px] md:w-[88px]'
+              width={88}
+              height={88}
+            />
+            <span className='text-foreground'>TopStats.gg</span>
+          </h1>
+          <p className='mb-8 text-lg md:text-xl text-muted-foreground pt-4 md:pt-[42px]'>
+            Get started using TopStats API and power your service with
+            analytics.
+          </p>
+        </div>
+      </section>
 
-      <div
-        {...props}
-        className={cn(
-          'relative grid gap-3 rounded-xl border-2 bg-card p-5 text-card-foreground bg-fd-accent/25 mt-8',
-          props.className,
-        )}
-      >
-        <div className='absolute flex flex-row left-1/2 -translate-1/2 bottom-0 z-2 p-0.5 rounded-full bg-fd-card border shadow-xl'>
+      {/* Cards */}
+      <section className='container px-4 pb-16 flex-grow'>
+        <div
+          className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
+            ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          `}
+        >
+          {/* Get Building */}
           <div
-            role='none'
-            className='absolute bg-fd-primary rounded-full w-20 h-8 transition-transform z-[-1]'
+            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
             style={{
-              transform: `translateX(calc(var(--spacing) * 20 * ${active}))`,
+              background:
+                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
             }}
-          />
-          {previews.map((item, i) => (
-            <button
-              key={i}
-              className={cn(previewButtonVariants({ active: active === i }))}
-              onClick={() => setActive(i)}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
-        {previews.map((item, i) => (
-          <Image
-            key={i}
-            src={item.image}
-            alt='preview'
-            className={cn(
-              'col-start-1 row-start-1 select-none',
-              active === i
-                ? 'animate-in fade-in slide-in-from-bottom-12 duration-800'
-                : 'invisible',
-            )}
-          />
-        ))}
-      </div>
-    </>
-  )
-}
-
-function Search() {
-  function BotCard({
-    img,
-    duration,
-    children,
-  }: {
-    img: any
-    duration: string
-    children: string
-  }) {
-    return (
-      <div className='flex flex-row gap-3 rounded-xl border bg-card p-5 text-card-foreground bg-white dark:bg-zinc-900'>
-        <div className='flex items-center'>
-          <Image
-            src={img}
-            alt='Bot Image'
-            className='h-12 w-12 rounded-lg'
-            width={64}
-            height={64}
-          />
-        </div>
-        <div className='flex flex-col gap-2'>
-          <p className='font-medium text-lg'>{children}</p>
-          <p className='text-muted-foreground text-sm'>{duration}</p>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <motion.div
-      whileInView={{ opacity: 1, y: 0 }}
-      initial={{ opacity: 0, y: 30 }}
-      transition={{ duration: 0.4 }}
-      className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border-2 p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr] bg-fd-accent/25'
-    >
-      <div className='green-gradient' />
-      <div className='flex max-w-187.5 flex-col gap-3 sm:p-5 lg:max-w-none'>
-        <h2 className='mb-2 font-bold text-3xl sm:text-4xl'>Search for bots</h2>
-        <p className='text-lg text-muted-foreground'>
-          Get statistics from any top.gg bot
-        </p>
-        <div className='mt-3 flex flex-row gap-2.5'>
-          <Link
-            className={clsx(
-              'rounded-full bg-linear-to-r from-cyan-500 to-green-500 px-6 py-3 font-medium text-base text-white',
-              'flex h-fit flex-row items-center gap-2',
-            )}
-            href='/docs/api/reference/discord/bots'
           >
-            Learn more <ArrowRightCircleIcon className='inline' />
-          </Link>
-        </div>
-      </div>
-      <div className='absolute top-0 right-8 z-2 max-sm:hidden lg:right-16'>
-        <div className='mx-auto h-36 w-0.5 bg-linear-to-b from-green-400 to-cyan-600' />
-        <div className='rounded-full bg-linear-to-br from-green-400 to-cyan-600 p-4 text-white shadow-green-300/50 shadow-lg'>
-          <SearchIcon className='h-8 w-8' />
-        </div>
-      </div>
-      <motion.div
-        whileInView={{ y: 0 }}
-        initial={{ y: 100 }}
-        transition={{ duration: 0.5 }}
-        className={clsx(
-          'mt-4 flex w-full flex-col max-md:ml-0 max-lg:ml-0',
-          'lg:mt-12 lg:w-162.5 lg:-mr-32 lg:max-h-full',
-        )}
-      >
-        <div className='stats-card mr-20 translate-y-1.25'>
-          <div className='flex w-full max-w-100 flex-col gap-6 rounded-2xl bg-white p-5 dark:bg-zinc-900 h-full justify-center'>
-            <div className='flex flex-row items-center w-full h-full min-h-30'>
-              <div className='flex flex-col justify-center'>
-                <span className='text-zinc-400 text-lg font-semibold mb-2 tracking-wide'>
-                  Servers
-                </span>
-                <span className='text-5xl sm:text-6xl font-extrabold text-zinc-900 dark:text-white leading-tight drop-shadow-md'>
-                  6.878
-                </span>
-              </div>
-              <div className='ml-auto flex flex-col items-center justify-center'>
-                <div className='rounded-2xl border-2 border-zinc-200 dark:border-zinc-700 bg-zinc-100/80 dark:bg-zinc-900/70 px-7 py-4 flex flex-col items-center min-w-22.5 shadow-md'>
-                  <span className='text-xs text-zinc-500 font-bold tracking-widest mb-1'>
-                    RANK
-                  </span>
-                  <span className='text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-zinc-100'>
-                    910
-                  </span>
+            <div className='w-8 h-8 relative flex items-center justify-center'>
+              <BookOpen className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
+            </div>
+            <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
+              Get Building
+            </div>
+            <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
+              Get analytical data straight from your favourite bots using our
+              API!
+            </div>
+            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+              <Link href='/docs/api'>
+                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
+                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
+                      Get Started Here
+                    </div>
+                    <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
-        </div>
-        <div className='search-results z-2'>
-          <div className='-mt-15 ml-37.5 flex flex-col gap-5 max-md:mt-6 max-md:ml-0'>
-            <BotCard
-              img='https://cdn.discordapp.com/avatars/282859044593598464/156a0d2872579f1ffcaa5d2127239bfd.webp'
-              duration='All-in-one bot: welcome, logs, social, moderation & more'
-            >
-              ProBot ✨
-            </BotCard>
-            <BotCard
-              img='https://cdn.discordapp.com/avatars/155149108183695360/b4fdfc64edff74c37e1574d34fad66c2.webp'
-              duration='Dyno is a fully customizable bot for your server with a web'
-            >
-              Dyno
-            </BotCard>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
 
-function Growth() {
-  return (
-    <div className='z-10 mt-20'>
-      <div className='flex flex-col items-center gap-5 text-center'>
-        <div
-          className={clsx(
-            'h-36 w-1 bg-linear-to-b',
-            'from-transparent via-fd-primary to-[#8a9de4]',
-          )}
-        />
-        <h2 className='font-bold text-3xl sm:text-5xl'>Track your growth</h2>
-        <p className='text-lg text-muted-foreground sm:text-xl'>
-          Use TopStats API to get detailed analytics and track your bot's growth
-          over time.
-        </p>
-      </div>
-      <div className='mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2'>
-        <div
-          className={clsx(
-            'row-span-2',
-            'text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col bg-fd-accent/15',
-          )}
-        >
-          <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white'>
-              <BarChartIcon />
-            </div>
-            <div>
-              <p className='font-bold text-lg sm:text-xl'>
-                Server statistics at a glance
-              </p>
-              <p className='text-muted-foreground'>
-                Always keep an eye on the most important metrics for your bot or
-                server.
-              </p>
-            </div>
-          </div>
-          <Image
-            src='/homepage/chart.svg'
-            alt='chart'
-            width={1000}
-            height={500}
-            className='mt-auto rounded-3xl w-full h-auto'
-          />
-        </div>
-        <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
-          <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500 text-white'>
-              <SettingsIcon />
-            </div>
-            <div>
-              <p className='font-bold text-lg sm:text-xl'>Get an API token</p>
-              <p className='text-muted-foreground'>
-                Create an API key to use the API.
-              </p>
-            </div>
-          </div>
-          <Link
-            href='/docs/api/faq#get-api-key'
-            className='mt-auto rounded-xl bg-linear-to-b from-purple-400 to-purple-600 px-6 py-3 text-center font-medium text-sm text-white'
+          {/* Support Server */}
+          <div
+            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
+            style={{
+              background:
+                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            }}
           >
-            + Read the FAQ
-          </Link>
-        </div>
-        <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
-          <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white'>
-              <CirclePlusIcon />
+            <div className='w-8 h-8 relative flex items-center justify-center'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='currentColor'
+                className='w-full h-full transition-transform duration-300 group-hover:rotate-12'
+                viewBox='0 0 16 16'
+              >
+                <path d='M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612' />
+              </svg>
             </div>
-            <div>
-              <p className='font-bold text-lg sm:text-xl'>
-                Add TopStats to your Server
-              </p>
-              <p className='text-muted-foreground'>
-                Add the TopStats bot to your Discord server in just a few
-                clicks!
-              </p>
+            <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
+              Join Our Support Server
+            </div>
+            <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
+              Need some help getting started, wanna stay up to date, or join our
+              awesome community!
+            </div>
+            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+              <Link
+                href='https://discord.gg/x48WXcTFVD'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
+                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
+                      Join our Discord
+                    </div>
+                    <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
-          <Link
-            href='https://discord.com/oauth2/authorize?client_id=583807014896140293'
-            target='_blank'
-            className='mt-auto rounded-xl bg-linear-to-b from-teal-500 to-cyan-600 px-6 py-3 text-center font-medium text-sm text-white'
+
+          {/* Widgets */}
+          <div
+            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
+            style={{
+              background:
+                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
+            }}
           >
-            + Read the FAQ
-          </Link>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default function Page() {
-  return (
-    <main className='mx-auto w-full max-w-360 px-4 sm:px-6 lg:px-8'>
-      <HeroSection />
-      <Widgets />
-      <Search />
-      <Growth />
-
-      {/* end buttons */}
-      <div
-        className={clsx(
-          'relative flex flex-col items-center gap-5 text-center',
-          'z-10 mt-20 mb-15',
-        )}
-      >
-        <div
-          className={clsx(
-            'h-36 w-1 bg-linear-to-b',
-            'from-transparent via-fd-primary to-[#8a9de4]',
-          )}
-        />
-        <h2 className='font-bold text-3xl sm:text-5xl'>Easy to use API</h2>
-        <p className='max-w-170 text-muted-foreground text-lg sm:text-xl'>
-          Our API is designed to be simple and easy to use
-        </p>
-
-        <motion.div
-          whileInView={{ y: 0, opacity: 1 }}
-          initial={{ y: '5rem', opacity: 0 }}
-        >
-          <div className='mt-10 grid grid-cols-1 gap-6 text-start lg:grid-cols-2 xl:grid-cols-3'>
-            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
-              <div className='w-8 h-8 relative flex items-center justify-center'>
-                <BookOpenIcon className='w-full h-full' />
-              </div>
-              <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
-                Get Building
-              </div>
-              <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                Get analytical data straight from your favourite bots using our
-                API!
-              </div>
-              <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
-                <Link href='/docs/'>
-                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
-                    Get Started Here
-                    <ArrowRightIcon />
-                  </div>
-                </Link>
-              </div>
+            <div className='w-8 h-8 relative flex items-center justify-center'>
+              <LucideImage className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
             </div>
-            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
-              <div className='w-8 h-8 relative flex items-center justify-center'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  fill='currentColor'
-                  className='w-full h-full transition-transform duration-300 group-hover:rotate-12'
-                  viewBox='0 0 16 16'
-                >
-                  <path d='M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612' />
-                </svg>
-              </div>
-              <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
-                Join Our Support Server
-              </div>
-              <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                Need some help getting started, wanna stay up to date, or join
-                our awesome community!
-              </div>
-              <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
-                <Link
-                  href='https://discord.gg/x48WXcTFVD'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
-                    Join our Discord
-                    <ArrowRightIcon />
-                  </div>
-                </Link>
-              </div>
+            <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
+              Use Widgets
             </div>
-            <div className='p-6 rounded-xl border-2 bg-card flex-col justify-start gap-4 inline-flex hover:border-fd-primary/50 bg-fd-accent/15'>
-              <div className='w-8 h-8 relative flex items-center justify-center'>
-                <ImageIcon className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
-              </div>
-              <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
-                Use Widgets
-              </div>
-              <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                Get graphs as an image, to display them directly in Discord.
-              </div>
-              <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
-                <Link href='/docs/reference/widgets'>
-                  <div className={cn(buttonVariants({ variant: 'primary' }))}>
-                    Discover widgets
-                    <ArrowRightIcon />
+            <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
+              Get graphs as an image, to display them directly in Discord.
+            </div>
+            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+              <Link href='/docs/api/reference/widgets'>
+                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
+                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                    <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
+                      Discover widgets
+                    </div>
+                    <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
                   </div>
-                </Link>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className='border-t'>
+      <footer className='border-t border-gray-200 dark:border-white/10 mt-auto'>
         <div className='container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row'>
           <div className='flex flex-col items-center justify-center gap-4'>
             <ul className='flex flex-col items-start justify-center gap-3 text-sm'>
@@ -552,6 +246,6 @@ export default function Page() {
           </div>
         </div>
       </footer>
-    </main>
+    </div>
   )
 }
