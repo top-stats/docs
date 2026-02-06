@@ -180,10 +180,7 @@ function Search() {
       whileInView={{ opacity: 1, y: 0 }}
       initial={{ opacity: 0, y: 30 }}
       transition={{ duration: 0.4 }}
-      className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border bg-linear-to-br from-secondary p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr]'
-      style={{
-        background: 'var(--background-linear-gradient)',
-      }}
+      className='relative z-10 mt-28 hidden gap-4 overflow-hidden rounded-3xl border-2 p-5 pb-0 sm:grid sm:grid-cols-1 sm:max-lg:pr-10 lg:mt-48 lg:grid-cols-[1fr_0.8fr] bg-fd-accent/25'
     >
       <div className='green-gradient' />
       <div className='flex max-w-187.5 flex-col gap-3 sm:p-5 lg:max-w-none'>
@@ -270,7 +267,7 @@ function Growth() {
         <div
           className={clsx(
             'h-36 w-1 bg-linear-to-b',
-            'from-transparent via-purple-400 to-purple-600 dark:to-purple-100',
+            'from-transparent via-fd-primary to-[#8a9de4]',
           )}
         />
         <h2 className='font-bold text-3xl sm:text-5xl'>Track your growth</h2>
@@ -283,11 +280,8 @@ function Growth() {
         <div
           className={clsx(
             'row-span-2',
-            'text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col',
+            'text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col bg-fd-accent/15',
           )}
-          style={{
-            background: 'var(--background-linear-gradient)',
-          }}
         >
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white'>
@@ -311,12 +305,7 @@ function Growth() {
             className='mt-auto rounded-3xl w-full h-auto'
           />
         </div>
-        <div
-          className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
-          style={{
-            background: 'var(--background-linear-gradient)',
-          }}
-        >
+        <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500 text-white'>
               <SettingsIcon />
@@ -335,12 +324,7 @@ function Growth() {
             + Read the FAQ
           </Link>
         </div>
-        <div
-          className='text-secondary-foreground bg-linear-to-b from-secondary border rounded-2xl p-5 shadow-xl flex flex-col gap-3'
-          style={{
-            background: 'var(--background-linear-gradient)',
-          }}
-        >
+        <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
           <div className='flex flex-row gap-2.5'>
             <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-600 text-white'>
               <CirclePlusIcon />
@@ -386,7 +370,7 @@ export default function Page() {
         <div
           className={clsx(
             'h-36 w-1 bg-linear-to-b',
-            'from-transparent via-purple-400 to-purple-600 dark:to-purple-100',
+            'from-transparent via-fd-primary to-[#8a9de4]',
           )}
         />
         <h2 className='font-bold text-3xl sm:text-5xl'>Easy to use API</h2>
