@@ -285,7 +285,7 @@ function Growth() {
           )}
         >
           <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white'>
+            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white'>
               <BarChartIcon />
             </div>
             <div>
@@ -308,7 +308,7 @@ function Growth() {
         </div>
         <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
           <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500 text-white'>
+            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500 text-white'>
               <SettingsIcon />
             </div>
             <div>
@@ -327,7 +327,7 @@ function Growth() {
         </div>
         <div className='text-secondary-foreground border-2 rounded-2xl p-5 shadow-xl flex flex-col gap-3 bg-fd-accent/15'>
           <div className='flex flex-row gap-2.5'>
-            <div className='flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-600 text-white'>
+            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-600 text-white'>
               <CirclePlusIcon />
             </div>
             <div>
