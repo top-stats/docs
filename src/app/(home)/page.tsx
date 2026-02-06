@@ -458,7 +458,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className='border-t border-gray-200 dark:border-white/10 mt-auto'>
+      <footer className='border-t'>
         <div className='container flex flex-col items-center justify-between gap-4 px-4 py-6 md:flex-row'>
           <div className='flex flex-col items-center justify-center gap-4'>
             <ul className='flex flex-col items-start justify-center gap-3 text-sm'>
