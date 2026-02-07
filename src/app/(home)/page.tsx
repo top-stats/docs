@@ -45,8 +45,8 @@ export default function HomePage() {
             </div>
             <div className='justify-start items-center inline-flex'>
               <Link href='/docs/api'>
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className='grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Get Started Here
                     </div>
@@ -82,8 +82,8 @@ export default function HomePage() {
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className='grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Join our Discord
                     </div>
@@ -107,8 +107,8 @@ export default function HomePage() {
             </div>
             <div className='justify-start items-center inline-flex'>
               <Link href='/docs/api/reference/widgets'>
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className='grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Discover widgets
                     </div>
