@@ -1,7 +1,7 @@
 {
   "title": "Servers",
   "icon": "Server",
-  "root": true,
+  "root": false,
   "pages": [
     "index",
     "faq",
