@@ -7,6 +7,9 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Docs | TopStats.gg',
   description: 'Documentation and Guides for TopStats.gg',
+  openGraph: {
+    images: '/opengraph-image.jpg',
+  },
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
