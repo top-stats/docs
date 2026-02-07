@@ -32,13 +32,7 @@ export default function HomePage() {
       <section className='container px-4 pb-16 flex-grow'>
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {/* Get Building */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
             <div className='w-8 h-8 relative'>
               <BookOpen className='w-full h-full' />
             </div>
@@ -64,13 +58,7 @@ export default function HomePage() {
           </div>
 
           {/* Support Server */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
             <div className='w-8 h-8 relative'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -107,13 +95,7 @@ export default function HomePage() {
           </div>
 
           {/* Widgets */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
             <div className='w-8 h-8 relative'>
               <LucideImage className='w-full h-full' />
             </div>
