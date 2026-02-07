@@ -8,7 +8,11 @@ export const metadata: Metadata = {
   title: 'Docs | TopStats.gg',
   description: 'Documentation and Guides for TopStats.gg',
   openGraph: {
-    images: '/opengraph-image.jpg',
+    images: [
+      {
+        url: 'https:///topstats.gg/SiteBanner.png',
+      },
+    ],
   },
 }
 
