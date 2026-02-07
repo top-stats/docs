@@ -5,13 +5,12 @@ import LogoSvg from '@/app/logo.svg'
 import BannerSvg from '@/app/banner.svg'
 import BannerLightSvg from '@/app/banner-light.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export default function HomePage() {
   return (
     <div className='min-h-screen flex flex-col items-center'>
       {/* Title */}
-      <section className='container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32'>
+      <section className='container px-4 pt-12.5 md:pt-25 pb-12 md:pb-24 lg:pb-32'>
         <div className='mx-auto max-w-3xl text-center'>
           <h1 className="mb-6 flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-[80px] font-semibold tracking-[-1px] md:tracking-[-2.4px] leading-[110%] font-['Inter']">
             <Image
@@ -21,7 +20,7 @@ export default function HomePage() {
             />
             <span className='text-foreground'>TopStats.gg</span>
           </h1>
-          <p className='mb-8 text-lg md:text-xl text-muted-foreground pt-4 md:pt-[42px]'>
+          <p className='mb-8 text-lg md:text-xl text-muted-foreground pt-4'>
             Get started using TopStats API and power your service with
             analytics.
           </p>
@@ -29,7 +28,7 @@ export default function HomePage() {
       </section>
 
       {/* Cards */}
-      <section className='container px-4 pb-16 flex-grow'>
+      <section className='container px-4 pb-16'>
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {/* Get Building */}
           <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
