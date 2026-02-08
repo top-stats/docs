@@ -5,38 +5,22 @@ import LogoSvg from '@/app/logo.svg'
 import BannerSvg from '@/app/banner.svg'
 import BannerLightSvg from '@/app/banner-light.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export default function HomePage() {
-  // Animation States
-  const [showTitle, setShowTitle] = useState(false)
-  const [showCards, setShowCards] = useState(false)
-
-  useEffect(() => {
-    setTimeout(() => setShowTitle(true), 100)
-    setTimeout(() => setShowCards(true), 400)
-  }, [])
-
   return (
     <div className='min-h-screen flex flex-col items-center'>
       {/* Title */}
-      <section className='container px-4 pt-[50px] md:pt-[100px] pb-12 md:pb-24 lg:pb-32'>
-        <div
-          className={`mx-auto max-w-3xl text-center transition-all duration-700 ease-out
-            ${showTitle ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}
-        >
+      <section className='container px-4 pt-12.5 md:pt-25 pb-12 md:pb-24 lg:pb-32'>
+        <div className='mx-auto max-w-3xl text-center'>
           <h1 className="mb-6 flex items-center justify-center gap-2 md:gap-4 text-4xl md:text-[80px] font-semibold tracking-[-1px] md:tracking-[-2.4px] leading-[110%] font-['Inter']">
             <Image
               src={LogoSvg}
               alt='TopStats Logo'
-              className='h-[44px] w-[44px] md:h-[88px] md:w-[88px]'
-              width={88}
-              height={88}
+              className='size-11 md:size-22'
             />
             <span className='text-foreground'>TopStats.gg</span>
           </h1>
-          <p className='mb-8 text-lg md:text-xl text-muted-foreground pt-4 md:pt-[42px]'>
+          <p className='mb-8 text-lg md:text-xl text-muted-foreground pt-4'>
             Get started using TopStats API and power your service with
             analytics.
           </p>
@@ -44,22 +28,12 @@ export default function HomePage() {
       </section>
 
       {/* Cards */}
-      <section className='container px-4 pb-16 flex-grow'>
-        <div
-          className={`grid gap-6 lg:grid-cols-2 xl:grid-cols-3 transition-all duration-700
-            ${showCards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-          `}
-        >
+      <section className='container px-4 pb-16'>
+        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
           {/* Get Building */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
-            <div className='w-8 h-8 relative flex items-center justify-center'>
-              <BookOpen className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
+            <div className='w-8 h-8 relative'>
+              <BookOpen className='w-full h-full' />
             </div>
             <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
               Get Building
@@ -68,10 +42,10 @@ export default function HomePage() {
               Get analytical data straight from your favourite bots using our
               API!
             </div>
-            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+            <div className='justify-start items-center inline-flex'>
               <Link href='/docs/api'>
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Get Started Here
                     </div>
@@ -83,14 +57,8 @@ export default function HomePage() {
           </div>
 
           {/* Support Server */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
-            <div className='w-8 h-8 relative flex items-center justify-center'>
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
+            <div className='w-8 h-8 relative'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='currentColor'
@@ -107,14 +75,14 @@ export default function HomePage() {
               Need some help getting started, wanna stay up to date, or join our
               awesome community!
             </div>
-            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+            <div className='justify-start items-center inline-flex'>
               <Link
                 href='https://discord.gg/x48WXcTFVD'
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Join our Discord
                     </div>
@@ -126,15 +94,9 @@ export default function HomePage() {
           </div>
 
           {/* Widgets */}
-          <div
-            className='min-h-[251px] p-6 bg-gray-50 shadow-lg rounded-xl border border-gray-200 dark:bg-card dark:border-[#ffffff1a] flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-[#8A9DE4] group'
-            style={{
-              background:
-                'linear-gradient(91.94deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.01) 100%)',
-            }}
-          >
-            <div className='w-8 h-8 relative flex items-center justify-center'>
-              <LucideImage className='w-full h-full transition-transform duration-300 group-hover:rotate-12' />
+          <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
+            <div className='w-8 h-8 relative'>
+              <LucideImage className='w-full h-full' />
             </div>
             <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
               Use Widgets
@@ -142,10 +104,10 @@ export default function HomePage() {
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get graphs as an image, to display them directly in Discord.
             </div>
-            <div className='home-card-button mt-4 justify-start items-center flex flex-wrap'>
+            <div className='justify-start items-center inline-flex'>
               <Link href='/docs/api/reference/widgets'>
-                <div className='h-[42px] rounded-[10px] justify-center items-center flex group'>
-                  <div className="grow shrink basis-0 h-[42px] px-4 py-2 rounded-[10px] border border-gray-300 shadow-sm justify-center items-center gap-2 flex transition-colors transition-shadow duration-300 hover:scale-105 hover:shadow-md hover:bg-accent hover:text-gray-900 dark:hover:text-white hover:border-accent bg-white dark:bg-[#10111a] dark:border-white font-['Inter']">
+                <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
+                  <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
                       Discover widgets
                     </div>
