@@ -45,10 +45,17 @@ export async function generateMetadata(
   if (!page) notFound()
 
   return {
+    metadataBase: new URL('https://docs.topstats.gg'),
     title: page.data.title,
     description: page.data.description,
     openGraph: {
       images: getPageImage(page).url,
     },
+  }
+}
+
+export function generateViewport() {
+  return {
+    themeColor: '#0ea5a4',
   }
 }
