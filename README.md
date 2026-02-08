@@ -98,6 +98,8 @@ This is a Next.js application generated with
 <!-- CONTRIBUTING -->
 ## Contributing
 
+See our [Contributing Guide](https://docs.topstats.gg/docs/api#contribute) for detailed information on how to contribute to this project.
+
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
