@@ -8,12 +8,15 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://docs.topstats.gg'),
   title: { default: 'Docs | TopStats.gg', template: '%s | TopStats.gg' },
   description: 'Documentation and Guides for TopStats.gg',
-  themeColor: '#5e84f3',
   openGraph: {
     title: 'TopStats.gg Documentation',
     url: 'https://docs.topstats.gg',
     images: ['https://topstats.gg/SiteBanner.png'],
   },
+}
+
+export const viewport = {
+  themeColor: '#5e84f3',
 }
 
 export default function Layout({ children }: { children: ReactNode }) {
