@@ -5,14 +5,14 @@ import { BookIcon, BotIcon, ServerIcon, SquareSlashIcon } from 'lucide-react'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Docs | TopStats.gg',
+  metadataBase: new URL('https://docs.topstats.gg'),
+  title: { default: 'Docs | TopStats.gg', template: '%s | TopStats.gg' },
   description: 'Documentation and Guides for TopStats.gg',
+  themeColor: '#5e84f3',
   openGraph: {
-    images: [
-      {
-        url: 'https:///topstats.gg/SiteBanner.png',
-      },
-    ],
+    title: 'TopStats.gg Documentation',
+    url: 'https://docs.topstats.gg',
+    images: ['https://topstats.gg/SiteBanner.png'],
   },
 }
 
