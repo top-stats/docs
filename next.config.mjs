@@ -6,7 +6,7 @@ const config = {
   async redirects() {
     return [
       {
-        source: '/authentication/:path*',
+        source: '/docs/authentication/:path*',
         destination: '/docs/api/authentication/:path*',
         permanent: true,
       },
@@ -16,12 +16,12 @@ const config = {
         permanent: true,
       },
       {
-        source: '/reference/:path*',
+        source: '/docs/reference/:path*',
         destination: '/docs/api/reference/:path*',
         permanent: true,
       },
       {
-        source: '/libraries/:path*',
+        source: '/docs/libraries/:path*',
         destination: '/docs/api/libraries/:path*',
         permanent: true,
       },
