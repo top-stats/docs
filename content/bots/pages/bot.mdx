@@ -1,0 +1,145 @@
+---
+title: Bot Page
+description: A guide for the bots page on TopStats.gg.
+icon: Bot
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+
+## Data collection
+
+Data is fetched hourly from [Top.gg](https://top.gg), all times displayed on our site are localised to your countries date formatting, and the timezone that you are in!
+
+<Accordions>
+  <Accordion title='Top.gg recent voting change' id='topgg-voting-change'>
+    Recent changes to the voting system will affect how statistics are
+    displayed. Graphs now show only activity from the past hour, using a sliding
+    time window. Additionally, all votes on Top.gg now expire after **28 days**
+    instead of resetting on the first day of each month.
+
+    ![topgg-voting-change](/content/bots/bot-page/voting-change.png)
+
+    ![topgg-voting-change-example](/content/bots/bot-page/voting-change-example.png)
+
+    <h4 className='text-fd-muted-foreground scroll-m-20'>
+      Credits: [@mwlica](https://discord.com/users/821472922140803112)
+    </h4>
+
+  </Accordion>
+</Accordions>
+
+---
+
+## Bot Profile
+
+You can quickly see the most important information in the bot profile. You can also be redirected directly to the Top.gg page or compare the bot.
+
+![bot-profile-image](/content/bots/bot-page/bot-profile.png)
+
+### Trends
+
+We also display the trend of the bot, which is calculated based on the growth over the last day and month.
+
+![bot-trends-image](/content/bots/bot-page/trends.png)
+
+### Rank
+
+The rank indicates the bot's position in the [leaderboard](https://topstats.gg/discord/leaderboard).
+
+![bot-rank-image](/content/bots/bot-page/rank.png)
+
+---
+
+## Graphs
+
+We currently display four different graphs on our bot pages:
+
+- **Monthly Votes**
+- **Total Votes**
+- **Server Count**
+- **Total Reviews**
+
+<Callout title='Monthly Vote Reset removed' type='info'>
+  Since January 31, 2026, top.gg no longer resets votes at the start of each
+  month. Instead, we show you your total votes for the last 28 days. Votes now
+  keep adding up over time and are not set back to zero monthly.
+</Callout>
+
+### Using our Graphs
+
+#### Tooltips
+
+Hovering over the graphs, you can see the exact data points, their dates and values. The value in brackets, indicates the growth or loss compared to the previous data point. So for example if would show the growth from the previous hour.
+
+<Tabs items={['Free', 'Premium']}>
+  <Tab value="Free">
+    ![bot-graph-image](/content/bot-graph.png)
+  </Tab>
+  <Tab value="Premium">
+    #### Compare Previous Data
+    <Callout type={'idea'} title={'Unlock This Feature'}>
+      Want to unlock this feature?
+      <a target={'_blank'} href={'https://topstats.gg/premium'}>Subscribe</a> Today!
+    </Callout>
+
+    As a supporter, one of the features you will get, is the ability to directly compare the previous time period's data
+    directly within the graph itself. Up to a year. For example if you select the 1 month timeframe, you will be able to
+    see the same value for the month before within the tooltip!
+
+    ![bot-premium-graph-image](/content/bot-premium-graph.png)
+
+  </Tab>
+</Tabs>
+
+#### Average Growth Percentage
+
+The **average growth** represents the mean percentage change over a selected time range.  
+It is calculated by averaging the growth percentages of each individual time period.
+
+![avg-growth](/content/bots/bot-page/avg-growth.png)
+
+<Callout>
+  The average growth is calculated using the following formula:
+
+```math
+Average Growth = \frac{1}{n} \sum_{i=1}^{n} g_i
+```
+
+- $g_i$ = Growth rate of the $i$-th time period (e.g. day, week, or month) in percent
+- $n$ = Total number of time periods included in the calculation
+
+    <Accordions type="single">
+    <Accordion title="Example">
+      Suppose you select a **1-week period** and measure the growth for each day:
+
+        - Day 1: **+10%**
+        - Day 2: **+5%**
+        - Day 3: **+2%**
+
+        The average growth is calculated as:
+
+        ```math
+        \text{Average Growth} = \frac{10 + 5 + 2}{3} = \frac{17}{3} \approx 5.67\%
+        ```
+
+        This means that, on average, the value increased by **approximately 5.67% per day** over the selected period.
+      </Accordion>
+
+    </Accordions>
+</Callout>
+
+---
+
+## Hourly and Daily Tables
+
+Data is fetched hourly and is updated here, the times are localised to your countries date formatting,and the timezone that you are in!
+![bot-tables-image](/content/bots/bot-page/bot-tables.png)
+
+---
+
+## Recommend Bots (More Bots Like ...)
+
+The recommended bots listed at the bottom of the page as picked based off one of the random tags that a bot has been assigned, and picks the bots with the most traffic to display.
+
+![recommended-bots-image](/content/bots/bot-page/recommended-bots.png)

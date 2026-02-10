@@ -1,0 +1,51 @@
+---
+title: FAQ
+description: Frequently Asked Questions about TopStats.gg.
+icon: TextSearch
+---
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { CircleQuestionMark } from 'lucide-react'
+
+<Accordions type='single'>
+  <Accordion id='what-is-top-stats' title='What is TopStats?'>
+    TopStats, previously DBL Statistics, is a analytical site that provides statistics on your favourite Discord Bots
+  </Accordion>
+  <Accordion id='where-does-top-stats-get-its-data' title='Where does TopStats get its data?'>
+    We source our Discord bot data from Top.gg, every hour.
+  </Accordion>
+  <Accordion id='remove-wrong-data' title='I posted the wrong data to Top.gg and its shown on your site, can I remove this data point?'>
+    If you would like to remove a certain data point in your data, you can do so by contacting us in our [Discord Server](https://discord.gg/VDf8CG6KGA).
+  </Accordion>
+  <Accordion id='why-not-showing' title='Why is my bot not showing up?'>
+    This may be because your bot has not yet been approved, or has recently been approved. Please wait till the next hour for it to pop up.
+  </Accordion>
+  <Accordion id='data-incorrect' title='Why is my bots data incorrect or not showing up?'>
+    In order for your data to appear on TopStats, you will need to post your server count and shard count to [Top.gg](https://top.gg) through their API.
+  </Accordion>
+  <Accordion id='data-issue' title='There is an issue with my data or a graph isnt showing what Id expect.'>
+    Please contact our team on our [Discord Server](https://discord.gg/VDf8CG6KGA), so that we can assist you with this.
+  </Accordion>
+  <Accordion id='request-data' title='Can I request all my data?'>
+    At this moment we don't have a way for you to do this. We may in the future but until then unfortunately there is no way to do this.
+    However, you can request access to or deletion of your personal data by contacting us via email at privacy@topstats.gg
+  </Accordion>
+  <Accordion id='delete-data' title='How can I delete all of my data?'>
+    Please contact our team at privacy@topstats.gg, and we will remove your personal data. Please note that if you log back into our site after account deletion, we will store your data once more
+  </Accordion>
+  <Accordion id='affiliation' title='Are we affiliated with Top.gg?'>
+    No, TopStats is an independent entity and we are not affiliated with [Top.gg](https://top.gg).
+  </Accordion>
+  <Accordion id='change-time-format' title='Can I change the time format?'>
+    TopStats always adjusts the time format to the language set in your browser. Change the language in your browser to change the time format.
+  </Accordion>
+</Accordions>
+
+
+#
+
+<Card icon={<CircleQuestionMark className="text-grey-300" />} target={'_blank'} href="https://topstats.gg/discord?ref=docs" title="Still Have Questions?">
+  Can't find the answer you're looking for? Our team is happy to answer your questions.
+</Card>
+
+#

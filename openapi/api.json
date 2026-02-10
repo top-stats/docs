@@ -41,7 +41,6 @@
     },
     "/search/": {
       "get": {
-        "summary": "Search for Discord Bots",
         "parameters": [
           {
             "schema": {
@@ -442,11 +441,13 @@
                     "approved_at",
                     "monthly_votes",
                     "total_votes",
+                    "server_count",
                     "review_count",
                     "monthly_votes_rank",
                     "server_count_rank",
                     "total_votes_rank",
                     "timestamp",
+                    "unix_timestamp",
                     "tags",
                     "avg_review_rating",
                     "percentage_changes"
@@ -462,7 +463,8 @@
                     },
                     "certified": {
                       "type": "boolean",
-                      "example": false
+                      "example": false,
+                      "deprecated": true
                     },
                     "owners": {
                       "type": "array",
@@ -498,7 +500,8 @@
                     },
                     "lib": {
                       "type": "string",
-                      "example": ""
+                      "example": "",
+                      "deprecated": true
                     },
                     "prefix": {
                       "type": "string",
@@ -550,6 +553,14 @@
                     "unix_timestamp": {
                       "type": "string",
                       "example": "1746018000000"
+                    },
+                    "unlisted": {
+                      "type": "boolean",
+                      "example": false
+                    },
+                    "unlisted_reason": {
+                      "type": "string",
+                      "example": "This bot was taken down for breaking our Terms of Service"
                     },
                     "tags": {
                       "type": "array",
@@ -640,6 +651,22 @@
           },
           {
             "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "unlisted",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "unlisted_reason",
+            "required": false
+          },
+          {
+            "schema": {
               "type": "string",
               "enum": [
                 "alltime",
@@ -683,6 +710,21 @@
                       "items": {
                         "type": "object",
                         "properties": {
+                          "compare": {
+                            "time": {
+                              "type": "string",
+                              "format": "date-time",
+                              "example": "2025-03-31T00:00:00.000Z"
+                            },
+                            "id": {
+                              "type": "string",
+                              "example": "583807014896140293"
+                            },
+                            "value": {
+                              "type": "integer",
+                              "example": 265
+                            }
+                          },
                           "time": {
                             "type": "string",
                             "format": "date-time",
@@ -1366,11 +1408,13 @@
                           "approved_at",
                           "monthly_votes",
                           "total_votes",
+                          "server_count",
                           "review_count",
                           "monthly_votes_rank",
                           "server_count_rank",
                           "total_votes_rank",
                           "timestamp",
+                          "unix_timestamp",
                           "tags",
                           "avg_review_rating",
                           "percentage_changes"
@@ -1386,7 +1430,8 @@
                           },
                           "certified": {
                             "type": "boolean",
-                            "example": false
+                            "example": false,
+                            "deprecated": true
                           },
                           "owners": {
                             "type": "array",
@@ -1422,7 +1467,8 @@
                           },
                           "lib": {
                             "type": "string",
-                            "example": ""
+                            "example": "",
+                            "deprecated": true
                           },
                           "prefix": {
                             "type": "string",
@@ -1474,6 +1520,14 @@
                           "unix_timestamp": {
                             "type": "string",
                             "example": "1746018000000"
+                          },
+                          "unlisted": {
+                            "type": "boolean",
+                            "example": false
+                          },
+                          "unlisted_reason": {
+                            "type": "string",
+                            "example": "This bot was taken down for breaking our Terms of Service"
                           },
                           "tags": {
                             "type": "array",
@@ -1627,6 +1681,22 @@
             "in": "query",
             "name": "type",
             "required": true
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "unlisted",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "unlisted_reason",
+            "required": false
           },
           {
             "schema": {

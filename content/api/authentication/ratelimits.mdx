@@ -1,0 +1,88 @@
+---
+title: Rate Limits
+description: Read up on rate limits for TopStats.gg
+---
+
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+
+<Callout type={'warn'}>
+  Continuously surpassing our **ratelimits** will result in a cooldown or a permanent ban from using our API.
+
+</Callout>
+
+
+## Rate Limits
+
+### Global Rate limit
+Global rate limits are applied on all routes
+| Route                | Requests Per Minute |
+|----------------------|---------------------|
+| *                    | 120                 |
+
+
+### Per Route Rate limit
+| Route                                                         | Requests Per Minute |
+|---------------------------------------------------------------|---------------------|
+| [/search](../reference/search)                                | 60                  |
+| [/discord/bots/:id](../reference/discord/bots)                | 60                  |
+| [/discord/bots/:id/historical](../reference/discord/bots)     | 60                  |
+| [/discord/bots/:id/recent](../reference/discord/bots)         | 60                  |
+| [/discord/compare](../reference/discord/compare)              | 60                  |
+| [/discord/compare/historical](../reference/discord/compare)   | 60                  |
+| [/discord/rankings](../reference/discord/rankings)            | 60                  |
+| [/discord/tags](../reference/discord/tags)                    | 60                  |
+| [/discord/users/:id/bots](../reference/discord/users)         | 60                  |
+
+### Rate limit response type
+<TypeTable
+  type={{
+    expiresIn: {
+      description: 'Seconds until your rate limit expires',
+      type: 'string'
+    },
+    message: {
+      description: 'Rate limit error message',
+      type: 'string'
+    },
+    code: {
+      description:
+        'The HTTP status returned from your request',
+      type: 'number',
+    }
+  }}
+/>
+
+## FAQ
+
+<Accordions>
+  <Accordion id='what-happens' title="What happens when I am ratelimited?">
+    When you are rate-limited, you will receive a response like the one below, you can use this to wait until your
+    ratelimit has been lifted before sending another response.
+
+    ```json
+    {
+      "code": 429,
+      "message": "You are being rate limited limit, Try again soon.",
+      "expiresIn": 26
+    }
+    ```
+  </Accordion>
+  <Accordion id='higher-limits' title="Would you like higher rate limits?">
+    For any requests regarding ratelimits, please reach out to our development team in [Our
+    Discord](https://discord.com/invite/jjEauJXuZc).
+  </Accordion>
+  <Accordion id='perm-banned' title="I am permanently banned from the API, what can I do?">
+    If you've been permanently banned from using our API, you can reach out to our team in [Our
+    Discord](https://discord.com/invite/jjEauJXuZc).
+
+
+    ```json
+    {
+      "code": 403,
+      "message": "You have been permanently banned from using our API, please contact our team to appeal.",
+    }
+    ```
+  </Accordion>
+</Accordions>

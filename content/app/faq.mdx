@@ -1,0 +1,65 @@
+---
+title: FAQ
+description: Frequently Asked Questions about TopStats.gg's App.
+icon: TextSearch
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+
+<Accordions type='single'>
+  <Accordion id='disable-command' title='How can I disable a command?'>
+    <Steps>
+      <Step>
+        Go to your Discord **Server Settings**.
+        ![server-settings-image](/content/faq/app/server-settings.png)
+      </Step>
+      <Step>
+        Click **Integrations**. You should see **TopStats** listed there.
+      </Step>
+      <Step>
+        Click **TopStats** to open an overview of its commands.
+        ![get-bot-image](/content/faq/app/get-bot.png)
+      </Step>
+      <Step>
+        Click the command you want to disable, select the **@everyone** role,
+        set it to **❌**, then click **Save**.
+        ![edit-permissions-image](/content/faq/app/edit-permissions.png)
+      </Step>
+    </Steps>
+    <Callout type={'info'}>
+      This hides the command for members, but it will remain visible to
+      administrators.
+    </Callout>
+    [Learn more about Discord Command
+    Permissions](https://discord.com/blog/slash-commands-permissions-discord-apps-bots)
+  </Accordion>
+  <Accordion
+    id='external-emojis'
+    title='Why arent external emojis showing properly?'
+  >
+    Make sure the bot has the **Use External Emojis** permission in your server.
+    ![permission-image](/content/faq/app/permission-external-emojis.png)
+  </Accordion>
+  <Accordion
+    id='interaction-failed'
+    title='Slash Commands Respond With "This Interaction Failed"'
+  >
+    If you get a "This Interaction Failed" error when using slash commands, try
+    updating Discord. If that does not work, make sure that TopStats is online
+    and that there is not currently an outage. If none of this works, reach out
+    to our [Support Server](https://discord.gg/x48WXcTFVD).
+  </Accordion>
+  <Accordion id='slash-command-failed' title='Slash Commands Wont Work'>
+    If slash commands are not appearing in your server, try the following:
+    1. Make sure they are enabled. Go to the [Install the App](./invite/index.mdx) page to learn more.
+    2. Make sure you have the `Use Application Commands` permission in role and channel settings.
+    3. Try [re-inviting the bot](https://discord.com/oauth2/authorize?client_id=583807014896140293)
+    4. Make sure your Discord is up-to-date.
+    If you have tried all of these and are still having issues, reach out to us in our [Support Server](https://discord.gg/x48WXcTFVD).
+  </Accordion>
+  <Accordion id='deauthorize-app' title='TopStats slash commands are still showing after I removed the bot from my server.'>
+    If you are still seeing TopStats commands while typing `/`, most likely you have added TopStats into your profile. Go to your **Discord settings** > **Authorized Apps** and **deauthorize** TopStats from there.
+    ![deauthorize-app-image](/content/faq/app/deauthorize-app.png)
+  </Accordion>
+</Accordions>

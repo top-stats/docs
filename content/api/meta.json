@@ -1,0 +1,18 @@
+{
+  "title": "API",
+  "icon": "Code",
+  "root": true,
+  "pages": [
+    "index",
+    "faq",
+    "get-started",
+    "premium",
+    "changelog",
+    "---Authentication---",
+    "...authentication",
+    "---Libraries---",
+    "...libraries",
+    "---Reference---",
+    "...reference"
+  ]
+}

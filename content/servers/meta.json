@@ -1,0 +1,13 @@
+{
+  "title": "Servers",
+  "icon": "Server",
+  "root": false,
+  "pages": [
+    "index",
+    "faq",
+    "invite",
+    "premium",
+    "---Pages---",
+    "...pages"
+  ]
+}

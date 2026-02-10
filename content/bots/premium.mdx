@@ -1,0 +1,107 @@
+---
+title: Bots Premium
+description: Premium plans, features and cancellation policy for our premium plans for bots.
+icon: Rocket
+---
+
+import { CheckIcon, RocketIcon } from 'lucide-react'
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+
+<Callout type={'info'} title={'Bots Premium'}>
+  This page refers to premium plans pertaining to our **Bots** products, not
+  servers.
+</Callout>
+
+<Card
+  icon={<RocketIcon className='text-green-300' />}
+  target={'_blank'}
+  href='https://topstats.gg/premium'
+  title='Purchase Premium'
+>
+  Enhance your TopStats experience, and get deeper insights with premium today!
+</Card>
+
+## FAQ
+
+<Accordions type="single">
+  <Accordion id='refund-policy' title="What is your refund policy?">
+    We will process refund requests up to 14 days after purchase. Your refund will be sent to the payment method used.
+    Refunds will be pro-rated, meaning you will be refunded a portion of your payment, eqvivalent to the amount of time that hadn't yet elapsed.
+  </Accordion>
+  <Accordion id='apply-refund' title="How do I apply for a refund?">
+    To apply for a refund, please send an email to refunds@topstats.gg, with your TopStats ID (which you can find in
+    settings > profile).
+    <Steps>
+      <Step>
+        ### Open the settings [!toc]
+        Click on the settings icon on the [home page](https://topstats.gg).
+        ![settings-image](/content/faq/settings/settings.png)
+      </Step>
+      <Step>
+        ### Open the profile settings [!toc]
+        Click on the "Profile" tab in the settings menu.
+        ![profile-image](/content/faq/settings/profile.png)
+      </Step>
+      <Step>
+        ### Find your TopStats ID [!toc]
+        Your TopStats ID is located under the "Account Information" section.
+        ![topstats-id-image](/content/faq/settings/copy-id.png)
+      </Step>
+      <Step>
+        ### Send an email [!toc]
+        Send an email to refunds@topstats.gg with your TopStats ID and reason for the refund.
+      </Step>
+    </Steps>
+  </Accordion>
+  <Accordion id='payment-methods' title="What payment methods do you accept?">
+    We accept the following payment methods:
+    - **All credit & debit cards (Visa, Mastercard, American Express)**
+    - **PayPal**
+    - **Apple Pay**
+    - **Google Pay**
+    - **Link**
+    - **iDEAL**
+
+    *Don't see a payment method, you would like us to support? Reach out to us!*
+
+  </Accordion>
+  <Accordion id='edit-premium' title="Can I change or cancel my premium plan?">
+    You can modify or cancel your plan at any time. If you cancel your plan, it will be cancelled from the next billing
+    date onwards. You can do this by going to Settings > Profile > Cancel.
+    <Steps>
+      <Step>
+        ### Open the settings [!toc]
+        Click on the settings icon on the [home page](https://topstats.gg).
+        ![settings-image](/content/faq/settings/settings.png)
+      </Step>
+      <Step>
+        ### Open the premium settings [!toc]
+        Click on the "Premium" tab in the settings menu.
+        ![premium-image](/content/faq/settings/premium.png)
+      </Step>
+      <Step>
+        ### Edit your plan [!toc]
+        From here, you can modify or cancel your premium plan.
+        ![modify-cancel-image](/content/faq/settings/edit_premium.png)
+      </Step>
+    </Steps>
+  </Accordion>
+</Accordions>
+
+## Features
+
+All features that come with the premium plan of TopStats!
+
+| Feature                                            | Free Plan | Paid Plan                          |
+| -------------------------------------------------- | --------- | ---------------------------------- |
+| Previous time period comparisons                   | —         | <CheckIcon color={'lightgreen'} /> |
+| Greater data granularity (weekly data)             | —         | <CheckIcon color={'lightgreen'} /> |
+| More comparisons (up to 8 bots)                    | —         | <CheckIcon color={'lightgreen'} /> |
+| The above features accessible through API as well! | —         | <CheckIcon color={'lightgreen'} /> |
+| Priority Support                                   | —         | <CheckIcon color={'lightgreen'} /> |
+| More influence over our roadmap and new features   | —         | <CheckIcon color={'lightgreen'} /> |
+| Cool Discord role to show off your swag            | —         | <CheckIcon color={'lightgreen'} /> |
+
+![image](/content/bots/premium/Without-or-with-TopStats-Premium-v2.png)

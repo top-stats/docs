@@ -1,0 +1,45 @@
+---
+title: Bots
+full: true
+
+_openapi:
+  method: GET
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+<APIPage document={"./openapi/widgetapi.json"} operations={[
+  { "path": "/{id}/{type}", "method": "get" },
+]} webhooks={[]} hasHead={true} />
+
+## Examples
+<Tabs items={['servers', 'monthlyvotes', 'totalvotes']}>
+  <Tab value="servers">
+
+    ```sh
+    https://widgets.topstats.gg/762217899355013120/servers.png?timeframe=alltime
+    ```
+    <img
+      src="https://widgets.topstats.gg/762217899355013120/servers.png?timeframe=alltime"
+      alt="bot-graph-image"
+    />
+  </Tab>
+  <Tab value="monthlyvotes">
+    ```sh
+    https://widgets.topstats.gg/762217899355013120/monthlyvotes.png?timeframe=30d
+    ```
+    <img
+      src="https://widgets.topstats.gg/762217899355013120/monthlyvotes.png?timeframe=30d"
+      alt="bot-graph-image"
+    />
+  </Tab>
+  <Tab value="totalvotes">
+    ```sh
+    https://widgets.topstats.gg/762217899355013120/totalvotes.png?timeframe=90d
+    ```
+    <img
+      src="https://widgets.topstats.gg/762217899355013120/totalvotes.png?timeframe=90d"
+      alt="bot-graph-image"
+    />
+  </Tab>
+</Tabs>

@@ -8,6 +8,16 @@
     --color-fd-primary: #5e84f3;
 }
 
+:root {
+    --fd-layout-width: 100vw;
+    --colors-brand: #8a9de4;
+    --api-color: var(--color-purple-400);
+    --bots-color: var(--color-fd-primary);
+    --servers-color: var(--color-green-300);
+    --app-color: #B9BABE;
+    --color-fd-idea: var(--colors-brand);
+}
+
 .dark {
     --color-fd-background: #04050e;
     --color-fd-card: #04050e;

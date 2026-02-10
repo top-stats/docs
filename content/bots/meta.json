@@ -1,0 +1,12 @@
+{
+  "title": "Bots",
+  "icon": "Bot",
+  "root": true,
+  "pages": [
+    "index",
+    "faq",
+    "premium",
+    "---Pages---",
+    "...pages"
+  ]
+}
