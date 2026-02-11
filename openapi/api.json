@@ -420,6 +420,14 @@
             "in": "path",
             "name": "id",
             "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
           }
         ],
         "responses": {
@@ -695,6 +703,14 @@
             "in": "path",
             "name": "id",
             "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "userId",
+            "required": true
           }
         ],
         "responses": {
@@ -801,6 +817,14 @@
             },
             "in": "path",
             "name": "id",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "userId",
             "required": true
           }
         ],
@@ -959,6 +983,298 @@
                     "hourlyData",
                     "dailyData"
                   ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Resource not found",
+                  "statusCode": 404,
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found, no bot exists with the id provided."
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discord/bots/{id}/leaderboard": {
+      "get": {
+        "summary": "Fetch vote leaderboards for a Discord Bot",
+        "description": "Get vote leaderboard data",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "maximum": 500
+            },
+            "in": "path",
+            "name": "limit",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "number",
+              "default": 0,
+              "minimum": 0
+            },
+            "in": "path",
+            "name": "offset",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "total",
+                    "leaderboard"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "string",
+                      "example": "12"
+                    },
+                    "leaderboard": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "position",
+                          "connectionId",
+                          "userId",
+                          "voteCount",
+                          "totalVotesByWeight",
+                          "lastVote",
+                          "user"
+                        ],
+                        "properties": {
+                          "position": {
+                            "type": "string",
+                            "example": "3"
+                          },
+                          "connectionId": {
+                            "type": "string",
+                            "example": "809106054496370688"
+                          },
+                          "userId": {
+                            "type": "string",
+                            "example": "7709988444184444928"
+                          },
+                          "voteCount": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "totalVotesByWeight": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "lastVote": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2026-02-11T10:35:12.383Z"
+                          },
+                          "user": {
+                            "type": "object",
+                            "required": [
+                              "topggId",
+                              "discordId",
+                              "username",
+                              "avatar"
+                            ],
+                            "properties": {
+                              "topggId": {
+                                "type": "string",
+                                "example": "7709988444184444928"
+                              },
+                              "discordId": {
+                                "type": "string",
+                                "example": "116930717241311236"
+                              },
+                              "username": {
+                                "type": "string",
+                                "example": "luke.stoodley"
+                              },
+                              "avatar": {
+                                "type": "string",
+                                "format": "uri",
+                                "example": "https://cdn.discordapp.com/avatars/116930717241311236/7493d96193c36affe3a721ac61df9cec.png"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Resource not found",
+                  "statusCode": 404,
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Not found, no bot exists with the id provided."
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/discord/bots/{id}/leaderboard/{userId}": {
+      "get": {
+        "summary": "Fetch vote leaderboards for a Discord Bot",
+        "description": "Get vote leaderboard data",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number",
+              "default": 100,
+              "maximum": 500
+            },
+            "in": "path",
+            "name": "limit",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "number",
+              "default": 0,
+              "minimum": 0
+            },
+            "in": "path",
+            "name": "offset",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "total",
+                    "leaderboard"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "string",
+                      "example": "12"
+                    },
+                    "leaderboard": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "position",
+                          "connectionId",
+                          "userId",
+                          "voteCount",
+                          "totalVotesByWeight",
+                          "lastVote",
+                          "user"
+                        ],
+                        "properties": {
+                          "position": {
+                            "type": "string",
+                            "example": "3"
+                          },
+                          "connectionId": {
+                            "type": "string",
+                            "example": "809106054496370688"
+                          },
+                          "userId": {
+                            "type": "string",
+                            "example": "7709988444184444928"
+                          },
+                          "voteCount": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "totalVotesByWeight": {
+                            "type": "integer",
+                            "example": 2
+                          },
+                          "lastVote": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2026-02-11T10:35:12.383Z"
+                          },
+                          "user": {
+                            "type": "object",
+                            "required": [
+                              "topggId",
+                              "discordId",
+                              "username",
+                              "avatar"
+                            ],
+                            "properties": {
+                              "topggId": {
+                                "type": "string",
+                                "example": "7709988444184444928"
+                              },
+                              "discordId": {
+                                "type": "string",
+                                "example": "116930717241311236"
+                              },
+                              "username": {
+                                "type": "string",
+                                "example": "luke.stoodley"
+                              },
+                              "avatar": {
+                                "type": "string",
+                                "format": "uri",
+                                "example": "https://cdn.discordapp.com/avatars/116930717241311236/7493d96193c36affe3a721ac61df9cec.png"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }

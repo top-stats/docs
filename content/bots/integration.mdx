@@ -1,0 +1,44 @@
+---
+title: Top.gg Integration
+description: Setup guide for the Top.gg Integration.
+icon: Blocks
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+
+You can analyze directly on topstats which of your users voted the most on Top.gg!
+
+<Callout>
+  This feature requires an [approved
+  bot](https://support.top.gg/hc/en-us/articles/23135162935708-How-to-Add-Your-Bot)
+  on top.gg!
+</Callout>
+
+<Steps>
+<Step>
+
+### Authorize TopStats as Third-party Application
+
+Go to `https://top.gg/bot/:id/dashboard/integrations` and click on **Integrations & API** in the sidebar. Then search for **TopStats** and click on **Install**.
+
+![step-1](/content/bots/integration/step-1.png)
+
+</Step>
+
+<Step>
+
+TopStats should now have been added as a third-party application.
+
+![step-2](/content/bots/integration/integration.png)
+
+</Step>
+
+<Step>
+
+Visit `https://topstats.gg/discord/bots/:id/leaderboard` to check if it works
+
+![leaderboard](/content/bots/integration/leaderboard.png)
+
+</Step>
+
+</Steps>
