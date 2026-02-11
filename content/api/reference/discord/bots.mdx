@@ -2,7 +2,7 @@
 title: Bots
 full: true
 ---
-
+import { APIPage } from '../../../../src/components/api-page'
 import { Banner } from 'fumadocs-ui/components/banner'
 
 <Banner
@@ -22,7 +22,10 @@ import { Banner } from 'fumadocs-ui/components/banner'
     { path: '/discord/bots/{id}', method: 'get' },
     { path: '/discord/bots/{id}/historical', method: 'get' },
     { path: '/discord/bots/{id}/recent', method: 'get' },
-  ]}
+    { path: '/discord/bots/{id}/leaderboard', method: 'get' },
+    { path: `/discord/bots/{id}/leaderboard/{userId}`, method: 'get' },
+    ]}
   webhooks={[]}
   hasHead={true}
 />
+
