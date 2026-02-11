@@ -1050,78 +1050,91 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "total",
-                    "leaderboard"
+                    "data",
+                    "code"
                   ],
                   "properties": {
-                    "total": {
-                      "type": "string",
-                      "example": "12"
+                    "code": {
+                      "type": "integer",
+                      "example": 200
                     },
-                    "leaderboard": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "position",
-                          "connectionId",
-                          "userId",
-                          "voteCount",
-                          "totalVotesByWeight",
-                          "lastVote",
-                          "user"
-                        ],
-                        "properties": {
-                          "position": {
-                            "type": "string",
-                            "example": "3"
-                          },
-                          "connectionId": {
-                            "type": "string",
-                            "example": "809106054496370688"
-                          },
-                          "userId": {
-                            "type": "string",
-                            "example": "7709988444184444928"
-                          },
-                          "voteCount": {
-                            "type": "integer",
-                            "example": 2
-                          },
-                          "totalVotesByWeight": {
-                            "type": "integer",
-                            "example": 2
-                          },
-                          "lastVote": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2026-02-11T10:35:12.383Z"
-                          },
-                          "user": {
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "total",
+                        "leaderboard"
+                      ],
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "example": 11
+                        },
+                        "leaderboard": {
+                          "type": "array",
+                          "items": {
                             "type": "object",
                             "required": [
-                              "topggId",
-                              "discordId",
-                              "username",
-                              "avatar"
+                              "position",
+                              "connectionId",
+                              "userId",
+                              "voteCount",
+                              "totalVotesByWeight",
+                              "lastVote",
+                              "user"
                             ],
                             "properties": {
-                              "topggId": {
+                              "position": {
                                 "type": "string",
-                                "example": "7709988444184444928"
+                                "example": "1"
                               },
-                              "discordId": {
+                              "connectionId": {
                                 "type": "string",
-                                "example": "116930717241311236"
+                                "example": "809106054496370688"
                               },
-                              "username": {
+                              "userId": {
                                 "type": "string",
-                                "example": "luke.stoodley"
+                                "example": "3323278129891049472"
                               },
-                              "avatar": {
+                              "voteCount": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "totalVotesByWeight": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "lastVote": {
                                 "type": "string",
-                                "format": "uri",
-                                "example": "https://cdn.discordapp.com/avatars/116930717241311236/7493d96193c36affe3a721ac61df9cec.png"
+                                "format": "date-time",
+                                "example": "2026-02-11T06:50:00.245Z"
+                              },
+                              "user": {
+                                "type": "object",
+                                "required": [
+                                  "topggId",
+                                  "discordId",
+                                  "username",
+                                  "avatar"
+                                ],
+                                "properties": {
+                                  "topggId": {
+                                    "type": "string",
+                                    "example": "3323278129891049472"
+                                  },
+                                  "discordId": {
+                                    "type": "string",
+                                    "example": "205680187394752512"
+                                  },
+                                  "username": {
+                                    "type": "string",
+                                    "example": "xignotic"
+                                  },
+                                  "avatar": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "example": "https://cdn.discordapp.com/avatars/205680187394752512/9d9214191caa8969d907c91444261755.png"
+                                  }
+                                }
                               }
                             }
                           }
@@ -1196,79 +1209,81 @@
                 "schema": {
                   "type": "object",
                   "required": [
+                    "code",
                     "total",
-                    "leaderboard"
+                    "data"
                   ],
                   "properties": {
+                    "code": {
+                      "type": "integer",
+                      "example": 200
+                    },
                     "total": {
                       "type": "string",
                       "example": "12"
                     },
-                    "leaderboard": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "position",
-                          "connectionId",
-                          "userId",
-                          "voteCount",
-                          "totalVotesByWeight",
-                          "lastVote",
-                          "user"
-                        ],
-                        "properties": {
-                          "position": {
-                            "type": "string",
-                            "example": "3"
-                          },
-                          "connectionId": {
-                            "type": "string",
-                            "example": "809106054496370688"
-                          },
-                          "userId": {
-                            "type": "string",
-                            "example": "7709988444184444928"
-                          },
-                          "voteCount": {
-                            "type": "integer",
-                            "example": 2
-                          },
-                          "totalVotesByWeight": {
-                            "type": "integer",
-                            "example": 2
-                          },
-                          "lastVote": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2026-02-11T10:35:12.383Z"
-                          },
-                          "user": {
-                            "type": "object",
-                            "required": [
-                              "topggId",
-                              "discordId",
-                              "username",
-                              "avatar"
-                            ],
-                            "properties": {
-                              "topggId": {
-                                "type": "string",
-                                "example": "7709988444184444928"
-                              },
-                              "discordId": {
-                                "type": "string",
-                                "example": "116930717241311236"
-                              },
-                              "username": {
-                                "type": "string",
-                                "example": "luke.stoodley"
-                              },
-                              "avatar": {
-                                "type": "string",
-                                "format": "uri",
-                                "example": "https://cdn.discordapp.com/avatars/116930717241311236/7493d96193c36affe3a721ac61df9cec.png"
-                              }
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "position",
+                        "connectionId",
+                        "userId",
+                        "voteCount",
+                        "totalVotesByWeight",
+                        "lastVote",
+                        "user"
+                      ],
+                      "properties": {
+                        "position": {
+                          "type": "string",
+                          "example": "3"
+                        },
+                        "connectionId": {
+                          "type": "string",
+                          "example": "809106054496370688"
+                        },
+                        "userId": {
+                          "type": "string",
+                          "example": "7709988444184444928"
+                        },
+                        "voteCount": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "totalVotesByWeight": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "lastVote": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2026-02-11T10:35:12.383Z"
+                        },
+                        "user": {
+                          "type": "object",
+                          "required": [
+                            "topggId",
+                            "discordId",
+                            "username",
+                            "avatar"
+                          ],
+                          "properties": {
+                            "topggId": {
+                              "type": "string",
+                              "example": "7709988444184444928"
+                            },
+                            "discordId": {
+                              "type": "string",
+                              "example": "116930717241311236"
+                            },
+                            "username": {
+                              "type": "string",
+                              "example": "luke.stoodley"
+                            },
+                            "avatar": {
+                              "type": "string",
+                              "format": "uri",
+                              "example": "https://cdn.discordapp.com/avatars/116930717241311236/7493d96193c36affe3a721ac61df9cec.png"
                             }
                           }
                         }
