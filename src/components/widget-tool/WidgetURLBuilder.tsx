@@ -19,7 +19,7 @@ export function WidgetURLBuilder() {
 
 function WidgetCard() {
   return (
-    <Card className='bg-accent/25'>
+    <Card className='bg-fd-accent/20 border-2'>
       <CardHeader>
         <CardTitle>Card Title</CardTitle>
         <CardDescription>Card Description</CardDescription>
@@ -37,7 +37,7 @@ function WidgetCard() {
 
 function PreviewCard() {
   return (
-    <Card className='bg-fd-accent/50'>
+    <Card className='bg-fd-accent/20 border-2'>
       <CardHeader>
         <CardTitle>Card Titdle</CardTitle>
         <CardDescription>Card Description</CardDescription>
