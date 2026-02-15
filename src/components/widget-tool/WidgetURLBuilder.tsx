@@ -79,9 +79,9 @@ function WidgetCard() {
   return (
     <Card className='bg-fd-accent/20 border h-full'>
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Create your widget</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Select the bot and widget type to generate your widget URL
         </CardDescription>
       </CardHeader>
       <CardContent>
