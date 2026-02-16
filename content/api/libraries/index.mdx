@@ -5,7 +5,7 @@ description: Welcome to our Community Maintained Libraries.
 
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
-import { BracesIcon, CodeIcon } from 'lucide-react'
+import { BracesIcon, CodeIcon, CogIcon } from 'lucide-react'
 import { GithubInfo } from 'fumadocs-ui/components/github-info'
 
 
@@ -20,6 +20,9 @@ import { GithubInfo } from 'fumadocs-ui/components/github-info'
   <Card icon={<CodeIcon className="text-green-300" />} href="./libraries/python" title="Python Library">
     Use our API with ease in your Python application!
   </Card>
+  <Card icon={<CogIcon className="text-orange-400" />} href="./libraries/rust" title="Rust Library">
+    A type-safe Rust client with async and blocking support!
+  </Card>
 </Cards>
 
 <h4 className="text-fd-muted-foreground scroll-m-20">
@@ -32,6 +35,10 @@ import { GithubInfo } from 'fumadocs-ui/components/github-info'
 <GithubInfo
   owner="top-stats"
   repo="python-sdk"
+/>
+<GithubInfo
+  owner="top-stats"
+  repo="rust-sdk"
 />
 
 ## Contribute to our SDKs
