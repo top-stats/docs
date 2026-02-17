@@ -1,7 +1,10 @@
 'use client'
 import { useState } from 'react'
+
+import { ChartLine, Check, ChevronRight, Copy } from 'lucide-react'
+
+import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button } from '@/components/ui/button'
-import { Field, FieldLabel } from '@/components/ui/field'
 import {
   Card,
   CardContent,
@@ -18,14 +21,16 @@ import {
   ComboboxItem,
   ComboboxList,
 } from '@/components/ui/combobox'
+import { Field, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { ChevronRight, Copy, Check, ChartLine } from 'lucide-react'
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group'
+import { Separator } from '@/components/ui/separator'
+
 import {
   formats,
   timeframes,
@@ -35,8 +40,6 @@ import {
   type Type,
 } from './options'
 import { buildWidgetUrl, normalizeBotId } from './url-builder'
-import { Separator } from '@/components/ui/separator'
-import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 export function WidgetURLBuilder() {
   const [botId, setBotId] = useState('')
