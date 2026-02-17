@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Field, FieldLabel } from '@/components/ui/field'
 import {
@@ -19,7 +20,13 @@ import {
   ComboboxList,
 } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, Copy, Check } from 'lucide-react'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
 import {
   formats,
   timeframes,
@@ -139,12 +146,48 @@ function WidgetCard() {
 }
 
 function PreviewCard() {
+  const [isCopied, setIsCopied] = useState(false)
+  const [widgetUrl, setWidgetUrl] = useState('https://x.com/shadcn')
+
+  const handleCopy = async () => {
+    try {
+      if (!widgetUrl) {
+        setIsCopied(false)
+        return
+      }
+      await navigator.clipboard.writeText(widgetUrl)
+      setIsCopied(true)
+      window.setTimeout(() => setIsCopied(false), 1500)
+    } catch {
+      setIsCopied(false)
+    }
+  }
+
   return (
     <Card className='bg-fd-accent/20 border h-full'>
       <CardHeader>
-        <CardTitle>Card Titdle</CardTitle>
-        <CardDescription>Card Description</CardDescription>
-        <CardAction>Card Action</CardAction>
+        <CardTitle>
+          <InputGroup>
+            <InputGroupInput
+              placeholder='https://x.com/shadcn'
+              value={widgetUrl}
+              onChange={(event) => setWidgetUrl(event.target.value)}
+            />
+            <InputGroupAddon align='inline-end'>
+              <InputGroupButton
+                aria-label='Copy'
+                title='Copy'
+                size='icon-xs'
+                onClick={handleCopy}
+              >
+                {isCopied ? <Check /> : <Copy />}
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        </CardTitle>
+        <CardDescription>
+          This is a preview of the generated widget URL. Click the copy button
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <p>Card Content</p>
