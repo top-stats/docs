@@ -35,6 +35,7 @@ import {
   type Type,
 } from './options'
 import { buildWidgetUrl, normalizeBotId } from './url-builder'
+import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 export function WidgetURLBuilder() {
   const [botId, setBotId] = useState('')
@@ -135,7 +136,7 @@ function WidgetCard({
         <div className='flex flex-col gap-6'>
           <Field className='w-full max-w-xs'>
             <FieldLabel>
-              Bot-ID<span className='text-destructive'>*</span>
+              Bot ID<span className='text-destructive'>*</span>
             </FieldLabel>
             <Input
               id='bot_id'
@@ -288,21 +289,22 @@ function PreviewCard({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className='mt-2 flex flex-col gap-2 w-full sm:min-w-[30rem] sm:max-w-[30rem]'>
-          {hasPreview ? (
-            <img
-              src={widgetUrl}
-              height={280}
-              width={500}
-              alt='Your widget'
-              className='mx-auto'
-            />
-          ) : (
-            <div className='w-full min-h-64 rounded-xl border border-white/10 bg-gray-50/5 flex items-center justify-center text-white/25 font-mono text-sm px-16 text-center'>
-              Enter your Discord ID to preview your widget
-            </div>
-          )}
-        </div>
+        <AspectRatio ratio={55 / 27} className='rounded-[5px] bg-accent border'>
+          <div className='relative flex h-full w-full items-center justify-center sm:p-0'>
+            {widgetUrl ? (
+              <img
+                src={widgetUrl}
+                alt='TopStats Widget'
+                className='h-full w-full'
+                loading='lazy'
+              />
+            ) : (
+              <p className='w-full h-full flex items-center justify-center text-muted-foreground text-xs sm:text-base text-center'>
+                Enter your Bot ID to preview your TopStats Widget
+              </p>
+            )}
+          </div>
+        </AspectRatio>
       </CardContent>
     </Card>
   )
