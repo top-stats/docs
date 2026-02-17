@@ -27,7 +27,7 @@ import {
   type Format,
   type Timeframe,
   type Type,
-} from './widget-options'
+} from './options'
 
 export function WidgetURLBuilder() {
   return (
