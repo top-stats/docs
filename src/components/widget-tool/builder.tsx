@@ -269,8 +269,14 @@ function PreviewCard({
           <InputGroup>
             <InputGroupInput
               placeholder='https://widgets.topstats.gg/...'
+              readOnly
+              disabled={!widgetUrl}
               value={widgetUrl}
               onChange={(event) => onWidgetUrlChange(event.target.value)}
+              style={{
+                pointerEvents: 'none',
+                cursor: 'default',
+              }}
             />
             <InputGroupAddon align='inline-end'>
               <InputGroupButton
