@@ -19,7 +19,7 @@ import {
   ComboboxList,
 } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
-import { ChevronRight, Copy, Check } from 'lucide-react'
+import { ChevronRight, Copy, Check, ChartLine } from 'lucide-react'
 import {
   InputGroup,
   InputGroupAddon,
@@ -35,6 +35,7 @@ import {
   type Type,
 } from './options'
 import { buildWidgetUrl, normalizeBotId } from './url-builder'
+import { Separator } from '@/components/ui/separator'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 
 export function WidgetURLBuilder() {
@@ -127,10 +128,10 @@ function WidgetCard({
   return (
     <Card className='bg-fd-accent/20 border h-full'>
       <CardHeader>
-        <CardTitle>Create your widget</CardTitle>
-        <CardDescription>
-          Select the bot and widget type to generate your widget URL
-        </CardDescription>
+        <CardTitle className='flex items-center gap-2'>
+          <ChartLine className='w-4 h-4' />
+          Create your widget
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className='flex flex-col gap-6'>
@@ -265,7 +266,7 @@ function PreviewCard({
   return (
     <Card className='bg-fd-accent/20 border h-full'>
       <CardHeader>
-        <CardTitle>
+        <CardDescription>
           <InputGroup>
             <InputGroupInput
               placeholder='https://widgets.topstats.gg/...'
@@ -289,12 +290,10 @@ function PreviewCard({
               </InputGroupButton>
             </InputGroupAddon>
           </InputGroup>
-        </CardTitle>
-        <CardDescription>
-          This is a preview of the generated widget URL. Click the copy button
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <Separator />
+      <CardContent className='pt-auto'>
         <AspectRatio ratio={55 / 27} className='rounded-[5px] bg-accent border'>
           <div className='relative flex h-full w-full items-center justify-center sm:p-0'>
             {widgetUrl ? (
