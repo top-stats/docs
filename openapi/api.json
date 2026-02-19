@@ -1080,7 +1080,8 @@
                               "voteCount",
                               "totalVotesByWeight",
                               "lastVote",
-                              "user"
+                              "user",
+                              "streakCount"
                             ],
                             "properties": {
                               "position": {
@@ -1100,6 +1101,10 @@
                                 "example": 2
                               },
                               "totalVotesByWeight": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "streakCount": {
                                 "type": "integer",
                                 "example": 2
                               },
@@ -1231,7 +1236,8 @@
                         "voteCount",
                         "totalVotesByWeight",
                         "lastVote",
-                        "user"
+                        "user",
+                        "streakCount"
                       ],
                       "properties": {
                         "position": {
@@ -1248,9 +1254,13 @@
                         },
                         "voteCount": {
                           "type": "integer",
-                          "example": 2
+                          "example": 450
                         },
                         "totalVotesByWeight": {
+                          "type": "integer",
+                          "example": 1200
+                        },
+                        "streakCount": {
                           "type": "integer",
                           "example": 2
                         },
