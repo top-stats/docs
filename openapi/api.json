@@ -49,7 +49,7 @@
         "parameters": [
           {
             "schema": {
-              "minLength": 1,
+              "minLength": 0,
               "type": "string"
             },
             "in": "query",
@@ -117,47 +117,55 @@
                   },
                   "type": "object",
                   "required": [
-                    "results",
-                    "total"
+                    "data"
                   ],
                   "properties": {
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "name",
-                          "short_desc",
-                          "deleted"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "short_desc": {
-                            "type": "string"
-                          },
-                          "avatar": {
-                            "format": "uri",
-                            "type": "string"
-                          },
-                          "certified": {
-                            "deprecated": true,
-                            "type": "boolean"
-                          },
-                          "deleted": {
-                            "type": "boolean"
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "count",
+                        "results"
+                      ],
+                      "properties": {
+                        "count": {
+                          "minimum": 0,
+                          "type": "integer"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name",
+                              "short_desc",
+                              "deleted"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "short_desc": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "certified": {
+                                "deprecated": true,
+                                "type": "boolean"
+                              },
+                              "deleted": {
+                                "type": "boolean"
+                              }
+                            }
                           }
                         }
                       }
-                    },
-                    "total": {
-                      "minimum": 0,
-                      "type": "integer"
                     }
                   }
                 }
@@ -562,7 +570,7 @@
         "parameters": [
           {
             "schema": {
-              "minLength": 1,
+              "minLength": 0,
               "type": "string"
             },
             "in": "query",
@@ -630,47 +638,55 @@
                   },
                   "type": "object",
                   "required": [
-                    "results",
-                    "total"
+                    "data"
                   ],
                   "properties": {
-                    "results": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id",
-                          "name",
-                          "short_desc",
-                          "deleted"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "short_desc": {
-                            "type": "string"
-                          },
-                          "avatar": {
-                            "format": "uri",
-                            "type": "string"
-                          },
-                          "certified": {
-                            "deprecated": true,
-                            "type": "boolean"
-                          },
-                          "deleted": {
-                            "type": "boolean"
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "count",
+                        "results"
+                      ],
+                      "properties": {
+                        "count": {
+                          "minimum": 0,
+                          "type": "integer"
+                        },
+                        "results": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name",
+                              "short_desc",
+                              "deleted"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "short_desc": {
+                                "type": "string"
+                              },
+                              "avatar": {
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "certified": {
+                                "deprecated": true,
+                                "type": "boolean"
+                              },
+                              "deleted": {
+                                "type": "boolean"
+                              }
+                            }
                           }
                         }
                       }
-                    },
-                    "total": {
-                      "minimum": 0,
-                      "type": "integer"
                     }
                   }
                 }
@@ -2246,39 +2262,35 @@
               "application/json": {
                 "schema": {
                   "example": {
-                    "totalBotCount": 43990,
+                    "totalBotCount": 47175,
                     "data": [
                       {
                         "id": "432610292342587392",
                         "name": "Mudae",
-                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
-                        "monthly_votes": 24852,
+                        "monthly_votes": 3073270,
                         "monthly_votes_rank": 1,
                         "server_count": 3371839,
-                        "server_count_rank": 15,
-                        "total_votes": 221182027,
+                        "server_count_rank": 16,
+                        "total_votes": 251205351,
                         "total_votes_rank": 1,
-                        "review_count": 10682,
+                        "review_count": 14722,
                         "monthly_votes_rank_change": 0,
-                        "server_count_rank_change": 1,
-                        "total_votes_rank_change": 0,
-                        "review_count_change": 2
+                        "server_count_rank_change": 0,
+                        "total_votes_rank_change": 0
                       },
                       {
                         "id": "646937666251915264",
                         "name": "Karuta",
-                        "avatar": "https://cdn.discordapp.com/avatars/646937666251915264/0e54d87446f106d1fd58385295ae9deb.png",
-                        "monthly_votes": 8932,
-                        "monthly_votes_rank": 45,
-                        "server_count": 1250000,
-                        "server_count_rank": 89,
-                        "total_votes": 89123456,
-                        "total_votes_rank": 50,
-                        "review_count": 5234,
-                        "monthly_votes_rank_change": -2,
+                        "monthly_votes": 1094152,
+                        "monthly_votes_rank": 2,
+                        "server_count": 876954,
+                        "server_count_rank": 46,
+                        "total_votes": 121621660,
+                        "total_votes_rank": 2,
+                        "review_count": 1250,
+                        "monthly_votes_rank_change": 0,
                         "server_count_rank_change": 0,
-                        "total_votes_rank_change": 1,
-                        "review_count_change": 12
+                        "total_votes_rank_change": 0
                       }
                     ]
                   },
@@ -2308,8 +2320,7 @@
                           "review_count",
                           "monthly_votes_rank_change",
                           "server_count_rank_change",
-                          "total_votes_rank_change",
-                          "review_count_change"
+                          "total_votes_rank_change"
                         ],
                         "properties": {
                           "id": {
@@ -2358,9 +2369,6 @@
                             "type": "integer"
                           },
                           "total_votes_rank_change": {
-                            "type": "integer"
-                          },
-                          "review_count_change": {
                             "type": "integer"
                           }
                         }
