@@ -1495,17 +1495,17 @@
                       "leaderboard": [
                         {
                           "position": "1",
-                          "connectionId": "432610292342587392",
-                          "userId": "275748765166469120",
+                          "connectionId": "809106054496370688",
+                          "userId": "3323278129891049472",
                           "voteCount": 542,
                           "totalVotesByWeight": 1625,
                           "streakCount": 12,
                           "lastVote": "2025-05-01T08:15:00.245Z",
                           "user": {
-                            "topggId": "275748765166469120",
-                            "discordId": "275748765166469120",
-                            "username": "MudaeVoter",
-                            "avatar": "https://cdn.discordapp.com/avatars/275748765166469120/avatar.png"
+                            "topggId": "3323278129891049472",
+                            "discordId": "205680187394752512",
+                            "username": "Xignotic",
+                            "avatar": "https://cdn.discordapp.com/avatars/205680187394752512/9d9214191caa8969d907c91444261755.png"
                           }
                         }
                       ]
@@ -1696,17 +1696,17 @@
                     "total": "150",
                     "data": {
                       "position": "1",
-                      "connectionId": "432610292342587392",
-                      "userId": "275748765166469120",
+                      "connectionId": "809106054496370688",
+                      "userId": "3323278129891049472",
                       "voteCount": 542,
                       "totalVotesByWeight": 1625,
                       "streakCount": 12,
                       "lastVote": "2025-05-01T08:15:00.245Z",
                       "user": {
-                        "topggId": "275748765166469120",
-                        "discordId": "275748765166469120",
-                        "username": "MudaeVoter",
-                        "avatar": "https://cdn.discordapp.com/avatars/275748765166469120/avatar.png"
+                        "topggId": "3323278129891049472",
+                        "discordId": "205680187394752512",
+                        "username": "Xignotic",
+                        "avatar": "https://cdn.discordapp.com/avatars/205680187394752512/9d9214191caa8969d907c91444261755.png"
                       }
                     }
                   },
@@ -2251,6 +2251,7 @@
                       {
                         "id": "432610292342587392",
                         "name": "Mudae",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
                         "monthly_votes": 24852,
                         "monthly_votes_rank": 1,
                         "server_count": 3371839,
@@ -2264,8 +2265,9 @@
                         "review_count_change": 2
                       },
                       {
-                        "id": "270904126974590976",
-                        "name": "UnbelievaBoat",
+                        "id": "646937666251915264",
+                        "name": "Karuta",
+                        "avatar": "https://cdn.discordapp.com/avatars/646937666251915264/0e54d87446f106d1fd58385295ae9deb.png",
                         "monthly_votes": 8932,
                         "monthly_votes_rank": 45,
                         "server_count": 1250000,
@@ -2314,6 +2316,11 @@
                             "type": "string"
                           },
                           "name": {
+                            "type": "string"
+                          },
+                          "avatar": {
+                            "format": "uri",
+                            "description": "Avatar URL",
                             "type": "string"
                           },
                           "monthly_votes": {
