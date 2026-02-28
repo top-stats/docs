@@ -94,6 +94,27 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "results": [
+                      {
+                        "id": "432610292342587392",
+                        "name": "Mudae",
+                        "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                        "certified": false,
+                        "deleted": false
+                      },
+                      {
+                        "id": "270904126974590976",
+                        "name": "UnbelievaBoat",
+                        "short_desc": "Economy Discord bot - Make your server more fun with economy features",
+                        "avatar": "https://cdn.discordapp.com/avatars/270904126974590976/avatar.png",
+                        "certified": false,
+                        "deleted": false
+                      }
+                    ],
+                    "total": 2
+                  },
                   "type": "object",
                   "required": [
                     "results",
@@ -187,6 +208,28 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "counts": {
+                      "total_bots": 43990,
+                      "total_votes_today": 892341,
+                      "total_servers": 98234523,
+                      "total_votes_alltime": 5234982341
+                    },
+                    "botsCreatedOverTime": [
+                      {
+                        "date": "2018-01-01T00:00:00.000Z",
+                        "count": 150
+                      },
+                      {
+                        "date": "2018-06-01T00:00:00.000Z",
+                        "count": 1250
+                      },
+                      {
+                        "date": "2025-05-01T00:00:00.000Z",
+                        "count": 43990
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "counts",
@@ -414,6 +457,24 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "data": [
+                      {
+                        "time": "2025-05-01T00:00:00.000Z",
+                        "monthly_votes": 892341,
+                        "total_votes": 5234982341,
+                        "server_count": 98234523,
+                        "review_count": 89234
+                      },
+                      {
+                        "time": "2025-04-30T00:00:00.000Z",
+                        "monthly_votes": 881230,
+                        "total_votes": 5224892134,
+                        "server_count": 98123456,
+                        "review_count": 89212
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "data"
@@ -546,6 +607,27 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "results": [
+                      {
+                        "id": "432610292342587392",
+                        "name": "Mudae",
+                        "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                        "certified": false,
+                        "deleted": false
+                      },
+                      {
+                        "id": "270904126974590976",
+                        "name": "UnbelievaBoat",
+                        "short_desc": "Economy Discord bot - Make your server more fun with economy features",
+                        "avatar": "https://cdn.discordapp.com/avatars/270904126974590976/avatar.png",
+                        "certified": false,
+                        "deleted": false
+                      }
+                    ],
+                    "total": 2
+                  },
                   "type": "object",
                   "required": [
                     "results",
@@ -652,6 +734,42 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "id": "432610292342587392",
+                    "topGGId": "432610292342587392",
+                    "certified": false,
+                    "owners": [
+                      "275748765166469120"
+                    ],
+                    "deleted": false,
+                    "name": "Mudae",
+                    "def_avatar": "1.png",
+                    "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                    "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                    "lib": "",
+                    "prefix": "$",
+                    "website": "https://www.patreon.com/mudae",
+                    "approved_at": "2018-04-21T21:17:57.793Z",
+                    "monthly_votes": 24852,
+                    "server_count": 3371839,
+                    "total_votes": 221182027,
+                    "monthly_votes_rank": 1,
+                    "server_count_rank": 15,
+                    "total_votes_rank": 1,
+                    "timestamp": "2025-05-01T08:00:00Z",
+                    "unix_timestamp": "1746086400000",
+                    "tags": [
+                      "anime",
+                      "fun",
+                      "game"
+                    ],
+                    "avg_review_rating": 4.526118704362479,
+                    "review_count": 10682,
+                    "percentage_changes": {
+                      "daily": 11.11,
+                      "monthly": 0.97
+                    }
+                  },
                   "type": "object",
                   "required": [
                     "id",
@@ -1006,6 +1124,26 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "data": [
+                      {
+                        "time": "2025-04-30T00:00:00.000Z",
+                        "id": "432610292342587392",
+                        "monthly_votes": 24852,
+                        "total_votes": 221182027,
+                        "server_count": 3371839,
+                        "review_count": 10682
+                      },
+                      {
+                        "time": "2025-04-29T00:00:00.000Z",
+                        "id": "432610292342587392",
+                        "monthly_votes": 24710,
+                        "total_votes": 221100000,
+                        "server_count": 3370000,
+                        "review_count": 10680
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "data"
@@ -1116,6 +1254,36 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "hourlyData": [
+                      {
+                        "time": "2025-05-01T08:00:00.000Z",
+                        "monthly_votes": 24852,
+                        "total_votes": 221182027,
+                        "server_count": 3371839,
+                        "review_count": 10682,
+                        "monthly_votes_change": 142,
+                        "monthly_votes_change_perc": 0.57,
+                        "server_count_change": 1839,
+                        "total_votes_change": 82027,
+                        "review_count_change": 2
+                      }
+                    ],
+                    "dailyData": [
+                      {
+                        "time": "2025-05-01T00:00:00.000Z",
+                        "monthly_votes": 24852,
+                        "total_votes": 221182027,
+                        "server_count": 3371839,
+                        "review_count": 10682,
+                        "monthly_votes_change": 142,
+                        "monthly_votes_change_perc": 0.57,
+                        "server_count_change": 1839,
+                        "total_votes_change": 82027,
+                        "review_count_change": 2
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "hourlyData",
@@ -1320,6 +1488,29 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "code": 200,
+                    "data": {
+                      "total": 150,
+                      "leaderboard": [
+                        {
+                          "position": "1",
+                          "connectionId": "432610292342587392",
+                          "userId": "275748765166469120",
+                          "voteCount": 542,
+                          "totalVotesByWeight": 1625,
+                          "streakCount": 12,
+                          "lastVote": "2025-05-01T08:15:00.245Z",
+                          "user": {
+                            "topggId": "275748765166469120",
+                            "discordId": "275748765166469120",
+                            "username": "MudaeVoter",
+                            "avatar": "https://cdn.discordapp.com/avatars/275748765166469120/avatar.png"
+                          }
+                        }
+                      ]
+                    }
+                  },
                   "type": "object",
                   "required": [
                     "code",
@@ -1500,6 +1691,25 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "code": 200,
+                    "total": "150",
+                    "data": {
+                      "position": "1",
+                      "connectionId": "432610292342587392",
+                      "userId": "275748765166469120",
+                      "voteCount": 542,
+                      "totalVotesByWeight": 1625,
+                      "streakCount": 12,
+                      "lastVote": "2025-05-01T08:15:00.245Z",
+                      "user": {
+                        "topggId": "275748765166469120",
+                        "discordId": "275748765166469120",
+                        "username": "MudaeVoter",
+                        "avatar": "https://cdn.discordapp.com/avatars/275748765166469120/avatar.png"
+                      }
+                    }
+                  },
                   "type": "object",
                   "required": [
                     "code",
@@ -1656,6 +1866,46 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "bots": [
+                      {
+                        "id": "432610292342587392",
+                        "topGGId": "432610292342587392",
+                        "certified": false,
+                        "owners": [
+                          "275748765166469120"
+                        ],
+                        "deleted": false,
+                        "name": "Mudae",
+                        "def_avatar": "1.png",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                        "short_desc": "Database of 110,000 anime/game characters",
+                        "lib": "",
+                        "prefix": "$",
+                        "website": "https://www.patreon.com/mudae",
+                        "approved_at": "2018-04-21T21:17:57.793Z",
+                        "monthly_votes": 24852,
+                        "server_count": 3371839,
+                        "total_votes": 221182027,
+                        "monthly_votes_rank": 1,
+                        "server_count_rank": 15,
+                        "total_votes_rank": 1,
+                        "timestamp": "2025-05-01T08:00:00Z",
+                        "unix_timestamp": "1746086400000",
+                        "tags": [
+                          "anime",
+                          "fun",
+                          "game"
+                        ],
+                        "avg_review_rating": 4.526,
+                        "review_count": 10682,
+                        "percentage_changes": {
+                          "daily": 11.11,
+                          "monthly": 0.97
+                        }
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "bots"
@@ -1664,6 +1914,42 @@
                     "bots": {
                       "type": "array",
                       "items": {
+                        "example": {
+                          "id": "432610292342587392",
+                          "topGGId": "432610292342587392",
+                          "certified": false,
+                          "owners": [
+                            "275748765166469120"
+                          ],
+                          "deleted": false,
+                          "name": "Mudae",
+                          "def_avatar": "1.png",
+                          "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                          "short_desc": "Database of 110,000 anime/game characters: make and customize the best collection in your server. 400 commands, multiplayer games and more!",
+                          "lib": "",
+                          "prefix": "$",
+                          "website": "https://www.patreon.com/mudae",
+                          "approved_at": "2018-04-21T21:17:57.793Z",
+                          "monthly_votes": 24852,
+                          "server_count": 3371839,
+                          "total_votes": 221182027,
+                          "monthly_votes_rank": 1,
+                          "server_count_rank": 15,
+                          "total_votes_rank": 1,
+                          "timestamp": "2025-05-01T08:00:00Z",
+                          "unix_timestamp": "1746086400000",
+                          "tags": [
+                            "anime",
+                            "fun",
+                            "game"
+                          ],
+                          "avg_review_rating": 4.526118704362479,
+                          "review_count": 10682,
+                          "percentage_changes": {
+                            "daily": 11.11,
+                            "monthly": 0.97
+                          }
+                        },
                         "type": "object",
                         "required": [
                           "id",
@@ -1959,6 +2245,41 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "totalBotCount": 43990,
+                    "data": [
+                      {
+                        "id": "432610292342587392",
+                        "name": "Mudae",
+                        "monthly_votes": 24852,
+                        "monthly_votes_rank": 1,
+                        "server_count": 3371839,
+                        "server_count_rank": 15,
+                        "total_votes": 221182027,
+                        "total_votes_rank": 1,
+                        "review_count": 10682,
+                        "monthly_votes_rank_change": 0,
+                        "server_count_rank_change": 1,
+                        "total_votes_rank_change": 0,
+                        "review_count_change": 2
+                      },
+                      {
+                        "id": "270904126974590976",
+                        "name": "UnbelievaBoat",
+                        "monthly_votes": 8932,
+                        "monthly_votes_rank": 45,
+                        "server_count": 1250000,
+                        "server_count_rank": 89,
+                        "total_votes": 89123456,
+                        "total_votes_rank": 50,
+                        "review_count": 5234,
+                        "monthly_votes_rank_change": -2,
+                        "server_count_rank_change": 0,
+                        "total_votes_rank_change": 1,
+                        "review_count_change": 12
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "totalBotCount",
@@ -2098,6 +2419,34 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "data": [
+                      {
+                        "id": "432610292342587392",
+                        "name": "Mudae",
+                        "avatar": "https://cdn.discordapp.com/avatars/432610292342587392/29cb28fbf65a3958105026ab03abd306.png",
+                        "monthly_votes": 24852,
+                        "total_votes": 221182027,
+                        "server_count": 3371839,
+                        "review_count": 10682,
+                        "monthly_votes_rank": 1,
+                        "server_count_rank": 15,
+                        "total_votes_rank": 1
+                      },
+                      {
+                        "id": "270904126974590976",
+                        "name": "UnbelievaBoat",
+                        "avatar": "https://cdn.discordapp.com/avatars/270904126974590976/avatar.png",
+                        "monthly_votes": 8932,
+                        "total_votes": 89123456,
+                        "server_count": 1250000,
+                        "review_count": 5234,
+                        "monthly_votes_rank": 45,
+                        "server_count_rank": 89,
+                        "total_votes_rank": 50
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "data"
@@ -2342,6 +2691,44 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "example": {
+                    "data": [
+                      {
+                        "id": "432610292342587392",
+                        "data": [
+                          {
+                            "time": "2025-04-30T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 24852,
+                            "total_votes": 221182027,
+                            "server_count": 3371839,
+                            "review_count": 10682
+                          },
+                          {
+                            "time": "2025-04-29T00:00:00.000Z",
+                            "id": "432610292342587392",
+                            "monthly_votes": 24710,
+                            "total_votes": 221100000,
+                            "server_count": 3370000,
+                            "review_count": 10680
+                          }
+                        ]
+                      },
+                      {
+                        "id": "270904126974590976",
+                        "data": [
+                          {
+                            "time": "2025-04-30T00:00:00.000Z",
+                            "id": "270904126974590976",
+                            "monthly_votes": 8932,
+                            "total_votes": 89123456,
+                            "server_count": 1250000,
+                            "review_count": 5234
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   "type": "object",
                   "required": [
                     "data"
