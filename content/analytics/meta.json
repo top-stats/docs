@@ -1,0 +1,10 @@
+{
+  "title": "TopStats Analytics",
+  "icon": "ChartNoAxesColumnIncreasing",
+  "root": true,
+  "pages": [
+    "index",
+    "---Types---",
+    "...types"
+  ]
+}
