@@ -1,0 +1,108 @@
+---
+title: Limits and errors
+description: The size and rate limits on event ingest, the error status codes you can get back, and how TopStats API keys are prefixed, shown, and revoked.
+---
+
+Every call to `POST /v1/events` (on `https://analytics.topstats.gg`) has to fit
+inside a few size and rate limits, and it comes back with a status code that
+tells you whether it worked. This page lists those limits, explains each error
+you might see and what to do about it, and covers how your API keys are named
+and revoked so you can manage them with confidence.
+
+## Ingest limits
+
+These are the hard limits on a single ingest request. Stay inside them and your
+events are accepted; go over and you get a `413` (for size) or `429` (for rate),
+covered below.
+
+| Limit | Default |
+| --- | --- |
+| Events per batch | 500 |
+| Bytes per single event | 64 KiB (65536) |
+| Bytes per whole request | 2 MiB (2097152) |
+| Ingest rate limit | 6000 requests/minute, per client IP |
+
+What each one means in practice:
+
+- **Events per batch** is the most you can put in one `events` array. If you have
+  more than 500 to send, split them across several requests. See
+  [Batching](/analytics/batching) for how to send more than one event at a time.
+- **Bytes per single event** is the size of one event object (its `name`,
+  `properties`, and the reserved `_` fields together). 64 KiB is a lot of room
+  for normal events, but a runaway list property or a huge blob stuffed into
+  `properties` can push a single event over it.
+- **Bytes per whole request** is the size of the entire request body, whether it
+  is one event or a batch. Even a batch of fewer than 500 events can exceed 2 MiB
+  if the events are large, so watch total size, not just the count.
+- **Ingest rate limit** is how many requests one client IP can make per minute.
+  6000 per minute is 100 per second, which is generous for a backend sending
+  from a small number of servers.
+
+<Callout title="Batch to stay under the rate limit">
+  Sending one request per event burns through the per-minute rate limit fast. If
+  you produce lots of events, group them into batches of up to 500 and send fewer,
+  larger requests instead. That keeps you well under both the request rate limit
+  and, as long as each batch stays under 2 MiB, the size limits too.
+</Callout>
+
+## Error responses
+
+If a request does not succeed, ingest returns one of these status codes. Each one
+points at a specific cause, so you can usually tell what went wrong from the
+status alone.
+
+| Status | Meaning |
+| --- | --- |
+| 400 | Payload failed validation (missing `name`, unknown field, bad `timestamp`). |
+| 401 | Missing, malformed, unknown, or revoked API key. |
+| 402 | Free plan monthly event cap reached. Upgrade to keep ingesting. |
+| 413 | Batch over 500 events, an event over 64 KiB, or a body over 2 MiB. |
+| 429 | Rate limit exceeded. |
+
+How to handle each one:
+
+- **400** means the body did not pass validation. Common causes are leaving out
+  the required `name`, including a field that is not one of the allowed ones (any
+  unknown field is rejected), or a `_timestamp` that is not a valid ISO 8601
+  datetime. Fix the payload and resend. See
+  [Sending events](/analytics/sending-events) for the exact fields allowed.
+- **401** means your API key is missing, malformed, not recognised, or has been
+  revoked. Check that you are sending it as `Authorization: Bearer <YOUR_API_KEY>`
+  and that the key is still active.
+- **402** means a free workspace has hit its monthly event cap, so new events are
+  refused until the next month or an upgrade. See
+  [Plans and limits](/analytics/plans-and-limits) for the cap and how upgrading
+  works.
+- **413** means the request was too large in one of three ways: more than 500
+  events in a batch, a single event over 64 KiB, or a whole body over 2 MiB.
+  Split the batch, or trim the oversized event, and resend.
+- **429** means you have gone over the ingest rate limit. Slow down, spread your
+  requests out, and retry after a short wait. Batching (above) is the best way to
+  avoid this.
+
+## API keys and prefixes
+
+Every API key is tied to one environment, and you can tell which one it writes to
+from its prefix:
+
+- `ts_live_` is a **production** key.
+- `ts_test_` is a **development** key.
+
+The prefix is a quick sanity check before you send: if you meant to write to
+production but your key starts with `ts_test_`, the events will land in the wrong
+environment.
+
+<Callout type="warn" title="The full secret is shown only once">
+  When you create a key, the complete secret is displayed a single time. Copy it
+  and store it somewhere safe right then. After that, only the first 12 characters
+  (the prefix, for example `ts_live_9f2a`) stay visible so you can recognise the
+  key in your list. TopStats cannot show you the rest again, so if you lose it you
+  will need to create a new key.
+</Callout>
+
+**Revoking is immediate.** When you revoke a key, it stops working straight away,
+and any request that still uses it gets a `401`. There is no grace period, so
+revoke a leaked key as soon as you notice, then create a replacement.
+
+Creating and revoking keys needs the Developer role or higher. See
+[Roles and permissions](/analytics/roles-and-permissions) for who can do what.

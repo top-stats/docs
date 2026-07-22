@@ -1,5 +1,73 @@
 ---
-title: Heatmap
+title: Activity heatmap
+description: See when a single event happens across a typical week, laid out as a grid of weekday against hour of day.
 ---
 
-hello world!
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+An **Activity heatmap** takes one event and shows how its counts spread across a
+typical week. It lays the event out on a grid of weekday against hour of day, so
+the busy stretches and the quiet ones jump straight out at you.
+
+Where a [Metric widget](/analytics/types/metric) answers "how many?" and a
+[Histogram](/analytics/types/histogram) answers "how big?", a heatmap answers
+"when?" - which days and which hours your event tends to happen.
+
+## What it shows
+
+The widget is a grid:
+
+- **Rows** are the days of the week, Monday through Sunday.
+- **Columns** are the hours of the day, `0` (midnight) through `23` (11pm).
+- **Each cell** is the number of times your chosen event happened in that
+  weekday-and-hour slot over the dashboard's time range. Busier slots stand out
+  from the quiet ones, so patterns are easy to spot at a glance.
+
+That gives you 7 rows by 24 columns: a single picture of your whole week.
+
+## Setting one up
+
+An Activity heatmap is the simplest widget to configure - you only pick the
+event.
+
+1. On a dashboard, choose **Add widget**.
+2. Pick the **event** you want to look at (for example `player_join` or
+   `purchase`).
+3. Choose the **Activity heatmap** type, give it a title, and check the live
+   preview.
+
+There is no measure, breakdown, or property to set. The widget always counts how
+many of that event landed in each slot.
+
+<Callout type="warn" title="Hours are in UTC">
+  The grid is computed in **UTC**, not your local time or your players' local
+  time. If most of your audience is in another timezone, remember to shift the
+  hours in your head. A spike that reads as `2` in UTC is early evening on the US
+  west coast.
+</Callout>
+
+## Why you would use it
+
+A heatmap is about timing. Reach for it when you want to know *when* something
+happens, not just how often. For example:
+
+- Pick `player_join` and you might see cells light up on Saturday and Sunday
+  evenings - that is when people actually sit down to play. Now you know when to
+  ship an update or run an event.
+- Pick `purchase` and a weekday lunchtime band might stand out, telling you the
+  best window to run a promotion.
+- Pick `error` or `crash` and a quiet slot on the grid is a safe window to
+  schedule maintenance, while a bright cluster points at a recurring trouble
+  spot.
+
+Because the grid is one event across the whole week, it is the fastest way to
+answer "what are our busy times?" before you dig into the detail with other
+widgets.
+
+## Related widget types
+
+<Cards>
+  <Card title="Metric" href="/analytics/types/metric" description="Count an event as a number, a time series, or a breakdown." />
+  <Card title="Histogram" href="/analytics/types/histogram" description="See how a numeric property is distributed across buckets." />
+  <Card title="All widget types" href="/analytics/widgets" description="Every widget you can add to a dashboard and what each one shows." />
+</Cards>

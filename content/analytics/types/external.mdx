@@ -1,0 +1,121 @@
+---
+title: External
+description: The External widget shows a single number or short text pulled from an allowlisted outside API at view time.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+An **External** widget shows a single number or a short piece of text that is
+fetched from an outside HTTP API each time the widget is viewed. The value is
+**not stored** in your event stream. It is fetched fresh (and cached for a short
+time) whenever someone looks at the dashboard.
+
+This is handy for a live figure that does not belong in your events, like a
+service status number, a current price, or a count from another system you
+already run. Instead of piping that number into TopStats as events, you point a
+widget straight at the API that already has it.
+
+<Callout title="You add a source first, then the widget">
+  An External widget always reads from a **source** you have already added: a
+  trusted hostname plus an optional auth token. Only hosts you allow can ever be
+  called. Set the source up on the [External sources](/analytics/external-sources)
+  page before you add the widget.
+</Callout>
+
+## How to add one
+
+<Steps>
+<Step>
+
+### Add the source
+
+On the External sources page, add the hostname of the API you want to read from,
+for example `api.example.com`. If the API needs a token, give the header name
+(for example `Authorization`) and the token value. The token is encrypted, never
+shown to you again, and only ever used on the server side.
+
+See [External sources](/analytics/external-sources) for the full walkthrough.
+
+</Step>
+
+<Step>
+
+### Add the widget
+
+Use **Add widget** on a dashboard and choose the **External** type. Then fill in
+the fields below.
+
+</Step>
+
+<Step>
+
+### Point it at one value
+
+Enter the full `https` URL, a value path to the single value you want, and
+whether that value is a number or text. A live preview shows what the widget
+will display.
+
+</Step>
+</Steps>
+
+## Widget fields
+
+| Field | What it is |
+| --- | --- |
+| Source | The source you added. Its hostname decides which API can be called. |
+| URL | The full `https` URL to fetch. Its host must match the source's host. |
+| Value path | A dot-path into the JSON response that points at one value (see below). |
+| Value type | Whether the value is a **number** or **text**. |
+
+### Value path
+
+The response from an API is usually a whole JSON object, but a widget shows only
+one value. The **value path** is a dot-path that walks into the response and
+lands on a single scalar: a number, a string, or a boolean. It cannot point at
+an object or a list.
+
+For a response like this:
+
+```json
+{
+  "data": {
+    "price": 42.5
+  },
+  "results": [
+    { "value": 100 }
+  ]
+}
+```
+
+- `data.price` reads `42.5`.
+- `results.0.value` reads `100` (use the index to step into a list).
+
+## What viewers see
+
+- The widget shows the latest value, refreshed from the API each time the
+  dashboard is viewed.
+- If the source cannot be reached, or the value is missing at that path, the
+  widget shows **Unavailable**. No error detail is exposed.
+- The value is cached for a short time (about a minute), so a busy or public
+  dashboard does not hammer the third party.
+
+<Callout title="On a public or embedded dashboard">
+  The value is still fetched by the server, so your token stays private, and
+  only the final value is shown. Viewers never see the URL, the token, or how it
+  was fetched.
+</Callout>
+
+<Callout type="info" title="Only public hosts you allow are called">
+  For safety, an External widget can only ever call a public `https` host that
+  you added as a source. A URL that points at an internal or private address is
+  refused, so this feature cannot reach systems on your own network.
+</Callout>
+
+## Related pages
+
+<Cards>
+  <Card title="External sources" href="/analytics/external-sources" description="Add and manage the hosts and tokens an External widget can read from." />
+  <Card title="Widgets" href="/analytics/widgets" description="Every widget type and how to add one to a dashboard." />
+  <Card title="Note" href="/analytics/types/note" description="A static text tile for context or section headers." />
+</Cards>

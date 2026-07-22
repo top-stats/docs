@@ -1,0 +1,133 @@
+---
+title: Actors
+description: Attach an _actor to your events to follow the person or server behind them and build actor timelines and retention.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+
+An **actor** is the person or server behind your events. You identify an actor
+by attaching an `_actor` value to the events you send, like a user id, an account
+id, or a server name. Once events carry an `_actor`, TopStats can group them
+together to show you everything that one actor did.
+
+Events with no `_actor` are **anonymous**. They still count in your charts, but
+they never show up in the Actors view and cannot be tied to a single person or
+server over time.
+
+<Callout title="Why attach an actor?">
+  An `_actor` is what turns a pile of separate events into a story about one
+  user or server. It powers the Actors page, the per-actor timeline, and
+  [retention](/analytics/types/retention) grids that measure who came back.
+</Callout>
+
+## The `_actor` field
+
+`_actor` is an optional, reserved field on the event payload. Reserved fields
+start with `_` so they never clash with your own `properties`.
+
+<TypeTable
+  type={{
+    _actor: {
+      description: 'Who the event belongs to (a user id, account id, or server name). Optional. Powers Actors and retention.',
+      type: 'string',
+    },
+  }}
+/>
+
+<Callout type="info" title="Keep it short">
+  An `_actor` is a string of at most **256 characters**. Use a stable id (like
+  `user_123`) so the same person or server always maps to the same actor.
+</Callout>
+
+## Attaching an actor
+
+Add `_actor` alongside `name` and `properties` when you send an event to
+`POST /v1/events`. See [Sending events](/analytics/sending-events) for the full
+payload.
+
+<Tabs items={['curl', 'JavaScript']}>
+<Tab value="curl">
+
+```bash
+curl -X POST https://analytics.topstats.gg/v1/events \
+  -H "Authorization: Bearer ts_live_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "player_join",
+    "properties": { "map": "desert" },
+    "_actor": "user_123"
+  }'
+```
+
+</Tab>
+<Tab value="JavaScript">
+
+```js
+await fetch("https://analytics.topstats.gg/v1/events", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "player_join",
+    properties: { map: "desert" },
+    _actor: "user_123",
+  }),
+})
+```
+
+</Tab>
+</Tabs>
+
+## Building a timeline and retention
+
+The value of an actor comes from sending **many** events with the **same**
+`_actor` over time. Each event with `_actor: "user_123"` is added to that
+actor's history, no matter when it happened or what its name is.
+
+Here several events share one actor. Sent this way, they build up `user_123`'s
+timeline, and because they span more than one day they also feed a
+[retention](/analytics/types/retention) grid that measures whether the actor
+came back.
+
+```json
+{
+  "events": [
+    { "name": "player_join", "_actor": "user_123", "_timestamp": "2026-07-20T09:00:00Z" },
+    { "name": "level_complete", "_actor": "user_123", "properties": { "level": 3 }, "_timestamp": "2026-07-20T09:14:00Z" },
+    { "name": "purchase", "_actor": "user_123", "properties": { "amount": 9.99 }, "_timestamp": "2026-07-22T18:30:00Z" }
+  ]
+}
+```
+
+<Callout type="info">
+  This uses the batch format (an object with an `events` array). You do not have
+  to batch them; sending the same three events one at a time builds the exact
+  same actor history.
+</Callout>
+
+## The Actors page
+
+The Actors page (in the main navigation) is a ranked list of everyone behind
+your events. It lists actors **by event count**, with:
+
+- The **actor key** (the `_actor` value you sent).
+- The **total events** that actor has.
+- The **last-seen** time.
+
+Switch the environment and time range at the top of the page. The list shows
+**50** actors by default and is capped at **200**.
+
+## The actor timeline
+
+Click an actor to open their timeline. It shows:
+
+- **Total events**, plus **first-seen** and **last-seen** times.
+- A **timeline** of that actor's most recent events (up to **100** within the
+  selected range), each with its name, time, source, and properties.
+
+Array (list) properties are shown as their values together, so you can see the
+full context of each event at a glance. Use the timeline to follow one user or
+server step by step and understand exactly what they did.

@@ -1,0 +1,147 @@
+---
+title: Getting started
+description: Create a workspace, make an API key, send your first event, and watch it land on a dashboard.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+
+This page walks you from an empty workspace to your first event showing up live
+on a dashboard. It takes a few minutes. Everything in TopStats starts with an
+event, so once this loop works, every other feature is just a different way of
+looking at the data you send.
+
+<Callout title="What you are building">
+  A tiny round trip: your backend sends one event to TopStats, and a dashboard
+  goes from "waiting" to live. That is the whole product in miniature.
+</Callout>
+
+<Steps>
+
+<Step>
+
+### Create a workspace and sign in
+
+A **workspace** is your account's container for everything: events, dashboards,
+alerts, members, and billing. Sign up, and your workspace is created for you.
+Every workspace comes with two separate streams of data, a `production`
+environment and a `development` environment, so you can test without polluting
+your real numbers. See [Core concepts](/analytics/concepts) for how workspaces
+and environments fit together.
+
+</Step>
+
+<Step>
+
+### Create an environment-scoped API key
+
+Go to **Settings**, then **API keys**, and create a key. When you create it, you
+pick which **environment** the key writes to. That choice matters: the API key
+alone decides the workspace and environment an event lands in, so there is no
+workspace id in the request.
+
+Keys are prefixed so you can tell them apart at a glance:
+
+| Environment | Key prefix |
+| --- | --- |
+| Production | `ts_live_` |
+| Development | `ts_test_` |
+
+<Callout type="warn" title="Copy the secret right away">
+  The full secret is shown only once, at creation. Afterwards only the first 12
+  characters are visible, just enough to identify the key in the list. If you
+  lose it, revoke the key and make a new one. Creating or revoking keys needs
+  the Developer role or higher.
+</Callout>
+
+</Step>
+
+<Step>
+
+### Send your first event
+
+Send an event to `POST /v1/events` with your key as a Bearer token. An **event**
+is a single thing that happened, with a `name` (like `player_join` or
+`purchase`) and optional `properties` you attach.
+
+<Tabs items={['curl', 'JavaScript']}>
+
+<Tab value="curl">
+
+```bash
+curl -X POST https://analytics.topstats.gg/v1/events \
+  -H "Authorization: Bearer ts_live_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "player_join",
+    "properties": { "map": "desert" }
+  }'
+```
+
+</Tab>
+
+<Tab value="JavaScript">
+
+```js
+await fetch("https://analytics.topstats.gg/v1/events", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "player_join",
+    properties: { map: "desert" },
+  }),
+})
+```
+
+</Tab>
+
+</Tabs>
+
+A successful call returns `202 Accepted` with `{ "accepted": 1 }`, the number of
+events stored. That is your confirmation it worked.
+
+<Callout title="Send events from your backend">
+  Events are server-to-server. Send them from your backend, not from a browser,
+  so your API key stays secret. For the full payload, batching, and property
+  rules, see [Sending events](/analytics/sending-events).
+</Callout>
+
+</Step>
+
+<Step>
+
+### Open a dashboard
+
+Open a dashboard for the same environment your key writes to. Until the first
+event arrives you will see a **"Connected, waiting for your first event"**
+banner. Once events start landing, that banner clears and widgets update in near
+real time. Build your first chart in [Dashboards](/analytics/dashboards).
+
+</Step>
+
+</Steps>
+
+## What you can send today
+
+Right now you can send events two ways:
+
+- **Node.js, JavaScript, TypeScript, or any raw HTTPS client** (curl, fetch, or
+  your backend language's HTTP library) to `POST /v1/events`, as shown above.
+- **OpenTelemetry** (OTLP/HTTP) if you already run an OpenTelemetry SDK or
+  Collector. See [OpenTelemetry](/analytics/opentelemetry).
+
+Other language SDKs and game-server plugins are planned but not available yet.
+
+## Where to go next
+
+<Cards>
+  <Card title="Core concepts" href="/analytics/concepts" description="Workspaces, environments, events, and actors, in plain terms." />
+  <Card title="Sending events" href="/analytics/sending-events" description="The full event payload, with copy-paste curl and JavaScript examples." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build a canvas of widgets pinned to an environment and time range." />
+  <Card title="OpenTelemetry" href="/analytics/opentelemetry" description="Point an existing OTLP SDK or Collector straight at TopStats." />
+</Cards>

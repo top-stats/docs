@@ -1,0 +1,135 @@
+---
+title: Sending events
+description: Send events to the single POST /v1/events endpoint with a Bearer API key, and learn the five fields that make up an event payload.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+Everything in TopStats starts with an event, and every event reaches us the same
+way: a `POST` to one endpoint. There is no separate endpoint per event type and
+no SDK to learn first. You send JSON, we accept it, and it shows up in your
+dashboards.
+
+## The endpoint
+
+Send every event to a single URL and authenticate with your API key as a Bearer
+token:
+
+```
+POST https://analytics.topstats.gg/v1/events
+Authorization: Bearer <YOUR_API_KEY>
+Content-Type: application/json
+```
+
+The API key alone decides which workspace and which environment the event lands
+in, so you never put a workspace id in the request. A production key writes to
+production, a development key writes to development. If you want to change where
+events go, you swap the key, not the payload.
+
+<Callout type={'warn'} title="Keep events server-to-server">
+  Send events from your backend, never from a browser or a mobile app. Your API
+  key is a secret that grants write access to your workspace, and anything that
+  runs on a user's device can be read by that user. Keep the key on your server
+  and send events from there.
+</Callout>
+
+## The event payload
+
+The request body is either one event object or a batch of them (see
+[Batching](/analytics/batching)). A single event has these five fields, and only
+these. Any field you send that is not on this list is rejected, which helps you
+catch typos early.
+
+<TypeTable
+  type={{
+    name: {
+      description: 'The event type, like player_join or purchase. This is what charts group by, so keep it consistent.',
+      type: 'string (1 to 128 chars)',
+      required: true,
+    },
+    properties: {
+      description: 'Your own custom key/value pairs, such as amount or map. Keys are 1 to 128 chars.',
+      type: 'object',
+    },
+    _source: {
+      description: 'A free-text origin label like a region or shard. Shown as Source in the product.',
+      type: 'string (max 128 chars)',
+    },
+    _actor: {
+      description: 'Who the event belongs to. Powers the Actors view and retention.',
+      type: 'string (max 256 chars)',
+    },
+    _timestamp: {
+      description: 'When the event happened, as an ISO 8601 datetime.',
+      type: 'string (ISO 8601)',
+      default: 'the time the server receives it',
+    },
+  }}
+/>
+
+Notice the underscore on `_source`, `_actor` and `_timestamp`. Those are
+reserved platform fields, and the underscore prefix keeps them from ever
+clashing with a property of your own. Your `name` and everything inside
+`properties` belong to you, so you are free to use a plain `source` or `actor`
+key in `properties` without colliding with the reserved ones.
+
+## Example
+
+The `curl` tab is handy for a quick test from your terminal. The JavaScript tab
+is the shape you would use from a Node.js backend, reading the key from an
+environment variable so it never gets committed to your code.
+
+<Tabs items={['curl', 'JavaScript']}>
+  <Tab value="curl">
+    ```bash
+    curl -X POST https://analytics.topstats.gg/v1/events \
+      -H "Authorization: Bearer ts_live_your_key_here" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "player_join",
+        "properties": { "playtime": 42, "map": "desert", "perks": ["double_jump", "shield"] },
+        "_source": "eu-west-1",
+        "_actor": "user_123",
+        "_timestamp": "2026-07-22T10:00:00Z"
+      }'
+    ```
+  </Tab>
+  <Tab value="JavaScript">
+    ```js
+    await fetch("https://analytics.topstats.gg/v1/events", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "purchase",
+        properties: { amount: 9.99, currency: "USD", items: ["hat", "sword"] },
+        _actor: "user_123",
+      }),
+    })
+    ```
+  </Tab>
+</Tabs>
+
+## The response
+
+A successful call returns `202 Accepted` with a small JSON body telling you how
+many events were stored:
+
+```json
+{ "accepted": 1 }
+```
+
+The `202` status means "accepted for processing", so you do not have to wait for
+the event to appear in a dashboard before moving on. As long as you get a `202`,
+the event is in.
+
+## Next
+
+<Cards>
+  <Card title="Property types" href="/analytics/property-types" description="How the JSON type of each property value decides what you can do with it." />
+  <Card title="Batching" href="/analytics/batching" description="Send up to 500 events in a single request instead of one at a time." />
+</Cards>

@@ -1,0 +1,95 @@
+---
+title: Roles and permissions
+description: Understand the four workspace roles - Owner, Admin, Developer, and Viewer - and what each one can read, build, and change.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+Every person you invite to a workspace has a **role**. The role decides what
+they can do: some people can build and change things, and some people can only
+look. This keeps a teammate from accidentally deleting a dashboard while still
+letting everyone see the numbers.
+
+There are four roles. From most to least privileged, they are:
+
+- **Owner**
+- **Admin**
+- **Developer**
+- **Viewer**
+
+## The one rule to remember
+
+<Callout title="Read is open, changing needs Developer">
+  Any member of the workspace can **read** everything. To **create, edit, or
+  delete** anything, or to **reorder or resize** widgets, you need the
+  **Developer** role or higher.
+</Callout>
+
+That single split covers almost every question you will have. A Viewer is a
+read-only seat. A Developer (and anyone above them) is a builder.
+
+## What "read" means
+
+Any member, all the way down to a Viewer, can open and read:
+
+- Dashboards and the widgets on them
+- Alerts and the channels they notify
+- Activity and actors
+- Segments
+- Digests
+
+So a Viewer can open a dashboard, watch the numbers update live, scroll through
+an actor's timeline, and check whether an alert has fired lately. They just
+cannot change any of it.
+
+## What "Developer or higher" means
+
+To make changes you need the Developer role or above. That covers creating,
+editing, and deleting:
+
+- Dashboards and widgets
+- Annotations
+- Alerts and channels
+- Segments
+- Digests
+- API keys
+
+It also covers rearranging a dashboard: **reordering or resizing widgets** needs
+Developer too. Dragging a widget to a new spot or stretching it wider is a
+change, so a Viewer cannot do it.
+
+## Who can do what
+
+| Action | Viewer | Developer | Admin | Owner |
+| --- | :---: | :---: | :---: | :---: |
+| Read dashboards, widgets, alerts, channels, activity, actors, segments, digests | Yes | Yes | Yes | Yes |
+| Create, edit, or delete dashboards, widgets, annotations, alerts, channels, segments, digests, and API keys | No | Yes | Yes | Yes |
+| Reorder or resize widgets | No | Yes | Yes | Yes |
+
+Owner and Admin sit above Developer, so they can do everything a Developer can,
+plus they hold the more privileged seats in the workspace.
+
+## A concrete example
+
+Say you invite a teammate as a **Viewer** so they can keep an eye on your
+launch-day dashboard. They can open it, see events streaming in, and read the
+alert you set up to warn about a drop in sign-ups. But the **New widget** button
+and the drag handles on the grid will not do anything for them, and neither will
+the delete controls. The moment they need to start building charts or editing
+alerts themselves, they will need the **Developer** role or higher.
+
+## The same rule applies to API keys
+
+This split is not only about the buttons in the app. API keys follow it too:
+creating or revoking a key needs the Developer role or higher, and when you call
+the API, reading data is open to any member while **write endpoints need the
+Developer role or higher**. See the [API reference](/analytics/api-reference)
+for which endpoints are reads and which are writes.
+
+## Where to go next
+
+<Cards>
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build a canvas of widgets - a Developer job." />
+  <Card title="Alerts" href="/analytics/alerts" description="Create alerts and channels, which also needs Developer." />
+  <Card title="API reference" href="/analytics/api-reference" description="See which endpoints are reads and which are writes." />
+</Cards>

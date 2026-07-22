@@ -1,5 +1,103 @@
 ---
-title: KPI
+title: KPI row
+description: Put 1 to 6 single-value metrics side by side in one widget, each with its own event, aggregate, and delta.
 ---
 
-hello world!
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **KPI row** is one widget that shows several single-value counters next to each
+other. Instead of adding four separate [metric](/analytics/types/metric) widgets
+just to see four numbers, you put them all in one tidy row. Each number is its
+own little metric with its own event and aggregate, so you can mix unrelated
+figures (new players, revenue, average order value) in a single tile.
+
+## When to use it
+
+Reach for a KPI row when you want a quick "scoreboard" at the top of a
+[dashboard](/analytics/dashboards): the handful of headline numbers you glance at
+first. If you only need one number, or you want to plot it over time or break it
+down, use a [metric](/analytics/types/metric) widget instead.
+
+## How each KPI works
+
+A KPI row holds **1 to 6 metrics**. Each one is configured on its own:
+
+<TypeTable
+  type={{
+    event: {
+      description: 'The event this number is measured from. Required.',
+      type: 'event name',
+    },
+    aggregate: {
+      description: 'How the events are turned into one number: count, sum, avg, min, max, or uniq. Required.',
+      type: 'aggregate',
+    },
+    property: {
+      description: 'The property the aggregate runs on. Required for every aggregate except count, which just counts events.',
+      type: 'property key',
+    },
+    label: {
+      description: 'The caption shown under the number. Optional; leave it out and TopStats derives one.',
+      type: 'string',
+    },
+  }}
+/>
+
+### The aggregates you can pick
+
+These are the same aggregates a [metric](/analytics/types/metric) widget uses.
+`count` is the only one that needs no property; every other aggregate needs you
+to point it at a property to work on.
+
+| Aggregate | What it does | Needs a property? |
+| --- | --- | --- |
+| `count` | Counts matching events | No |
+| `sum` | Adds up a numeric property | Yes |
+| `avg` | Averages a numeric property | Yes |
+| `min` | The smallest value of a numeric property | Yes |
+| `max` | The largest value of a numeric property | Yes |
+| `uniq` | Counts distinct values of a string property | Yes |
+
+<Callout title="Blanks never skew the number">
+  For any aggregate other than `count`, events that are missing the chosen
+  property are simply left out. A missing value never gets counted as zero, so it
+  cannot drag an average or a sum around.
+</Callout>
+
+## The delta
+
+Every KPI item also shows a **delta**: a small up-or-down figure comparing the
+current window against the window of equal length right before it. If your
+dashboard time range is the last 24 hours, each number is compared with the 24
+hours before that, so you can see at a glance whether things are up or down.
+
+<Callout type="info">
+  The delta is hidden when the previous window was zero. There is nothing
+  meaningful to compare against, so TopStats shows the number on its own rather
+  than an impossible percentage.
+</Callout>
+
+## Example row
+
+Say you run a game and want a single scoreboard tile. A five-item KPI row could
+look like this, all pulling from your `player_join` and `purchase` events:
+
+| Label | Event | Aggregate | Property |
+| --- | --- | --- | --- |
+| New players | `player_join` | `count` | (none) |
+| Purchases | `purchase` | `count` | (none) |
+| Revenue | `purchase` | `sum` | `amount` |
+| Avg order value | `purchase` | `avg` | `amount` |
+| Countries | `player_join` | `uniq` | `country` |
+
+That gives you five headline numbers side by side, each with its own delta, in
+one widget at the top of the dashboard.
+
+## Related
+
+<Cards>
+  <Card title="Metric widget" href="/analytics/types/metric" description="A single number, a time series, or a breakdown, and the full list of aggregates." />
+  <Card title="Widgets" href="/analytics/widgets" description="How to add a widget, pick a type, and configure it." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="Pin your KPI row to an environment and time range." />
+</Cards>

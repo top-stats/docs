@@ -1,5 +1,141 @@
 ---
 title: Metric
+description: The Metric widget shows a number, a time series, or a breakdown, and its exact form is derived from your measure, an optional breakdown, and whether you plot over time.
 ---
 
-hello world!
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+
+A **Metric** widget is the workhorse of a dashboard. It answers questions like
+"how many `player_join` events happened?", "how is that trending over time?", and
+"which item made the most money?". You never pick a "counter" or "chart" kind up
+front. You pick an event and a measure, optionally add a breakdown, optionally
+plot over time, and TopStats derives the right shape from those choices.
+
+<Callout title="The shape is derived, not chosen">
+  Two toggles decide everything: whether you **break down** by a property, and
+  whether you **plot over time**. That gives four forms (counter, timeseries,
+  categorical, multiseries), and each form only offers the chart types that fit
+  its data.
+</Callout>
+
+## What you configure
+
+Every Metric widget starts from the same four choices:
+
+- **Event**: the event `name` to measure, like `player_join` or `purchase`.
+- **Measure**: how to reduce those events to a number (see below).
+- **Breakdown** (optional): a property to group by.
+- **Over time** (optional): a toggle that adds a time axis.
+
+### Measures
+
+The measure is the maths applied to the matching events. Events that are missing
+the property you chose are simply left out, so a blank value never drags an
+average down.
+
+| Measure | Needs a property? | What it does |
+| --- | --- | --- |
+| `count` | No | Counts matching events. |
+| `sum` | Yes (numeric) | Adds up the property's values. |
+| `avg` | Yes (numeric) | Averages the property's values. |
+| `min` | Yes (numeric) | The smallest value seen. |
+| `max` | Yes (numeric) | The largest value seen. |
+| `uniq` | Yes (string) | Counts distinct values of the property. |
+
+### Breakdown
+
+A breakdown groups the result by one property so you get a value per group
+instead of one total.
+
+- A **string** property groups normally: one bar or series per distinct value.
+- A **list** (array) property explodes, so each element counts separately. One
+  event can appear under more than one bar or series (for example an event with
+  `perks: ["double_jump", "shield"]` counts toward both).
+- Only string and list properties can be a breakdown. You cannot break down by a
+  number.
+
+### Over time
+
+The **over time** toggle adds a time axis so you can see the trend instead of a
+single figure. Combine it with a breakdown and you get one series per group
+plotted across time.
+
+## The four forms
+
+Your breakdown and over-time choices land you in one of these forms:
+
+| Breakdown? | Over time? | Form | What you see |
+| --- | --- | --- | --- |
+| No | No | **Counter** | A single number. |
+| No | Yes | **Timeseries** | That number plotted across time. |
+| Yes | No | **Categorical** | One value per group. |
+| Yes | Yes | **Multiseries** | One series per group, across time. |
+
+Each form offers only the chart types that make sense for its shape:
+
+| Form | Chart types |
+| --- | --- |
+| Counter | stat, area, line |
+| Timeseries | area, line, bar, stat, table |
+| Categorical | bar, pie, table |
+| Multiseries | bar, area, line, diverging, table |
+
+## The counter delta
+
+A **counter** (and each item in a KPI row) also shows a **delta**: the change
+versus the immediately preceding window of equal length. If your dashboard time
+range is `24h`, the counter compares the last 24 hours against the 24 hours
+before that, so you can tell at a glance whether a number is up or down.
+
+<Callout type="info">
+  The delta is hidden when the previous window was zero, because there is no
+  baseline to compare against.
+</Callout>
+
+## Worked example: joins over time
+
+Say you want to watch how many players join over the day.
+
+<Steps>
+<Step>
+Pick the event `player_join`.
+</Step>
+<Step>
+Choose the measure `count`. Since `count` needs no property, you are done
+choosing the maths.
+</Step>
+<Step>
+Leave the breakdown empty, and turn **over time** on.
+</Step>
+</Steps>
+
+No breakdown plus over time makes a **timeseries**, so you can render it as an
+area or line chart and see joins rise and fall through the day.
+
+## Worked example: revenue by item
+
+Now say you want to know which item earns the most.
+
+<Steps>
+<Step>
+Pick the event `purchase`.
+</Step>
+<Step>
+Choose the measure `sum` over the numeric `amount` property.
+</Step>
+<Step>
+Break down by the `item` property, and leave **over time** off.
+</Step>
+</Steps>
+
+A breakdown with no time axis makes a **categorical** result: one bar per item
+(or a pie), ranked so your top earners are obvious. Turn **over time** back on
+and the same widget becomes a **multiseries** chart, with one line per item
+across time.
+
+<Callout title="Shared options live on the Widgets page">
+  Filters, display options like goals and legends, sizing, and the common "Add
+  widget" flow apply to every widget type, including Metric. See
+  [Widgets](/analytics/widgets) for those. A Metric widget can also become an
+  [alert](/analytics/alerts) straight from its menu.
+</Callout>

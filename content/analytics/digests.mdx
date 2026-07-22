@@ -1,0 +1,186 @@
+---
+title: Scheduled digests
+description: Email a recurring summary of a dashboard's counter widgets to your team on a daily or weekly cadence.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **scheduled digest** is a recurring email summary of a single
+[dashboard](/analytics/dashboards). You set it up from the dashboard itself, and
+from then on TopStats emails a short snapshot of that dashboard's headline
+numbers to whoever you list.
+
+It is the easiest way to keep people in the loop without asking them to open the
+app. A daily digest is a nice morning health check ("did signups hold up
+overnight?"), and a weekly one is a tidy Monday summary you can forward to
+teammates who do not live in the dashboard all day.
+
+<Callout title="One digest watches one dashboard">
+  A digest always summarises the dashboard you created it from, using that
+  dashboard's own environment and time range. If you want a daily production
+  summary and a weekly development summary, create one digest on each dashboard.
+</Callout>
+
+## What lands in the inbox
+
+The email has **one line per counter widget** on the dashboard. A counter is a
+single-number [metric widget](/analytics/types/metric): no breakdown, not
+plotted over time, just one value. Each line shows three things:
+
+- the widget's **title**,
+- its **current value**,
+- the **percent change** versus the previous period (the same delta the widget
+  itself shows).
+
+So a dashboard with three counters produces an email that reads roughly like
+this:
+
+```
+Signups today      1,240    +12%
+Purchases            318     -4%
+Active servers        27      0%
+```
+
+A few things to know about what does and does not appear:
+
+- **Only counters are included.** Charts, tables, funnels, retention grids,
+  histograms, heatmaps, and notes are all skipped, because they do not reduce to
+  a single line.
+- **No counters, no numbers.** If the dashboard has no counter widgets at all,
+  the email still sends but simply says so, rather than arriving empty.
+- **The numbers match the dashboard.** They are computed with the dashboard's
+  stored environment and time range, so the digest and the live dashboard always
+  agree.
+
+<Callout title="Want a value in the digest? Make it a counter">
+  If a number you care about is currently a chart or lives inside a
+  [KPI row](/analytics/types/kpi), add a plain counter metric widget for it too.
+  Only counter widgets show up in the email.
+</Callout>
+
+## Setting one up
+
+<Steps>
+
+<Step>
+
+### Open the dashboard
+
+Go to the dashboard you want summarised. Everything about a digest is set from
+the dashboard it belongs to.
+
+</Step>
+
+<Step>
+
+### Open the Email digests dialog
+
+Open the dashboard's **Email digests** dialog. This is where you create, edit,
+and remove the digests for this dashboard.
+
+</Step>
+
+<Step>
+
+### Choose a cadence and time
+
+Pick **daily**, or **weekly** on a chosen weekday. Then set the **send hour** you
+want the email to go out.
+
+</Step>
+
+<Step>
+
+### Add recipients
+
+Enter between **1 and 20 email addresses**. Everyone on the list gets the same
+email.
+
+</Step>
+
+<Step>
+
+### Save
+
+A new digest is **enabled by default**, so once you save it starts sending on the
+schedule. You do not need to turn anything on.
+
+</Step>
+
+</Steps>
+
+## Settings reference
+
+<TypeTable
+  type={{
+    Cadence: {
+      description: 'How often the digest sends: daily, or weekly on a chosen weekday.',
+      type: 'daily | weekly',
+    },
+    'Send hour': {
+      description: 'The hour of day the email goes out, 0 to 23, in UTC.',
+      type: 'number (0-23)',
+    },
+    Weekday: {
+      description: 'For a weekly digest, which day it sends. 0 is Sunday and 6 is Saturday.',
+      type: 'number (0-6)',
+    },
+    Recipients: {
+      description: 'The email addresses that receive the digest. Between 1 and 20.',
+      type: 'string[]',
+    },
+    Enabled: {
+      description: 'Whether the digest is active. On by default.',
+      type: 'boolean',
+      default: 'true',
+    },
+  }}
+/>
+
+<Callout type="info" title="The send hour is in UTC">
+  Send hour and weekday are both in UTC, not your local time. If you want a
+  weekly digest at 9am on Monday in a UTC+2 timezone, set the send hour to `7`.
+</Callout>
+
+## Send now
+
+The dialog has a **Send now** action that emails the current summary
+immediately, outside the schedule. It is handy for testing that the email looks
+right and reaches the inbox, or for firing off an ad-hoc snapshot.
+
+<Callout type="warn" title="It will not send twice in a day">
+  A digest sends at most once per day. If it has already gone out today, whether
+  on its schedule or through Send now, it will not send again until the next day.
+</Callout>
+
+## Permissions
+
+Any workspace member can view the digests on a dashboard. Creating, editing, or
+deleting a digest, and using Send now, needs the **Developer role or higher**.
+See [Roles and permissions](/analytics/roles-and-permissions) for the full list.
+
+## Digest endpoints
+
+Digests can also be managed through the API. All paths are relative to
+`https://analytics.topstats.gg`.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/digests?dashboardId=` | Session or API key (member) | List a dashboard's digests. |
+| POST | `/v1/digests` | Session (developer) | Create a digest. |
+| PATCH | `/v1/digests/:id` | Session (developer) | Update a digest. |
+| DELETE | `/v1/digests/:id` | Session (developer) | Delete a digest. |
+| POST | `/v1/digests/:id/send` | Session (developer) | Send a digest now. |
+
+See the [API reference](/analytics/api-reference) for how auth works across every
+endpoint.
+
+## Related
+
+<Cards>
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build the canvas of widgets a digest summarises." />
+  <Card title="Metric widgets" href="/analytics/types/metric" description="Counters are single-number metric widgets, the ones a digest emails." />
+  <Card title="Alerts" href="/analytics/alerts" description="Get notified the moment a metric crosses a line, instead of on a schedule." />
+</Cards>

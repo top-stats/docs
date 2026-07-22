@@ -1,5 +1,109 @@
 ---
 title: Table
+description: Show raw recent events newest-first in a widget, with the columns you choose and a per-row button to inspect the full payload.
 ---
 
-hello world!
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **Table** widget lists raw recent events, newest first, with a set of columns
+you choose. Where a metric widget counts or averages your events, a table shows
+you the individual events themselves, so it is the widget to reach for when you
+want to eyeball the latest activity or spot-check exactly what you are sending.
+
+<Callout title="It reads the dashboard's environment and time range">
+  Like every widget, a table shows events from the dashboard's environment
+  (production or development) and its time range. Change the range in the
+  dashboard header and the table follows.
+</Callout>
+
+## Columns
+
+You choose which columns appear. A column can be any of the built-in event
+fields, or any property you have sent:
+
+| Column | What it shows |
+| --- | --- |
+| Time | When the event happened. |
+| Event | The event name (like `purchase` or `player_join`). |
+| Actor | The actor the event belongs to, if you attached one. |
+| Source | The source label the event carried, if any. |
+| Any property | The value of a property you sent (string, number, or list). |
+
+A table can have **1 to 12 columns**. List (array) properties are allowed as
+columns, so a `tags` or `items` property shows its values in the cell.
+
+## Rows
+
+A table shows the most recent events first. You pick how many rows to display,
+from **1 to 100**, and the default is **25**. Because the newest events sit at
+the top, the table stays a live view of what just happened.
+
+## View payload
+
+Every row has a **view payload** button that opens the full event as JSON. This
+is the fastest way to confirm that an event arrived with exactly the fields,
+properties, actor and source you expected, without leaving the dashboard.
+
+<Callout type="info" title="Payloads stay private on public dashboards">
+  On a public or embedded dashboard the table still shows its columns, but the
+  view-payload button is hidden and the raw payloads are not exposed. Viewers
+  see only the columns you chose.
+</Callout>
+
+## Build a table
+
+<Steps>
+
+<Step>
+### Add the widget
+
+On a dashboard, choose **Add widget**, pick the event you want to list, and
+select the **Table** type.
+</Step>
+
+<Step>
+### Choose your columns
+
+Add up to 12 columns from Time, Event, Actor, Source, and any property. Order
+them so the most useful values sit on the left.
+</Step>
+
+<Step>
+### Set the row count
+
+Pick how many rows to show, from 1 to 100. Leave it at the default of 25 for a
+quick, live snapshot.
+</Step>
+
+<Step>
+### Title and save
+
+Give the widget a title. The live preview shows the table as it will appear;
+save it to the dashboard.
+</Step>
+
+</Steps>
+
+## Example: a live feed of recent purchases
+
+Say your backend sends a `purchase` event with an `amount` number, a `currency`
+string, and an `items` list. A handy table would use these columns:
+
+- **Time** so you can see when each sale landed.
+- **Actor** so you know which user bought.
+- **amount** and **currency** to read the value at a glance.
+- **items** to see what was in the order.
+
+Leave it at 25 rows and you have a rolling feed of your latest sales. When one
+looks off, click **view payload** on that row to inspect the exact event JSON
+and check every property you sent.
+
+## Related
+
+<Cards>
+  <Card title="Metric" href="/analytics/types/metric" description="Count, sum, or average your events instead of listing them." />
+  <Card title="Events stream" href="/analytics/events-stream" description="The full live tail of raw events across the whole environment." />
+  <Card title="Widgets" href="/analytics/widgets" description="How widgets work, and the other types you can add." />
+  <Card title="Sharing and embedding" href="/analytics/sharing-and-embedding" description="Make a dashboard a public link or an iframe." />
+</Cards>

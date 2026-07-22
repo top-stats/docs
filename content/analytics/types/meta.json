@@ -1,6 +1,16 @@
 {
+  "title": "Widget types",
+  "icon": "ChartColumn",
   "defaultOpen": true,
   "pages": [
-    "..."
+    "metric",
+    "table",
+    "kpi",
+    "funnel",
+    "retention",
+    "histogram",
+    "heatmap",
+    "note",
+    "external"
   ]
 }

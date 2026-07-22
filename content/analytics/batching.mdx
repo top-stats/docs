@@ -1,0 +1,95 @@
+---
+title: Batching
+description: Send many events in a single request with an events array, from 1 up to 500 at a time.
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+
+When you have more than one event to send, you do not have to make a separate
+request for each. Batching lets you send many events in a single `POST` to
+`/v1/events`. That means fewer HTTP round trips and less overhead for your
+backend, which is handy when you buffer events and flush them together.
+
+## The batch shape
+
+Instead of posting one event object, post an object with an `events` array. Each
+item in the array is a normal event.
+
+```json
+{ "events": [ { "name": "a" }, { "name": "b", "properties": { "x": 1 } } ] }
+```
+
+<TypeTable
+  type={{
+    events: {
+      description:
+        'Array of event objects. It replaces the single event object as the request body. Must contain between 1 and 500 events.',
+      type: 'array',
+    },
+  }}
+/>
+
+## Each element is a normal event
+
+Every object inside the `events` array follows the exact same rules as a single
+event: the same fields, the same required `name`, and the same
+[property types](/analytics/property-types). If you already know how to send one
+event, a batch is just a list of them. See
+[Sending events](/analytics/sending-events) for the full field list and what a
+single event can contain.
+
+## Example
+
+Here the same request carries two events at once, a `player_join` and a
+`purchase`, both belonging to the same actor.
+
+<Tabs items={['curl', 'JavaScript']}>
+  <Tab value="curl">
+    ```bash
+    curl -X POST https://analytics.topstats.gg/v1/events \
+      -H "Authorization: Bearer ts_live_your_key_here" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "events": [
+          { "name": "player_join", "_actor": "user_123" },
+          {
+            "name": "purchase",
+            "properties": { "amount": 9.99, "currency": "USD" },
+            "_actor": "user_123"
+          }
+        ]
+      }'
+    ```
+  </Tab>
+  <Tab value="JavaScript">
+    ```js
+    await fetch("https://analytics.topstats.gg/v1/events", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        events: [
+          { name: "player_join", _actor: "user_123" },
+          {
+            name: "purchase",
+            properties: { amount: 9.99, currency: "USD" },
+            _actor: "user_123",
+          },
+        ],
+      }),
+    })
+    ```
+  </Tab>
+</Tabs>
+
+## How many per batch
+
+<Callout title="1 to 500 events per batch">
+  A batch must contain between 1 and 500 events. A batch of one is perfectly
+  valid, it is just a single event wrapped in an array. To send more than 500,
+  split them across several requests. For what happens when a batch goes over
+  the cap, see [Limits and errors](/analytics/limits-and-errors).
+</Callout>

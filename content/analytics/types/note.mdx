@@ -1,5 +1,59 @@
 ---
-title: Retention
+title: Note
+description: A static text tile you drop onto a dashboard for headers, context, or captions - it shows your text exactly as typed and runs no query.
 ---
 
-hello world!
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **Note** is the one widget type that shows no data. Every other widget picks a
+source event and runs a query to build a chart or a number. A Note skips all of
+that: you type some text, and the tile shows exactly what you typed.
+
+Use it to add context to a dashboard so the numbers around it make sense to
+whoever is reading them.
+
+## How it works
+
+- You add it like any other widget, with **Add widget**, then pick the **Note**
+  type.
+- There is no event, measure, breakdown, or filter to configure. A Note never
+  queries your events, so it loads instantly and never changes on its own.
+- You type your text, up to **2000 characters**, and it is shown as-is.
+
+<Callout title="Nothing gets computed">
+  Because a Note is just static text, it does not respond to the dashboard's
+  time range or environment. It reads the same whether you are looking at the
+  last hour or the last 90 days.
+</Callout>
+
+## When to use a Note
+
+A Note is for the words around your data, not the data itself. Some common uses:
+
+- **Section headers.** Drop a Note that says `Onboarding` above your signup and
+  activation widgets, then another that says `Revenue` above your purchase
+  charts, so a long dashboard reads in clear blocks.
+- **Context and captions.** A short line like `Numbers are for the production
+  environment only` next to a chart saves the reader from guessing.
+- **Caveats.** Flag something the data does not show on its own, for example
+  `We started tracking checkout on 1 June, so earlier weeks look empty`.
+
+For example, a dashboard tracking a new feature launch might open with a Note
+that reads:
+
+```text
+Beta launch - week 1
+Tracking sign-ups and first purchases for the invited cohort.
+Contact the growth team before sharing these numbers.
+```
+
+Everything after it is your live widgets; the Note just tells people what they
+are looking at.
+
+## Related
+
+<Cards>
+  <Card title="Widgets" href="/analytics/widgets" description="How every widget type is configured, sized, and arranged." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="The canvas of widgets your Notes give structure to." />
+  <Card title="External" href="/analytics/types/external" description="The other tile that shows a value without querying your events." />
+</Cards>

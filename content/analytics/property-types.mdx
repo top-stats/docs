@@ -1,0 +1,145 @@
+---
+title: Property types
+description: How TopStats reads each property value by its JSON type and turns it into a number, list, or string property.
+---
+
+import { Tabs, Tab } from 'fumadocs-ui/components/tabs'
+
+You never declare a schema for your `properties`. When an event arrives,
+TopStats looks at the JSON type of each value and routes it automatically. The
+type of the value decides how the property is stored and what you can do with it
+later in charts, filters, and breakdowns.
+
+There are three property types, and every value you send becomes exactly one of
+them.
+
+## How values are routed
+
+| You send | Stored as | What you can do |
+| --- | --- | --- |
+| A finite JSON number (`42`, `9.99`, `-5`) | Number property | Sum, average, min, max, histogram |
+| A non-empty JSON array (`["a","b"]`) | List property | Break down per value, filter with `has` |
+| Anything else (string, boolean, object, `null`) | String property | Group, count distinct, filter |
+
+<Callout title="Quoted numbers are strings, on purpose">
+  A value like `"42"` (with quotes) is a string, not a number. Only a real JSON
+  number counts as a number property. If you want to sum or average a value,
+  send it unquoted: `42`, not `"42"`.
+</Callout>
+
+## Number properties
+
+Send a finite JSON number and you get a number property. These are the values
+you can do maths on: a metric widget can `sum`, `avg`, `min`, or `max` them, and
+a histogram widget can show how they are spread across buckets.
+
+```json
+{
+  "name": "purchase",
+  "properties": { "amount": 9.99 }
+}
+```
+
+`amount` is a number, so a widget can total revenue, find the average order
+value, or plot the distribution of order sizes. See
+[Histogram widgets](/analytics/types/histogram) for the bucketed view.
+
+## String properties
+
+Anything that is not a number and not a non-empty array becomes a string
+property. That includes actual strings, but also booleans, objects, and `null`.
+String properties are the ones you group and count by: a breakdown splits your
+events per value, and `uniq` counts how many distinct values there are.
+
+```json
+{
+  "name": "player_join",
+  "properties": { "map": "desert", "is_returning": true }
+}
+```
+
+Here `map` is a string you can break a chart down by. `is_returning` is a
+boolean, so it is stored as a string too (its values become `"true"` and
+`"false"`), which is exactly what you want for grouping.
+
+## List properties (the multi-value case)
+
+Send a non-empty JSON array and you get a list property. This is the multi-value
+feature: the event counts toward every value in the array at once, so a single
+event can show up under more than one bar or slice in a breakdown.
+
+The classic use is tags. Say a player earns two perks in one event:
+
+<Tabs items={['curl', 'JavaScript']}>
+  <Tab value="curl">
+
+```bash
+curl -X POST https://analytics.topstats.gg/v1/events \
+  -H "Authorization: Bearer ts_live_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "player_join",
+    "properties": { "tags": ["vip", "beta"] }
+  }'
+```
+
+  </Tab>
+  <Tab value="JavaScript">
+
+```js
+await fetch("https://analytics.topstats.gg/v1/events", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "player_join",
+    properties: { tags: ["vip", "beta"] },
+  }),
+})
+```
+
+  </Tab>
+</Tabs>
+
+That one event counts toward both `vip` and `beta`. Break a chart down by `tags`
+and it appears under both. To filter to events that carry a given value, use the
+`has` operator (for example, `tags has vip`) instead of `eq`.
+
+A few rules for list properties:
+
+- **Each element is turned into a string.** So `[1, 2]` is stored as the values
+  `"1"` and `"2"`, not as numbers you can sum.
+- **An empty array `[]` is dropped, not stored.** The property simply will not
+  exist on that event, so it never shows up as a blank value in a breakdown.
+
+## Putting it together
+
+A single event can mix all three types. Each property is routed on its own:
+
+```json
+{
+  "name": "purchase",
+  "properties": {
+    "amount": 9.99,
+    "currency": "USD",
+    "items": ["hat", "sword"]
+  }
+}
+```
+
+- `amount` is a **number** property: sum it for total revenue, average it for
+  order value.
+- `currency` is a **string** property: break down or count distinct values.
+- `items` is a **list** property: this purchase counts toward both `hat` and
+  `sword`, and you can filter with `items has sword`.
+
+<Callout type="info">
+  Because routing is automatic, keep a property's type consistent across events.
+  If you sometimes send `amount` as `9.99` and sometimes as `"9.99"`, the quoted
+  ones land as strings and will not be counted in a sum or average.
+</Callout>
+
+For the full event payload and where properties fit, see
+[Sending events](/analytics/sending-events).

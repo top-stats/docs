@@ -1,5 +1,126 @@
 ---
 title: Histogram
+description: A histogram widget shows how a single numeric property is spread across buckets, so you can see the shape of your values instead of just one average number.
 ---
 
-hello world!
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **histogram** widget takes one numeric property and shows how its values are
+distributed. It sorts every matching event into a range of buckets and draws a
+bar for each bucket, so a tall bar means "lots of events landed in this range"
+and a short bar means "very few did".
+
+Where a counter or an average gives you a single number, a histogram shows you
+the whole picture: where most values sit, how spread out they are, and whether
+there are unusual clusters at the low or high end.
+
+## Why you would use one
+
+An average can hide a lot. Two sets of purchases can share the exact same
+average of `$20` while one is a tight cluster around `$20` and the other is a
+mix of `$1` micro-transactions and a handful of `$200` whales. A histogram makes
+that difference obvious at a glance.
+
+Reach for a histogram when you want to understand the **spread** of a number,
+for example:
+
+- **Distribution of purchase amount** — do most players spend a little, or is
+  your revenue driven by a few big spenders?
+- **Distribution of session length** — how long is a typical session, and how
+  many are very short or very long?
+- Load times, scores, cart sizes, level numbers, or any other number you attach
+  to an event.
+
+## What you need
+
+A histogram is built from just two choices plus one dial:
+
+<TypeTable
+  type={{
+    event: {
+      description: 'The source event whose values you want to chart, for example purchase or session_end.',
+      type: 'event',
+    },
+    property: {
+      description: 'The numeric property to measure, for example amount or duration_seconds. It must be a number property.',
+      type: 'numeric property',
+    },
+    buckets: {
+      description: 'How many bars to split the range into.',
+      type: 'number',
+      default: 'about 20',
+    },
+  }}
+/>
+
+You can set the bucket count anywhere from **2 to 50**. Fewer buckets give a
+broad, smooth shape; more buckets show finer detail. The default of about 20 is
+a good starting point for most numbers.
+
+<Callout title="It has to be a number">
+  A histogram only works on a **number property**. If you send a value as a
+  quoted string like `"42"`, it is stored as text, not a number, and will not be
+  available here. Send numbers unquoted (`42`, `9.99`) so they are stored as
+  numbers. See [Property types](/analytics/property-types) for how values are
+  routed.
+</Callout>
+
+## Build one
+
+<Steps>
+<Step>
+
+### Add a widget
+
+On your dashboard, click **Add widget**, then pick the event you want to measure
+(for example `purchase`).
+
+</Step>
+
+<Step>
+
+### Choose the Histogram type and a numeric property
+
+Select **Histogram** as the type, then pick the numeric property to chart, such
+as `amount` for a purchase or `duration_seconds` for a session. Events that do
+not carry that property are simply left out, so a missing value never distorts
+the shape.
+
+</Step>
+
+<Step>
+
+### Set the number of buckets
+
+Leave it at the default (about 20) or adjust it anywhere from 2 to 50. The live
+preview redraws as you change it, so you can dial in the level of detail that
+reads best.
+
+</Step>
+
+<Step>
+
+### Title it and save
+
+Give the widget a clear title like "Purchase amount distribution" and save. It
+now refreshes with the rest of the dashboard.
+
+</Step>
+</Steps>
+
+<Callout type="info">
+  Want to chart only part of your data, like purchases from one region or one
+  item? Add [filters](/analytics/widgets) to the widget. Only events that match
+  every filter are counted into the buckets.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card title="Property types" href="/analytics/property-types" description="How number, list, and string properties are stored, and what each one can do." />
+  <Card title="Widgets" href="/analytics/widgets" description="Every widget type, filters, and display options in one place." />
+  <Card title="Metric widgets" href="/analytics/types/metric" description="Single numbers, time series, and breakdowns for a metric." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="The canvas your widgets live on, pinned to one environment and time range." />
+</Cards>

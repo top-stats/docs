@@ -1,5 +1,127 @@
 ---
 title: Retention
+description: Build a cohort grid that shows how many of your actors came back and acted again over the following days or weeks.
 ---
 
-hello world!
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **Retention** widget is a cohort grid: it shows who came back over the
+following periods. You group your actors by when they first did something, then
+watch how many of each group returned and did it again later. It is the fastest
+way to answer "are people sticking around, or do they show up once and vanish?"
+
+<Callout title="Retention needs actors">
+  Retention is built entirely on [actors](/analytics/actors). It works by
+  following the same actor across time, so every event you want to count has to
+  carry an `_actor` value (the id of the person or server behind it). Events sent
+  without an `_actor` are anonymous and never appear in a retention grid. If your
+  grid looks empty, this is almost always why.
+</Callout>
+
+## How to read the grid
+
+Each **row** is a cohort: a group of actors who first did your chosen event in
+the same period (a single day, or a single week). The leftmost part of the row
+tells you which period the cohort started in and how big it was.
+
+Each **column** to the right is a later period, counted from that cohort's
+start. The cell where a row and a column meet shows how much of that cohort came
+back and did the return event in that later period. Read a row left to right to
+see one group fade over time; read a column top to bottom to compare different
+cohorts at the same age.
+
+A grid where cells stay strong as you move right means people keep coming back.
+A grid that drops off sharply after the first period or two means most actors
+show up once and do not return.
+
+## Settings
+
+| Setting | What it does |
+| --- | --- |
+| Cohort event | The event that defines a cohort. Actors are grouped by the period in which they first fired this event. |
+| Return event | The event that counts as "coming back". Optional: if you leave it unset, it defaults to the cohort event. |
+| Granularity | Whether each period is a **day** or a **week**. |
+| Periods | How many periods to follow each cohort for, from 2 to 12. |
+
+The return event is what makes retention flexible. Leave it as the default to
+measure whether people simply keep doing the same thing. Set it to a different
+event to measure whether one action leads to another one later.
+
+## Build one
+
+<Steps>
+<Step>
+
+### Add a widget
+
+On your [dashboard](/analytics/dashboards), choose **Add widget**, then pick
+**Retention** as the type.
+
+</Step>
+
+<Step>
+
+### Pick your cohort event
+
+Choose the event that defines each group, for example `player_join`. Actors get
+grouped by the day or week they first fired it.
+
+</Step>
+
+<Step>
+
+### Choose a return event (optional)
+
+Leave it blank to reuse the cohort event, or pick a different event if you want
+to measure a follow-on action.
+
+</Step>
+
+<Step>
+
+### Set granularity and periods
+
+Choose **daily** or **weekly**, and how many periods to follow each cohort for
+(2 to 12). A live preview shows the grid as you go. Give the widget a title and
+save it.
+
+</Step>
+</Steps>
+
+## Example
+
+Say your game sends a `player_join` event every time someone logs in, with the
+player's id in `_actor`. To see how sticky the game is week over week:
+
+- **Cohort event:** `player_join`
+- **Return event:** leave it as the default (`player_join` again)
+- **Granularity:** weekly
+- **Periods:** 12
+
+Each row is the group of players who first joined in a given week. The columns to
+the right show how many of them logged back in during each of the following
+weeks. A cohort whose row fades quickly is one you are losing; a cohort whose row
+stays strong is one that stuck.
+
+Now change just the return event to `purchase`. Same cohorts, but each cell now
+shows how many of the players who joined in that week went on to buy something in
+a later week, which turns the same grid into a "does joining lead to spending?"
+view.
+
+<Callout title="Daily vs weekly">
+  Use **daily** granularity for short, fast cycles where you expect people back
+  within days. Use **weekly** for slower habits, where a day-by-day grid would be
+  noisy and mostly empty. Remember that the number of periods caps how far ahead
+  you can see: 12 daily periods covers under two weeks, while 12 weekly periods
+  covers about three months.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card title="Actors" href="/analytics/actors" description="The person or server behind your events, and why retention depends on them." />
+  <Card title="Sending events" href="/analytics/sending-events" description="How to attach an _actor to every event so retention has data to follow." />
+  <Card title="Funnel" href="/analytics/types/funnel" description="Step-by-step conversion for an actor across ordered events." />
+  <Card title="Widgets" href="/analytics/widgets" description="All the widget types and how to add them to a dashboard." />
+</Cards>

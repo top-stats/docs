@@ -1,5 +1,132 @@
 ---
 title: Funnel
+description: Track how actors move through an ordered sequence of events, with a conversion window, so you can see where people drop off.
 ---
 
-hello world!
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **Funnel** widget shows step-by-step conversion for an actor across a set of
+ordered events. You list the steps you expect someone to go through, in order,
+and the funnel tells you how many actors reached each one. That makes it the
+right tool for questions like "of everyone who started signing up, how many
+finished?" or "how many people who added an item to their cart actually paid?".
+
+Because a funnel follows one person or server through several events, it is built
+on top of [actors](/analytics/actors). Every event you want to count in a funnel
+needs an `_actor` attached when you send it. Events with no actor are anonymous,
+so they can never be tied together into a journey and are left out of the funnel.
+
+<Callout title="Funnels rely on actors">
+  Attach an `_actor` to every event in your funnel. If your signup and purchase
+  events do not carry an actor, the funnel has no way to know they came from the
+  same person, and no one will appear past the first step.
+</Callout>
+
+## How a funnel works
+
+A funnel is a list of **2 to 8 steps**, in order. Each step is one event, with
+optional [filters](/analytics/widgets) to narrow it down (for example, only
+`purchase` events where `plan` equals `pro`).
+
+The order matters. An actor counts toward a step only if they fired that step's
+event **after** the previous step, and **within the conversion window**. So the
+funnel is not just "how many people did each of these things" - it is "how many
+people did them in this sequence, quickly enough".
+
+### The conversion window
+
+The **conversion window** is the amount of time an actor has to move from one
+step to the next. You can set it anywhere from **1 hour up to 30 days** (1 to 720
+hours). If someone fires a step's event too late - after the window has passed
+since the previous step - they do not count toward that step, even though they
+technically did it.
+
+Pick a window that matches the journey you are measuring. A checkout funnel might
+use a short window like 1 hour, because people who buy usually do it in one
+sitting. An onboarding funnel might use several days, because new users come back
+over time.
+
+## Settings
+
+<TypeTable
+  type={{
+    steps: {
+      description:
+        'The ordered events an actor should pass through. Each step is one event with optional filters.',
+      type: '2 to 8 steps',
+    },
+    'conversion window': {
+      description:
+        'How long an actor has to reach the next step after the previous one.',
+      type: '1 hour to 30 days',
+    },
+  }}
+/>
+
+## Example: a signup funnel
+
+Say you want to know where people give up while creating an account. You send four
+events from your backend, each with the same `_actor` (the new user's id), and
+build a funnel with these four steps in order:
+
+<Steps>
+<Step>
+
+### `signup_started`
+
+The user opened the signup form. This is the top of the funnel - everyone who
+gets counted here is a potential new account.
+
+</Step>
+
+<Step>
+
+### `email_verified`
+
+The user clicked the link in their verification email. To count here, they must
+have done this **after** `signup_started` and within the conversion window.
+
+</Step>
+
+<Step>
+
+### `profile_completed`
+
+The user filled in their profile. Again, only actors who reached the previous
+step, and did this in time, are counted.
+
+</Step>
+
+<Step>
+
+### `first_purchase`
+
+The user made their first purchase. This is the bottom of the funnel - the
+actors who made it all the way through.
+
+</Step>
+
+</Steps>
+
+With a conversion window of, say, 7 days, the funnel now shows how many actors
+reached each step. If a lot of people hit `signup_started` and `email_verified`
+but the count falls off a cliff at `profile_completed`, you know exactly where to
+focus: the profile step is losing people.
+
+<Callout type="info">
+  The same idea works for a purchase funnel. Chain events like `view_item`,
+  `add_to_cart`, `checkout_started`, and `purchase`, attach the buyer's `_actor`
+  to each, and set a short window so you only count people who bought in one
+  sitting.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card title="Actors" href="/analytics/actors" description="How the _actor field ties a person's events together over time." />
+  <Card title="Retention" href="/analytics/types/retention" description="A cohort grid showing who came back over following periods." />
+  <Card title="Widgets" href="/analytics/widgets" description="Filters, layout, and everything common to every widget type." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="The canvas your funnel lives on, pinned to an environment and time range." />
+</Cards>

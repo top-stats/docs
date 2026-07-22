@@ -1,0 +1,121 @@
+---
+title: Sharing and embedding
+description: Turn a dashboard into a public read-only link or drop it into your own site with an embed iframe.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+Sometimes a dashboard needs to live outside TopStats. You might want to show
+your numbers on a public status page, drop a live chart into a blog post, or
+send a stakeholder a link without adding them to your workspace. Sharing turns
+any [dashboard](/analytics/dashboards) into a read-only public page, and
+embedding puts that same page inside an iframe on your own site.
+
+<Callout title="Read-only, always">
+  A shared or embedded dashboard is view-only. Nobody who opens the link can
+  edit widgets, change the time range, or see anything behind your workspace.
+  Everyone sees exactly the dashboard you set up.
+</Callout>
+
+## Make a dashboard public
+
+Every dashboard has a **Share** button. Inside it is a **Public** toggle that
+controls whether the dashboard is reachable from the outside.
+
+<Steps>
+<Step>
+
+### Open the Share dialog
+
+On the dashboard you want to share, click the **Share** button.
+
+</Step>
+
+<Step>
+
+### Turn on the Public toggle
+
+Flip **Public** on. This makes the dashboard read-only viewable by anyone with
+the link.
+
+</Step>
+
+<Step>
+
+### Copy the Share URL
+
+The dialog reveals a Share URL of the form:
+
+```txt
+https://analytics.topstats.gg/share/<slug>
+```
+
+The `<slug>` is minted once and reused, so the link stays the same even if you
+toggle Public off and back on later.
+
+</Step>
+</Steps>
+
+<Callout title="The link never changes">
+  Because the slug is stable, you can paste the Share URL somewhere permanent (a
+  wiki, a README, a pinned message) without worrying it will break. Turning
+  Public off makes the page stop working, and turning it back on brings the same
+  link back to life.
+</Callout>
+
+## Embed a dashboard in your own site
+
+The same Share dialog gives you a ready-made iframe snippet that points at the
+embed view:
+
+```html
+<iframe
+  src="https://analytics.topstats.gg/embed/<slug>"
+  width="100%"
+  height="600"
+  frameborder="0"
+></iframe>
+```
+
+By default the embed is **100% wide** and **600 px tall**, so it stretches to
+fill its container. Adjust the `width` and `height` to fit your layout.
+
+The embed view is a stripped-down version of the share page: it drops the title
+header and the footer, so you get just the widgets. That makes it sit cleanly
+inside your own page instead of looking like a nested website.
+
+## What viewers see
+
+A shared or embedded dashboard shows each widget's **title and chart**, drawn
+from the dashboard's own **stored environment and time range**. Viewers do not
+pick a range or an environment themselves. They see whatever the dashboard is
+pinned to.
+
+There are **no controls**. Viewers cannot change the range, switch environments,
+drill into a widget, or edit anything.
+
+## What is hidden
+
+Public pages are built to keep your internal details private. The following are
+never exposed to a viewer:
+
+| What is hidden | What a viewer gets instead |
+| --- | --- |
+| Raw event payloads | A public [table](/analytics/types/table) widget shows its columns but no payload button, and payloads are stripped out entirely |
+| Workspace details | Nothing about your workspace, team, or settings is shown |
+| Private data labels | Breakdown values fall back to their raw values, and times use the viewer's own browser timezone |
+
+<Callout type="info">
+  Because a public table hides the payload button and the payloads themselves, a
+  shared dashboard is safe to expose even when the underlying events carry
+  private properties. Only the columns and aggregated values make it out.
+</Callout>
+
+## Where to go next
+
+<Cards>
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build the canvas of widgets you want to share." />
+  <Card title="Digests" href="/analytics/digests" description="Email a dashboard summary on a schedule instead of a live link." />
+  <Card title="Roles and permissions" href="/analytics/roles-and-permissions" description="Control who inside your workspace can edit what." />
+</Cards>

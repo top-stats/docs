@@ -1,0 +1,204 @@
+---
+title: Widgets
+description: How to add a widget and shape it with measures, breakdowns, filters, display options, and layout.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A widget is a single tile on a dashboard: a number, a chart, a table, a funnel,
+and so on. You build one by picking a source event, choosing a type, configuring
+it, and giving it a title. A live preview shows the result as you go, so you can
+see exactly what the tile will look like before you save it.
+
+## Adding a widget
+
+<Steps>
+<Step>
+
+### Click "Add widget"
+
+This opens the widget builder.
+
+</Step>
+<Step>
+
+### Pick a source event
+
+Choose the event name this widget reads from, like `purchase` or `player_join`.
+Everything the widget shows is built from events with that name.
+
+</Step>
+<Step>
+
+### Pick a type
+
+Metric, Table, Funnel, Retention, KPI row, Histogram, Activity heatmap, Note, or
+External. Each type has its own settings.
+
+</Step>
+<Step>
+
+### Configure it
+
+Set the measure, breakdown, filters, and display options that fit what you want
+to see. The live preview updates as you change things.
+
+</Step>
+<Step>
+
+### Give it a title
+
+The title is the label shown at the top of the tile. Save, and the widget is
+pinned to the dashboard.
+
+</Step>
+</Steps>
+
+<Callout title="You never pick the widget kind directly">
+  You do not choose a "kind" like counter or time series by hand. The kind is
+  derived from your config, based on whether you break down and whether you plot
+  over time. Each kind then offers only the chart types that fit its data shape.
+</Callout>
+
+## Metric widgets
+
+Metric is the workhorse type. You pick an event, a measure, optionally a
+breakdown, and optionally plot the result over time. Those choices decide
+whether you end up with a single number, a time series, or a breakdown.
+
+### Measures
+
+The measure is the maths applied to the matching events.
+
+| Measure | Needs a property | What it gives you |
+| --- | --- | --- |
+| `count` | No | How many events matched |
+| `sum` | Numeric | The total of that number |
+| `avg` | Numeric | The average of that number |
+| `min` | Numeric | The smallest value |
+| `max` | Numeric | The largest value |
+| `uniq` | String | How many distinct values there were |
+
+For example, on the `purchase` event: `count` tells you how many purchases
+happened, `sum` of an `amount` property gives you total revenue, and `avg` of
+`amount` gives you the average order value. `uniq` on a string property like
+`country` tells you how many distinct countries bought something.
+
+<Callout>
+  Events that are missing the chosen property are simply left out, so a blank
+  value never drags an average down or skews a total.
+</Callout>
+
+### Breakdown
+
+A breakdown groups the measure by one property, giving you one bar or one line
+per value instead of a single combined number.
+
+- A **string property** groups normally. Break `purchase` down by an `item`
+  property and you get one bar per item.
+- A **list (array) property** explodes, so each value in the array counts
+  separately. If an event has `perks: ["double_jump", "shield"]`, it counts
+  toward both `double_jump` and `shield`, so one event can appear under more than
+  one bar or series.
+
+Only string and list properties can be a breakdown. You cannot break down by a
+number.
+
+### Over time
+
+Toggle "over time" to add a time axis and watch the measure change across the
+dashboard's range. `count` of `player_join` over time becomes a line or area
+chart of joins per bucket.
+
+Combine a breakdown with over time and you get a **multiseries** chart: one line
+or set of bars per breakdown value, plotted across time. For example, joins over
+time broken down by `map` gives you one series per map.
+
+### Chart types by shape
+
+The combination of breakdown and over time settles on a shape, and each shape
+offers its own set of chart types:
+
+| Shape | When you get it | Chart types |
+| --- | --- | --- |
+| Counter | No breakdown, not over time | stat, area, line |
+| Timeseries | No breakdown, over time | area, line, bar, stat, table |
+| Categorical | Breakdown, not over time | bar, pie, table |
+| Multiseries | Breakdown and over time | bar, area, line, diverging, table |
+
+### The counter delta
+
+A counter (and each item in a KPI row) also shows how it changed against the
+immediately preceding window of the same length. If the dashboard is on the
+`24h` range, the counter compares the last 24 hours with the 24 hours before
+that, and shows the difference as a delta.
+
+The delta is hidden when the previous window was zero, so you never see a
+meaningless jump from nothing.
+
+## Filters
+
+Filters narrow a widget down to matching events. Each filter is a property key,
+an operator, and a value. Add more than one and they combine with **AND**, so an
+event has to match every filter to be counted.
+
+| Operator | Meaning | Example |
+| --- | --- | --- |
+| `eq` | Equals | `map` eq `desert` |
+| `neq` | Not equals | `country` neq `US` |
+| `contains` | Case-insensitive substring (string properties) | `page` contains `checkout` |
+| `has` | An array property contains this value as one of its elements | `perks` has `shield` |
+
+For example, `map eq desert` combined with `mode eq ranked` shows only ranked
+matches on the desert map.
+
+<Callout>
+  A filter only ever considers events that actually carry the key. An event with
+  no `map` property is not counted by a `map` filter at all, rather than being
+  treated as a non-match.
+</Callout>
+
+## Display options
+
+Once the data shape is set, these options control how it is drawn.
+
+- **Goal / target:** on a stat, renders progress toward a number. Point a
+  revenue stat at a `10000` goal and it shows how close you are.
+- **Y-axis:** pinned to zero by default, or fit to the data's own range for
+  line, area, and bar charts. Fitting to range makes small movements easier to
+  see; pinning to zero keeps the scale honest.
+- **Stacking (multiseries):** stacked (the default), 100% stacked, or overlaid.
+  Stacked shows the total and each series' contribution, 100% stacked shows each
+  series as a share of the whole, and overlaid draws them on the same baseline
+  for direct comparison.
+- **Legend:** placed at the bottom or on the right side, and optionally showing
+  the value next to each label.
+
+## Layout and limits
+
+- **Size:** use the `sm`, `md`, and `lg` presets, or set a custom column span
+  from 2 to 12 on the grid. Picking a preset clears any custom span you set.
+- **Per-widget menu:** each tile has a menu with Edit, Rename, Duplicate, "Alert
+  on this" (metric widgets only), width presets, move earlier or later, and
+  remove.
+- **Breakdown limit:** breakdowns keep only the top labels by value (10 by
+  default) unless the widget sets its own limit, so a chart with hundreds of
+  values stays readable.
+- **Table cap:** tables are capped at 100 rows.
+
+## Widget types
+
+Each type has its own page with the full set of settings.
+
+<Cards>
+  <Card title="Metric" href="/analytics/types/metric" description="A number, a time series, or a breakdown, derived from your config." />
+  <Card title="Table" href="/analytics/types/table" description="Raw recent events, newest first, with the columns you choose." />
+  <Card title="KPI row" href="/analytics/types/kpi" description="Several single-value counters side by side." />
+  <Card title="Funnel" href="/analytics/types/funnel" description="Step-by-step conversion for an actor across ordered events." />
+  <Card title="Retention" href="/analytics/types/retention" description="A cohort grid showing who came back over following periods." />
+  <Card title="Histogram" href="/analytics/types/histogram" description="The distribution of a numeric property across buckets." />
+  <Card title="Activity heatmap" href="/analytics/types/heatmap" description="Event counts by weekday and hour of day." />
+  <Card title="Note" href="/analytics/types/note" description="A static text tile for context or section headers." />
+  <Card title="External" href="/analytics/types/external" description="A single number or text fetched from an allowlisted external API." />
+</Cards>

@@ -1,0 +1,143 @@
+---
+title: Annotations
+description: Mark deploys and releases as vertical lines on your time-series charts so you can tie a change in the data to the moment it happened.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+Annotations are vertical marker lines you drop onto your charts to record when
+something happened, like a deploy or a release. When a metric jumps or dips, an
+annotation lets you see at a glance whether it lines up with a change you made.
+
+<Callout title="Why you would use this">
+  Say you ship version `2.3.0` and your `error` count doubles ten minutes later.
+  If you added an annotation for that deploy, the line sits right at the spike
+  and the cause is obvious. Without it, you are left guessing what changed.
+</Callout>
+
+## How they work
+
+Open annotations with the **Annotations** button on any dashboard. Each
+annotation is a single point in time with a label, and it draws as a vertical
+line across your time-series charts at that moment.
+
+An annotation is not tied to one chart or one dashboard. It belongs to an
+**environment** (production or development), so once you add it, it shows up on
+**every dashboard** for that environment. Add a "deploy" marker once and it
+appears everywhere you look at that environment's data.
+
+## What an annotation has
+
+<TypeTable
+  type={{
+    label: {
+      description: 'Short name shown on the marker, for example "v2.3.0 deploy".',
+      type: 'string',
+      required: true,
+    },
+    description: {
+      description: 'Optional longer note about what changed.',
+      type: 'string',
+    },
+    color: {
+      description: 'Optional hex colour for the line. Defaults to purple.',
+      type: 'string',
+      default: 'purple',
+    },
+    time: {
+      description: 'The moment the annotation marks.',
+      type: 'datetime',
+      required: true,
+    },
+  }}
+/>
+
+The label can be 1 to 120 characters, and the description up to 500. Colour is a
+hex value, and if you leave it out the line is purple.
+
+## Adding an annotation
+
+<Steps>
+<Step>
+
+### Open the annotations panel
+
+On the dashboard for the environment you want to mark, click the
+**Annotations** button.
+
+</Step>
+
+<Step>
+
+### Fill in the details
+
+Give it a label (like `v2.3.0 deploy`), an optional description
+(like `Rolled out the new matchmaking service`), pick the time it happened, and
+optionally choose a colour. Leave the colour blank to use the default purple.
+
+</Step>
+
+<Step>
+
+### Save
+
+The marker now appears on every time-series chart in that environment, so long
+as its time falls inside the chart's visible range.
+
+</Step>
+</Steps>
+
+## When a marker is not drawn
+
+An annotation only shows up where it makes sense, so it will not always be
+visible:
+
+- **On non-time charts.** Markers only draw on time-bucketed charts (the ones
+  with a time axis, like time series, area, line, and bar over time). A
+  categorical chart, such as a breakdown bar or pie, has no time axis, so
+  nothing is drawn there.
+- **Outside the visible window.** If the annotation's time is before or after
+  the chart's current time range, its line falls off the edge and is not shown.
+  Widen the [dashboard](/analytics/dashboards) time range to bring it back into
+  view.
+
+<Callout type="info" title="Environment scoping">
+  Annotations are scoped to one environment at a time, the same way dashboards,
+  [alerts](/analytics/alerts), and [segments](/analytics/segments) are. A
+  production deploy marker will not appear on a development dashboard, and vice
+  versa.
+</Callout>
+
+## Who can manage them
+
+Any workspace member can see annotations on the charts they are viewing.
+Creating, editing, and deleting annotations needs the **Developer** role or
+higher, in line with the rest of the dashboard tools. See
+[Roles and permissions](/analytics/roles-and-permissions) for the full
+breakdown.
+
+## API reference
+
+Annotations are managed by the app from your signed-in session. Reading a
+list is open to any member; creating, updating, and deleting need the Developer
+role or higher.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| GET | `/v1/annotations?environment=` | List annotations for an environment. |
+| POST | `/v1/annotations` | Create an annotation. |
+| PATCH | `/v1/annotations/:id` | Update an annotation. |
+| DELETE | `/v1/annotations/:id` | Delete an annotation. |
+
+All paths live under `https://analytics.topstats.gg`. See the full
+[API reference](/analytics/api-reference) for every endpoint.
+
+## Related
+
+<Cards>
+  <Card title="Dashboards" href="/analytics/dashboards" description="The canvas your annotated charts live on, pinned to an environment and time range." />
+  <Card title="Alerts" href="/analytics/alerts" description="Get notified automatically when a metric spikes, drops, or goes quiet." />
+  <Card title="Roles and permissions" href="/analytics/roles-and-permissions" description="Who can read charts and who can edit annotations, alerts, and dashboards." />
+</Cards>

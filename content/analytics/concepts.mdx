@@ -1,0 +1,102 @@
+---
+title: Core concepts
+description: The handful of ideas everything in TopStats is built on, in plain terms: workspaces, environments, events, actors, dashboards, and widgets.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+TopStats has only a few moving parts. Once these six words make sense, every
+other feature is just a different view of the same data. Read this once and the
+rest of the docs will click into place.
+
+## Workspace
+
+A **workspace** is your account's container for everything: your events,
+dashboards, alerts, team members, and billing all live inside it. When you sign
+up, you get one workspace. Everything you build belongs to it.
+
+## Environments
+
+Every workspace has two completely separate streams of data: **production** and
+**development**. Think of `development` as a safe place to test your event
+tracking, and `production` as the real thing your live app or game writes to.
+
+The important part: **you never choose the environment in your request.** An
+event lands in whichever environment its **API key** belongs to. You create a
+key for one environment (in Settings, then API keys), and every event sent with
+that key goes to that stream. Production keys start with `ts_live_`, development
+keys with `ts_test_`.
+
+<Callout title="Why two environments?">
+  Point your local or staging app at a `ts_test_` key so your experiments never
+  pollute the real numbers. When you go live, swap in a `ts_live_` key and the
+  same code starts writing to production. Nothing else in your payload changes.
+</Callout>
+
+Dashboards, alerts, segments, actors, and annotations are each scoped to one
+environment at a time, so you always know which stream you are looking at.
+
+## Events
+
+An **event** is a single thing that happened, like a player joining a match or a
+customer making a purchase. Every event has a `name` (the type of thing that
+happened, which charts group by) and, optionally, some `properties` you attach
+plus a few reserved fields:
+
+- `properties` - your own custom key/value details about the event.
+- `_actor` - who the event belongs to (see below).
+- `_source` - a free-text origin label, like a region or shard.
+- `_timestamp` - when it happened, if not "right now".
+
+The reserved fields start with an underscore so they never clash with your own
+`properties`. Here is a tiny event to make it concrete:
+
+```json
+{
+  "name": "player_join",
+  "properties": {
+    "map": "desert",
+    "playtime": 42,
+    "perks": ["double_jump", "shield"]
+  },
+  "_source": "eu-west-1",
+  "_actor": "user_123",
+  "_timestamp": "2026-07-22T10:00:00Z"
+}
+```
+
+That is the whole idea. Everything TopStats shows you is built by counting,
+grouping, and charting events like this one. See
+[Sending events](/analytics/sending-events) for the full payload and
+copy-paste examples.
+
+## Actors
+
+An **actor** is the person or server behind an event, identified by the value
+you put in `_actor` (for example a user id like `user_123`). Actors are
+optional, but attaching one unlocks the
+[Actors view](/analytics/actors) (a timeline of what one user did) and
+retention charts (who came back over time). Events sent without an `_actor` are
+anonymous and never show up in those places.
+
+## Dashboards
+
+A **dashboard** is a canvas of widgets, pinned to one environment and one time
+range (like the last `24h` or `7d`). Every widget on the dashboard reads that
+same environment and range, so switching the range in the header moves every
+tile together. You will spend most of your time here.
+
+## Widgets
+
+A **widget** is a single tile on a dashboard: a big number, a chart, a table, a
+funnel, and so on. Each one turns your events into one specific view. A
+dashboard is just a collection of widgets arranged the way you like.
+
+## Where to go next
+
+<Cards>
+  <Card title="Getting started" href="/analytics/getting-started" description="Create a key and send your first event in a few minutes." />
+  <Card title="Sending events" href="/analytics/sending-events" description="The full event payload, with curl and JavaScript examples." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build a canvas of widgets pinned to an environment and time range." />
+  <Card title="Actors" href="/analytics/actors" description="Follow the person or server behind your events over time." />
+</Cards>

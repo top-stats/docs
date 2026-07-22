@@ -1,0 +1,177 @@
+---
+title: API reference
+description: Every TopStats Analytics endpoint, grouped by area, with its method, path, auth, and purpose.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+This page lists every endpoint TopStats Analytics exposes, grouped by area. Each
+table gives you the HTTP method, the path, what authentication it needs, and what
+it does.
+
+## Base URL
+
+Every path below is relative to the product origin. The app and the API share it,
+and every ingest and API path lives under `/v1/`.
+
+```sh
+https://analytics.topstats.gg/v1/
+```
+
+So a path shown as `/v1/events` is really
+`https://analytics.topstats.gg/v1/events`.
+
+## Authentication
+
+Two kinds of auth appear in the **Auth** column below:
+
+- **API key** - a Bearer token, the same key you ingest events with. Send it as
+  `Authorization: Bearer <YOUR_API_KEY>`. The key alone decides the workspace and
+  environment, so there is no workspace id in the request. See
+  [Getting started](/analytics/getting-started) to create one.
+- **Session** - a signed-in browser session, used by the web app when you click
+  around the product. Endpoints marked **Session (member)** are read-only and open
+  to any workspace member. Endpoints marked **Session (developer)** change data and
+  need the Developer role or higher. A few endpoints accept **either** a session or
+  an API key, marked **Session or API key (member)**.
+
+<Callout title="Who can write">
+  Every write endpoint (anything that creates, updates, or deletes) needs the
+  Developer role or higher. Reading is open to any workspace member. See
+  [Roles and permissions](/analytics/roles-and-permissions) for the full list.
+</Callout>
+
+## Ingest
+
+These are the server-to-server endpoints that put data in. `POST /v1/events` is
+the native one; the three OTLP endpoints accept OpenTelemetry exports. All of them
+authenticate with an API key.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| POST | `/v1/events` | API key | Ingest one event or a batch. |
+| POST | `/v1/traces` | API key | OTLP/HTTP trace export (protobuf or JSON). |
+| POST | `/v1/logs` | API key | OTLP/HTTP log export (protobuf or JSON). |
+| POST | `/v1/metrics` | API key | OTLP/HTTP metric export (protobuf or JSON). |
+
+<Callout>
+  For the event payload and copy-paste examples, see
+  [Sending events](/analytics/sending-events). For the OTLP endpoints, see
+  [OpenTelemetry](/analytics/opentelemetry).
+</Callout>
+
+## API keys
+
+Manage the keys you ingest with. Listing shows metadata only (never the full
+secret); creating returns the secret exactly once.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/keys` | Session (member) | List keys (metadata only). |
+| POST | `/v1/keys` | Session (developer) | Create a key. The secret is returned once. |
+| DELETE | `/v1/keys/:id` | Session (developer) | Revoke a key. |
+
+## Dashboards and widgets
+
+Create dashboards, add widgets to them, and run widget queries. `POST /v1/query`
+runs a widget config without saving it, so the builder can show a live preview.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/dashboards` | Session (member) | List dashboards. |
+| POST | `/v1/dashboards` | Session (developer) | Create a dashboard. |
+| GET | `/v1/dashboards/:id` | Session (member) | Get a dashboard with its widgets. |
+| PATCH | `/v1/dashboards/:id` | Session (developer) | Update (name, description, icon, environment, timeRange, isPublic). |
+| DELETE | `/v1/dashboards/:id` | Session (developer) | Delete a dashboard and its widgets. |
+| POST | `/v1/dashboards/:id/widgets` | Session (developer) | Add a widget. |
+| POST | `/v1/dashboards/:id/widgets/reorder` | Session (developer) | Reorder all widgets (send the full set). |
+| PATCH | `/v1/widgets/:id` | Session (developer) | Update a widget. |
+| DELETE | `/v1/widgets/:id` | Session (developer) | Delete a widget. |
+| POST | `/v1/widgets/:id/data` | Session (member) | Run a saved widget's query. |
+| POST | `/v1/query` | Session (member) | Preview a widget config without saving. |
+
+## Annotations
+
+Read and manage the vertical markers that show deploys and releases on time-series
+charts. Listing takes an `environment` query parameter because annotations are
+scoped per environment.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/annotations?environment=` | Session (member) | List annotations for an environment. |
+| POST | `/v1/annotations` | Session (developer) | Create an annotation. |
+| PATCH | `/v1/annotations/:id` | Session (developer) | Update an annotation. |
+| DELETE | `/v1/annotations/:id` | Session (developer) | Delete an annotation. |
+
+## Alerts and channels
+
+Manage alerts, the notification channels they send to, and read the fired/resolved
+history. The activity endpoint takes a `limit` query parameter (max 200, default
+50).
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/alerts` | Session (member) | List alerts. |
+| POST | `/v1/alerts` | Session (developer) | Create an alert. |
+| GET | `/v1/alerts/:id` | Session (member) | Get one alert. |
+| PATCH | `/v1/alerts/:id` | Session (developer) | Update an alert (including pause/resume). |
+| DELETE | `/v1/alerts/:id` | Session (developer) | Delete an alert. |
+| GET | `/v1/alerts/activity?limit=` | Session (member) | Fired/resolved history (max 200, default 50). |
+| GET | `/v1/alert-channels` | Session (member) | List channels (masked destinations). |
+| POST | `/v1/alert-channels` | Session (developer) | Create a channel. |
+| PATCH | `/v1/alert-channels/:id` | Session (developer) | Update a channel. |
+| DELETE | `/v1/alert-channels/:id` | Session (developer) | Delete a channel. |
+| POST | `/v1/alert-channels/:id/test` | Session (developer) | Send a test notification. |
+
+## Segments, actors, and digests
+
+Saved segments, the actors behind your events, and scheduled email digests. A few
+of these read endpoints accept an API key as well as a session, so a backend can
+call them. Several take query parameters: actors and digests filter by
+`environment`, `timeRange`, `limit`, or `dashboardId` as shown.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/segments` | Session or API key (member) | List saved segments. |
+| POST | `/v1/segments` | Session (developer) | Create a segment. |
+| PATCH | `/v1/segments/:id` | Session (developer) | Rename or replace filters. |
+| DELETE | `/v1/segments/:id` | Session (developer) | Delete a segment. |
+| GET | `/v1/actors?environment=&timeRange=&limit=` | Session or API key (member) | List actors by activity (max 200). |
+| GET | `/v1/actors/:actorKey?environment=&timeRange=` | Session or API key (member) | One actor's summary and timeline. |
+| GET | `/v1/digests?dashboardId=` | Session or API key (member) | List a dashboard's digests. |
+| POST | `/v1/digests` | Session (developer) | Create a digest. |
+| PATCH | `/v1/digests/:id` | Session (developer) | Update a digest. |
+| DELETE | `/v1/digests/:id` | Session (developer) | Delete a digest. |
+| POST | `/v1/digests/:id/send` | Session (developer) | Send a digest now. |
+
+## External sources
+
+Manage the trusted hostnames that External widgets are allowed to fetch from.
+Listing shows only a masked preview of any stored token; the token itself is never
+returned.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/external-sources` | Session (member) | List sources (masked token). |
+| POST | `/v1/external-sources` | Session (developer) | Add a source. |
+| PATCH | `/v1/external-sources/:id` | Session (developer) | Update a source. |
+| DELETE | `/v1/external-sources/:id` | Session (developer) | Remove a source. |
+
+## Public (no auth)
+
+These two endpoints back public and embedded dashboards, so they need no auth. The
+public widget data endpoint strips raw event payloads before returning anything.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/public/dashboards/:slug` | None | Fetch a public dashboard and its widgets. |
+| POST | `/v1/public/dashboards/:slug/widgets/:widgetId/data` | None | Fetch one public widget's data (payloads stripped). |
+
+## Where to go next
+
+<Cards>
+  <Card title="Getting started" href="/analytics/getting-started" description="Create an API key and send your first event." />
+  <Card title="Sending events" href="/analytics/sending-events" description="The event payload, with curl and JavaScript examples." />
+  <Card title="Limits and errors" href="/analytics/limits-and-errors" description="Ingest limits and what each error status means." />
+  <Card title="Roles and permissions" href="/analytics/roles-and-permissions" description="Who can read and who can write." />
+</Cards>

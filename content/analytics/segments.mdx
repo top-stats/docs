@@ -1,0 +1,172 @@
+---
+title: Saved segments
+description: Save a named, reusable set of filters for one environment and load it into the alert builder in one click.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **saved segment** is a named, reusable set of filters tied to one environment.
+Instead of retyping the same filters every time you build something, you save
+them once, give them a name, and pull them in whenever you need them.
+
+Think of a segment as a saved answer to a question like "which of my events came
+from paying users in the EU?" You define that filter combination once, and from
+then on you reference it by name.
+
+<Callout title="What a segment is (and is not)">
+  A segment is just a stored list of filters plus a name and an environment. It
+  does not store any events itself, and it does not run on its own. It only does
+  something when you load it somewhere that accepts filters.
+</Callout>
+
+## What a segment is made of
+
+Every segment has three parts.
+
+<TypeTable
+  type={{
+    name: {
+      description: 'A label you choose, 1 to 120 characters. This is how the segment shows up when you go to load it.',
+      type: 'string',
+    },
+    environment: {
+      description: 'The stream the segment belongs to, production or development. Chosen at creation and fixed afterwards.',
+      type: 'production | development',
+    },
+    filters: {
+      description: 'Between 1 and 20 filters. Each is a property key, an operator, and a value. Multiple filters combine with AND.',
+      type: 'Filter[]',
+    },
+  }}
+/>
+
+### Filter operators
+
+Each filter in a segment uses one of the same four operators you use anywhere
+else in TopStats.
+
+| Operator | Meaning |
+| --- | --- |
+| `eq` | Equals the value. |
+| `neq` | Does not equal the value. |
+| `contains` | Case-insensitive substring match (string properties). |
+| `has` | An array property contains this value as one of its elements. |
+
+A filter only considers events that actually carry the key you filter on, so an
+event that never sends that property is simply left out rather than counted as a
+miss.
+
+## Why you would use one
+
+You would reach for a segment whenever you find yourself typing the same set of
+filters over and over. Saving them once means:
+
+- **Less repetition.** Build the filter list once, reuse it by name.
+- **Consistency.** Everyone on the workspace loads the exact same definition, so
+  "EU paying users" means the same thing every time.
+- **Faster setup.** When you build an alert, you can drop in a whole filter set
+  in one click instead of adding filters one at a time.
+
+For example, a segment named `EU paying users` in the `production` environment
+might hold two filters:
+
+- `_source` `eq` `eu-west-1`
+- `plan` `neq` `free`
+
+Or a segment named `VIP players` might hold a single list-property filter:
+
+- `tags` `has` `vip`
+
+## Creating a segment
+
+Segments live on the **Segments** page.
+
+<Steps>
+<Step>
+
+### Open the Segments page and start a new segment
+
+Give it a name (1 to 120 characters) that describes the group you are
+capturing, like `EU paying users` or `Mobile signups`.
+
+</Step>
+
+<Step>
+
+### Pick the environment
+
+Choose `production` or `development`. This is fixed once you create the segment,
+so pick the stream whose events you actually want to filter.
+
+</Step>
+
+<Step>
+
+### Add your filters
+
+Add between 1 and 20 filters. Each one is a property key, an operator
+(`eq`, `neq`, `contains`, or `has`), and a value. They combine with AND, so an
+event has to match every filter to be included.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="Environment is permanent">
+  You can rename a segment and change its filters at any time, but you cannot
+  move it to a different environment after creation. If you need the same filters
+  in the other environment, create a second segment there.
+</Callout>
+
+## Where segments are used today
+
+Right now, segments are consumed in **one** place: the
+[alert builder](/analytics/alerts).
+
+When you build an alert, a **Load from segment** dropdown lists the segments that
+match the alert's environment. Picking one **appends its filters** to the alert
+you are building. It adds the segment's filters on top of whatever you have
+already set, so you can start from a saved segment and then tweak from there.
+
+<Callout title="Environments have to match">
+  The dropdown only shows segments in the same environment as the alert. A
+  `development` segment will not appear while you are building a `production`
+  alert, and vice versa.
+</Callout>
+
+<Callout type="info" title="Not everywhere yet">
+  Segments are **not yet** applied to dashboards, widgets, or the events stream.
+  For now, "Load from segment" in the alert builder is the only place they plug
+  in. In those other places you still add filters directly.
+</Callout>
+
+## Who can manage segments
+
+Any workspace member, including a Viewer, can read the list of segments. Creating,
+editing, and deleting a segment requires the **Developer** role or higher. See
+[Roles and permissions](/analytics/roles-and-permissions) for the full breakdown.
+
+## API endpoints
+
+If you want to work with segments programmatically, these are the paths, all
+under `https://analytics.topstats.gg`.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/segments` | Session or API key (member) | List saved segments. |
+| POST | `/v1/segments` | Session (developer) | Create a segment. |
+| PATCH | `/v1/segments/:id` | Session (developer) | Rename a segment or replace its filters. |
+| DELETE | `/v1/segments/:id` | Session (developer) | Delete a segment. |
+
+Note that the environment is not something you can change through `PATCH`: you
+can rename a segment or swap out its filters, but not move it between
+environments.
+
+## Related pages
+
+<Cards>
+  <Card title="Alerts" href="/analytics/alerts" description="Where Load from segment lives today. Watch a metric and get notified when it breaches your rule." />
+  <Card title="Widgets" href="/analytics/widgets" description="How filters work on a widget, including the eq, neq, contains, and has operators." />
+  <Card title="Roles and permissions" href="/analytics/roles-and-permissions" description="Who can read versus create, edit, and delete segments." />
+</Cards>

@@ -1,0 +1,101 @@
+---
+title: The Events stream
+description: Watch a live tail of your raw events as they arrive, and inspect the exact payload of any single event.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+The Events page is a live tail of your raw events, newest first. It is the
+fastest way to answer two questions: "is my data actually arriving?" and "what
+exactly is in this event?" You will find it in the main navigation, labelled
+**Events**.
+
+<Callout title="A live view, not a chart">
+  Dashboards and widgets summarise your events into numbers and charts. The
+  Events stream does the opposite: it shows you the individual events themselves,
+  one row at a time, as raw as they were sent. It is a debugging and confirmation
+  tool, not an analysis tool.
+</Callout>
+
+## What you see
+
+Events show up newest first, so the most recent thing that happened in your app
+or game sits at the top. As new events arrive they land at the top of the list,
+giving you a running feed of activity in real time.
+
+## What each row shows
+
+Every row is one event. It lays out the core fields so you can read an event at
+a glance, plus the full set of properties you attached.
+
+| Column | What it shows |
+| --- | --- |
+| Event name | The `name` you sent, like `player_join` or `purchase`. |
+| Source | The free-text `_source` label, if you set one (for example a region or shard like `eu-west-1`). |
+| Actor | The `_actor` the event belongs to, if you set one (for example `user_123`). See [Actors](/analytics/actors). |
+| Timestamp | When the event happened. |
+| Properties | The custom key/value pairs you attached under `properties`. |
+
+For example, if your backend sends this event:
+
+```json
+{
+  "name": "player_join",
+  "properties": { "map": "desert", "perks": ["double_jump", "shield"] },
+  "_source": "eu-west-1",
+  "_actor": "user_123"
+}
+```
+
+the row will read `player_join` as the name, `eu-west-1` as the source,
+`user_123` as the actor, and show the `map` and `perks` properties alongside it.
+
+<Callout title="List properties">
+  When a property is a list (an array like `["double_jump", "shield"]`), the row
+  shows its values together, so you can see every value the event carried. Lists
+  are how one event can count toward several values at once, more in
+  [Property types](/analytics/property-types).
+</Callout>
+
+## Switching environments
+
+Every workspace has two separate streams of data, **production** and
+**development**, and an event lands in one of them based on the API key it was
+sent with. The Events page has a **Production / Development** toggle at the top
+that switches which environment you are looking at.
+
+This matters when you are testing. Point your test traffic at a development key,
+flip the toggle to **Development**, and you can watch your test events arrive
+without mixing them into your real production data. When you are ready to check
+live traffic, flip back to **Production**. More on environments and keys in
+[Core concepts](/analytics/concepts).
+
+## When to use it
+
+There are two everyday jobs the Events stream is built for.
+
+- **Confirm your data is arriving.** Right after you wire up your first event
+  (see [Getting started](/analytics/getting-started)), open the Events page and
+  send a test event. If it shows up at the top of the list, your key and payload
+  are correct and the rest of the product will have data to work with. If nothing
+  appears, you know the problem is upstream, before TopStats ever saw it.
+- **Inspect exact payloads.** When a chart looks off, or a property is not
+  breaking down the way you expect, the Events stream lets you read the real
+  event to see precisely what was sent, including the exact property names and
+  values. It is the ground truth you check your assumptions against.
+
+<Callout type="info">
+  If an event is not showing the property you expected, or a value looks like a
+  string when you meant it to be a number, compare the row here against what your
+  code is sending. The [Sending events](/analytics/sending-events) page covers
+  the payload fields and how each value type is handled.
+</Callout>
+
+## Where to go next
+
+<Cards>
+  <Card title="Sending events" href="/analytics/sending-events" description="The event payload, with copy-paste curl and JavaScript examples." />
+  <Card title="Property types" href="/analytics/property-types" description="How numbers, strings, and lists are handled and what each one lets you do." />
+  <Card title="Actors" href="/analytics/actors" description="Follow the person or server behind your events over time." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="Turn your arriving events into live charts and tables." />
+</Cards>

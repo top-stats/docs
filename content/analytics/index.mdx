@@ -1,13 +1,51 @@
 ---
 title: Introduction
-description: A guide to using TopStats analytics
+description: Send your product and game events to TopStats and turn them into live dashboards, funnels, retention, and alerts.
 icon: House
 ---
 
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+TopStats Analytics is an event analytics product. You send **events** (things
+that happen in your app or game, like `player_join` or `purchase`) from your
+backend, and TopStats turns them into live dashboards, funnels, retention grids,
+and alerts.
+
+<Callout title="The one thing to understand first">
+  Everything starts with an event. An event has a `name` and, optionally, some
+  `properties` you attach. Once events are arriving, every other feature
+  (charts, actors, alerts, digests) is just a different way of looking at them.
+</Callout>
+
 ## Base URL
 
-This is the base URL to access our analytics-API.
+The app and the API share one origin. Every ingest and API path lives under
+`/v1/` on it.
 
 ```sh
 https://analytics.topstats.gg/v1/
 ```
+
+## Where to go next
+
+<Cards>
+  <Card title="Getting started" href="/analytics/getting-started" description="Create a key and send your first event in a few minutes." />
+  <Card title="Core concepts" href="/analytics/concepts" description="Workspaces, environments, events, and actors, in plain terms." />
+  <Card title="Sending events" href="/analytics/sending-events" description="The event payload, with copy-paste curl and JavaScript examples." />
+  <Card title="Dashboards" href="/analytics/dashboards" description="Build a canvas of widgets pinned to an environment and time range." />
+  <Card title="Alerts" href="/analytics/alerts" description="Get notified when a metric crosses a line, spikes, or goes quiet." />
+  <Card title="API reference" href="/analytics/api-reference" description="Every endpoint, its auth, and what it does." />
+</Cards>
+
+## What you can build
+
+- **Dashboards** of numbers, time series, tables, funnels, retention grids,
+  histograms, and activity heatmaps.
+- **Actors** to follow the person or server behind your events over time.
+- **Alerts** that watch a metric and notify Discord, Slack, a webhook, or email.
+- **Scheduled digests** that email a dashboard summary on a cadence.
+- **Sharing and embedding** so a dashboard can be a public link or an iframe.
+
+Today you can send events from Node.js, JavaScript, TypeScript, or any HTTPS
+client (curl, fetch, your backend's HTTP library), and from any OpenTelemetry
+SDK or Collector. More language SDKs and game-server plugins are on the way.

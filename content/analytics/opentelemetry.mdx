@@ -1,0 +1,102 @@
+---
+title: OpenTelemetry (OTLP)
+description: Point any OpenTelemetry SDK or Collector at TopStats over OTLP/HTTP and turn traces, logs, and metrics into events.
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+If you already run OpenTelemetry, you do not need a TopStats SDK to get started.
+Point any OTel SDK or Collector straight at TopStats over OTLP/HTTP and your
+existing traces, logs, and metrics arrive as regular events, ready for
+dashboards, funnels, and alerts.
+
+## Point your exporter at TopStats
+
+Set two things on your exporter: the endpoint (the TopStats origin) and an
+`Authorization` header carrying your API key as a Bearer token. Most OTel setups
+read both from environment variables.
+
+```sh
+OTEL_EXPORTER_OTLP_ENDPOINT=https://analytics.topstats.gg
+OTEL_EXPORTER_OTLP_HEADERS=Authorization=Bearer ts_live_your_key_here
+```
+
+Your exporter appends the signal path (`/v1/traces`, `/v1/logs`, or
+`/v1/metrics`) to that endpoint for you, so you only set the origin once.
+
+<Callout title="Protobuf or JSON, both work">
+  Both binary protobuf (the OTLP default) and JSON are accepted. Whatever your
+  SDK or Collector sends by default will work, so you rarely need to change
+  anything here.
+</Callout>
+
+## What each signal becomes
+
+Each OTLP signal has its own endpoint, and TopStats turns each one into events
+in a slightly different way.
+
+| Signal | Endpoint | Becomes |
+| --- | --- | --- |
+| Traces | `POST /v1/traces` | One event per span (and one per span event). |
+| Logs | `POST /v1/logs` | One event per log record. |
+| Metrics | `POST /v1/metrics` | One event per data point. |
+
+## How fields map to events
+
+TopStats reads the standard OpenTelemetry fields and turns them into the same
+event shape you would send to the native endpoint.
+
+| Event field | Comes from |
+| --- | --- |
+| Name | The span name, the log's event name (falling back to its severity, then `log`), or the metric name. |
+| Timestamp | The span start, the log time, or the data point time. |
+| Source | The origin service's `service.name`. |
+| Properties | Every span, log, and metric attribute. |
+
+OpenTelemetry-specific fields that are not plain attributes are kept, but
+namespaced under `otel.*` so they never clash with your own property names. For
+example:
+
+- `otel.trace_id`
+- `otel.span.kind`
+- `otel.status.code`
+- `otel.duration_ms`
+- `otel.severity_text`
+- `otel.metric.type`
+
+<Callout title="Numbers stay numbers">
+  Numeric values (a metric value, a span's duration, a summary's `p95`) stay
+  numbers, not strings. That means charts can sum and average them directly, so
+  a metric export is immediately chartable.
+</Callout>
+
+## Limits and partial success
+
+Auth, the per-request rate limit, and the free-plan monthly cap all work exactly
+the same as they do for the native [`POST /v1/events`](/analytics/sending-events)
+endpoint. There are two differences worth knowing.
+
+- A whole OTLP request may be up to **64 MiB**, so you can send larger batches
+  than the native endpoint allows.
+- When a request goes over a limit, TopStats does not reject the whole thing.
+  Instead it accepts what fits and tells you what it dropped in the standard OTLP
+  `partial_success` response.
+
+Records get dropped when they land beyond the batch cap, are over 64 KiB each, or
+push you past the free-plan cap. The `partial_success` response reports how many
+were dropped, so check it after each export rather than assuming everything
+landed.
+
+<Callout type="info" title="Bad payloads">
+  A payload that cannot be decoded returns a standard OTLP error response (a
+  `google.rpc.Status`), never a raw stack trace, so your exporter can handle it
+  the same way it handles errors from any other OTLP backend.
+</Callout>
+
+## Where to go next
+
+<Cards>
+  <Card title="Sending events" href="/analytics/sending-events" description="The native event endpoint that OTLP maps onto, with copy-paste examples." />
+  <Card title="Batching" href="/analytics/batching" description="How batches and per-request caps work." />
+  <Card title="Limits and errors" href="/analytics/limits-and-errors" description="Size caps, rate limits, and the error responses you can get back." />
+</Cards>

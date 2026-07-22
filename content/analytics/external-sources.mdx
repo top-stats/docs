@@ -1,0 +1,121 @@
+---
+title: External sources
+description: Show a live number or short text from an outside HTTPS API on your dashboard by allowlisting a host and adding an External widget.
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+
+An External widget shows a single number or short piece of text fetched from an
+outside HTTP API at the moment you view it. The value is not stored in your
+event stream. It is fetched fresh (and cached briefly) each time the widget is
+viewed.
+
+This is handy for a live figure that does not belong in your events, like a
+service status number, a subscriber count, or a price from another API. Instead
+of copying that number into TopStats, you point a widget at the API and let it
+read the current value on every load.
+
+<Callout title="Two things to set up">
+  First you add a **source** (the trusted host the server is allowed to call).
+  Then you add an **External widget** that reads a value from a URL on that
+  host. You cannot add the widget until the source exists.
+</Callout>
+
+## Setting it up
+
+<Steps>
+<Step>
+
+### Add a source
+
+Go to the **External sources** page and add a source. A source is a single
+trusted hostname you allow the server to call, for example `api.example.com`.
+Only hosts you add here can ever be fetched, so nothing is called until you list
+it.
+
+If the API needs a token, give the **auth header name** (for example
+`Authorization`) and the **token value**. The token is encrypted, is never shown
+to you again, and is only ever used server-side when the value is fetched. If
+the API is open and needs no token, leave those blank.
+
+Adding, editing, or removing a source needs the Developer role or higher.
+
+</Step>
+
+<Step>
+
+### Add an External widget
+
+On a dashboard, choose **Add widget** and pick the **External** type. Then fill
+in these fields:
+
+<TypeTable
+  type={{
+    source: {
+      description: 'The source you added in step one. Its host is what the URL must match.',
+      type: 'source',
+    },
+    url: {
+      description: 'The full https URL to fetch. Its host must match the chosen source.',
+      type: 'string',
+    },
+    'value path': {
+      description: 'A dot-path into the JSON response pointing at one value (see below).',
+      type: 'string',
+    },
+    'value type': {
+      description: 'Whether the value is a number or text.',
+      type: 'number | text',
+    },
+  }}
+/>
+
+A live preview shows the fetched value as you configure it.
+
+</Step>
+</Steps>
+
+## The value path
+
+The value path is a dot-path into the JSON response that points at one single
+value. Walk the path key by key, and use the position number to step into an
+array.
+
+| Response | Value path | Reads |
+| --- | --- | --- |
+| `{ "data": { "price": 42 } }` | `data.price` | `42` |
+| `{ "results": [ { "value": 7 } ] }` | `results.0.value` | `7` |
+
+The path must land on a single number, string, or boolean. It cannot point at
+an object or a list, since a widget shows one value, not a structure.
+
+<Callout title="Number or text">
+  Set the value type to **number** for figures you want shown as a number, and
+  **text** for a short label or status string.
+</Callout>
+
+## When the value cannot be read
+
+Only `https` URLs are allowed. If the source cannot be reached, or the value
+path does not find a value, the widget shows **Unavailable**. No error detail is
+shown, so a broken API never leaks anything onto your dashboard.
+
+## Caching
+
+The value is cached for a short time (about a minute). A busy or public
+dashboard reads the cached value rather than calling the third party on every
+view, so the outside API is not hammered. On a public or embedded dashboard the
+server does the fetch, your token stays private, and only the final value is
+shown.
+
+## Security
+
+For safety, the server only connects to public internet hosts that you
+allowlist as a source. It cannot be pointed at internal systems, so an External
+widget can only ever read from the public APIs you have explicitly allowed.
+
+## Related
+
+- [Widgets](/analytics/widgets) covers every widget type and how to add them.
+- [External widget](/analytics/types/external) is the widget-type reference.
