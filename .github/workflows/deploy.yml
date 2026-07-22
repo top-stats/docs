@@ -63,9 +63,21 @@ jobs:
       run: |
         docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
 
+    # Tell Portainer to pull the new image and redeploy the stack
+    - name: Trigger Portainer redeploy (production)
+      if: ${{ github.ref_name == 'master' }}
+      run: |
+        curl -fsSL -X POST "https://swarm.topstats.gg/api/webhooks/c9a9706c-6729-4964-83f5-79e0770be15c"
+
     # Push the Docker image to GitHub Container Registry
     - name: Push Docker image to GHCR
       if: ${{ github.ref_name == 'next' }}
       run: |
         docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:next
-        
+
+    # Tell Portainer to pull the new image and redeploy the stack
+    - name: Trigger Portainer redeploy (next)
+      if: ${{ github.ref_name == 'next' }}
+      run: |
+        curl -fsSL -X POST "https://swarm.topstats.gg/api/webhooks/c382aa91-b4c7-46d1-b549-3b97dfc89a83"
+
