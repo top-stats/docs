@@ -1,0 +1,298 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TopStats Analytics Ingest API",
+    "version": "1.0.0",
+    "description": "Server-to-server ingestion for TopStats Analytics. Authenticate every request with your workspace API key as a Bearer token; the key alone decides the workspace and environment, so there is no workspace id in the request. Send events from your backend, never a browser."
+  },
+  "servers": [
+    {
+      "url": "https://analytics.topstats.gg"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Native event ingestion."
+    },
+    {
+      "name": "OpenTelemetry",
+      "description": "OTLP/HTTP ingestion."
+    }
+  ],
+  "paths": {
+    "/v1/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Ingest one event or a batch",
+        "operationId": "ingestEvents",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/Event"
+                  },
+                  {
+                    "$ref": "#/components/schemas/EventBatch"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted. Returns the number of events stored.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Payload failed validation (missing name, unknown field, bad timestamp)."
+          },
+          "401": {
+            "description": "Missing, malformed, unknown, or revoked API key."
+          },
+          "402": {
+            "description": "Free plan monthly event cap reached. Upgrade to keep ingesting."
+          },
+          "413": {
+            "description": "Batch over 500 events, an event over 64 KiB, or a body over 2 MiB."
+          },
+          "429": {
+            "description": "Rate limit exceeded (6000 requests per minute, per client IP)."
+          }
+        }
+      }
+    },
+    "/v1/traces": {
+      "post": {
+        "tags": [
+          "OpenTelemetry"
+        ],
+        "summary": "OTLP/HTTP traces export",
+        "operationId": "exportTraces",
+        "description": "Standard OTLP/HTTP. Point any OpenTelemetry SDK or Collector here. The body is the matching Export\u003CSignal\u003EServiceRequest, as protobuf (the default) or OTLP/JSON. Each record is translated into one TopStats event.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-protobuf": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Export\u003CSignal\u003EServiceResponse. Empty on full success; a partial_success counter when some records were dropped (over a size, batch, or plan limit)."
+          },
+          "400": {
+            "description": "Undecodable or invalid body."
+          },
+          "401": {
+            "description": "Missing or invalid API key."
+          },
+          "413": {
+            "description": "Body over the 64 MiB limit."
+          },
+          "429": {
+            "description": "Rate limit exceeded."
+          }
+        }
+      }
+    },
+    "/v1/logs": {
+      "post": {
+        "tags": [
+          "OpenTelemetry"
+        ],
+        "summary": "OTLP/HTTP logs export",
+        "operationId": "exportLogs",
+        "description": "Standard OTLP/HTTP. Point any OpenTelemetry SDK or Collector here. The body is the matching Export\u003CSignal\u003EServiceRequest, as protobuf (the default) or OTLP/JSON. Each record is translated into one TopStats event.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-protobuf": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Export\u003CSignal\u003EServiceResponse. Empty on full success; a partial_success counter when some records were dropped (over a size, batch, or plan limit)."
+          },
+          "400": {
+            "description": "Undecodable or invalid body."
+          },
+          "401": {
+            "description": "Missing or invalid API key."
+          },
+          "413": {
+            "description": "Body over the 64 MiB limit."
+          },
+          "429": {
+            "description": "Rate limit exceeded."
+          }
+        }
+      }
+    },
+    "/v1/metrics": {
+      "post": {
+        "tags": [
+          "OpenTelemetry"
+        ],
+        "summary": "OTLP/HTTP metrics export",
+        "operationId": "exportMetrics",
+        "description": "Standard OTLP/HTTP. Point any OpenTelemetry SDK or Collector here. The body is the matching Export\u003CSignal\u003EServiceRequest, as protobuf (the default) or OTLP/JSON. Each record is translated into one TopStats event.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-protobuf": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Export\u003CSignal\u003EServiceResponse. Empty on full success; a partial_success counter when some records were dropped (over a size, batch, or plan limit)."
+          },
+          "400": {
+            "description": "Undecodable or invalid body."
+          },
+          "401": {
+            "description": "Missing or invalid API key."
+          },
+          "413": {
+            "description": "Body over the 64 MiB limit."
+          },
+          "429": {
+            "description": "Rate limit exceeded."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Workspace API key. Production keys start with ts_live_, development keys with ts_test_."
+      }
+    },
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "additionalProperties": false,
+        "description": "A single event. Only these fields are allowed.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "description": "The event type, grouped by in charts (e.g. player_join)."
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Custom key/value details. A finite number is stored as a numeric property (summable); a non-empty array breaks down per element; anything else is a string property."
+          },
+          "_source": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Free-text origin label (region, shard). Shown as Source."
+          },
+          "_actor": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Who the event belongs to. Powers Actors and retention."
+          },
+          "_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 time. Defaults to the server receive time."
+          }
+        },
+        "example": {
+          "name": "player_join",
+          "properties": {
+            "map": "desert",
+            "playtime": 42,
+            "perks": [
+              "double_jump"
+            ]
+          },
+          "_source": "eu-west-1",
+          "_actor": "user_123"
+        }
+      },
+      "EventBatch": {
+        "type": "object",
+        "required": [
+          "events"
+        ],
+        "additionalProperties": false,
+        "description": "A batch of 1 to 500 events.",
+        "properties": {
+          "events": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        }
+      },
+      "IngestResponse": {
+        "type": "object",
+        "properties": {
+          "accepted": {
+            "type": "integer",
+            "description": "The number of events stored."
+          }
+        }
+      }
+    }
+  }
+}

@@ -30,6 +30,7 @@
     "roles-and-permissions",
     "plans-and-limits",
     "---Reference---",
-    "api-reference"
+    "api-reference",
+    "...reference"
   ]
 }
