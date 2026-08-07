@@ -171,7 +171,7 @@ export default function HomePage() {
               <ul className='flex flex-col items-start justify-center gap-1 text-sm'>
                 <li>
                   <Link
-                    href='https://topstats.gg/policies/terms-of-service'
+                    href='https://bots.topstats.gg/policies/terms-of-service'
                     className='text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
                   >
                     Terms of Service
@@ -179,7 +179,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link
-                    href='https://topstats.gg/policies/privacy-policy'
+                    href='https://bots.topstats.gg/policies/privacy-policy'
                     className='text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
                   >
                     Privacy Policy
@@ -187,7 +187,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <Link
-                    href='https://topstats.gg/policies/developers'
+                    href='https://bots.topstats.gg/policies/developers'
                     className='text-sm text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white'
                   >
                     Developer Guidelines
