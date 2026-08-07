@@ -5,6 +5,7 @@ import LogoSvg from '@/app/logo.svg'
 import BannerSvg from '@/app/banner.svg'
 import BannerLightSvg from '@/app/banner-light.svg'
 import { ArrowRight, BookOpen, Image as LucideImage } from 'lucide-react'
+import { DiscordIcon } from '@/components/icons'
 
 export default function HomePage() {
   return (
@@ -30,13 +31,13 @@ export default function HomePage() {
       {/* Cards */}
       <section className='container px-4 pb-16'>
         <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-          {/* Get Building */}
+          {/* Bots */}
           <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
             <div className='w-8 h-8 relative'>
-              <BookOpen className='w-full h-full' />
+              <DiscordIcon />
             </div>
             <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
-              Get Building
+              Discord bot analytics
             </div>
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
               Get analytical data straight from your favourite bots using our
@@ -56,35 +57,24 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Support Server */}
+          {/* Analytics */}
           <div className='p-6 bg-fd-accent/15 shadow-lg rounded-xl border-2 flex-col justify-start items-start gap-4 inline-flex transition-transform duration-300 hover:scale-105 hover:border-fd-primary group'>
             <div className='w-8 h-8 relative'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                fill='currentColor'
-                className='w-full h-full transition-transform duration-300 group-hover:rotate-12'
-                viewBox='0 0 16 16'
-              >
-                <path d='M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612' />
-              </svg>
+              <BookOpen className='w-full h-full' />
             </div>
             <div className="self-stretch text-foreground text-2xl font-semibold font-['Inter'] leading-[28.80px]">
-              Join Our Support Server
+              TopStats Analytics Platform
             </div>
             <div className="self-stretch text-muted-foreground text-base font-medium font-['Inter'] leading-relaxed">
-              Need some help getting started, wanna stay up to date, or join our
-              awesome community!
+              Live dashboards, funnels and alerts for any app, service, game or
+              bot.
             </div>
             <div className='justify-start items-center inline-flex'>
-              <Link
-                href='https://discord.gg/x48WXcTFVD'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
+              <Link href='docs/analytics'>
                 <div className='rounded-[10px] justify-center items-center flex group bg-fd-accent/20'>
                   <div className='grow shrink basis-0 h-10.5 px-4 py-2 rounded-[10px] border dajustify-center items-center gap-2 flex'>
                     <div className="text-center text-foreground text-base font-medium font-['Inter'] leading-relaxed">
-                      Join our Discord
+                      Learn More
                     </div>
                     <ArrowRight className='ml-2 h-4 w-4 transition-transform group-hover:translate-x-1' />
                   </div>
