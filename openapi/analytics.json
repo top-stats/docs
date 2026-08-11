@@ -1,13 +1,13 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "TopStats Analytics Ingest API",
+    "title": "TopStats Analytics API",
     "version": "1.0.0",
-    "description": "Server-to-server ingestion for TopStats Analytics. Authenticate every request with your workspace API key as a Bearer token; the key alone decides the workspace and environment, so there is no workspace id in the request. Send events from your backend, never a browser."
+    "description": "The public TopStats Analytics API. Authenticate the key-protected endpoints (event ingestion, OTLP export, and feature-flag evaluation) with your workspace API key as a Bearer token; the key alone decides the workspace and environment, so there is no workspace id in the request. Call these from your backend, never a browser. The public read endpoints (shared dashboards, badges, landing stats) need no authentication."
   },
   "servers": [
     {
-      "url": "https://analytics.topstats.gg"
+      "url": "https://topstats.gg"
     }
   ],
   "security": [
@@ -23,6 +23,18 @@
     {
       "name": "OpenTelemetry",
       "description": "OTLP/HTTP ingestion."
+    },
+    {
+      "name": "Feature Flags",
+      "description": "Server-to-server flag evaluation."
+    },
+    {
+      "name": "Public",
+      "description": "Unauthenticated public read endpoints."
+    },
+    {
+      "name": "Badges",
+      "description": "Public badge images."
     }
   ],
   "paths": {
@@ -207,6 +219,162 @@
           }
         }
       }
+    },
+    "/v1/flags/evaluate": {
+      "post": {
+        "tags": [
+          "Feature Flags"
+        ],
+        "summary": "Evaluate feature flags",
+        "operationId": "evaluateFlags",
+        "description": "Server-to-server flag evaluation. Authenticated by the workspace API key; the environment is taken from the key, never the body. Rate limited per client IP like ingestion.",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagEvaluate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The evaluated flags.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlagEvaluateResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Payload failed validation."
+          },
+          "401": {
+            "description": "Missing, malformed, unknown, or revoked API key."
+          },
+          "429": {
+            "description": "Rate limit exceeded (6000 requests per minute, per client IP)."
+          }
+        }
+      }
+    },
+    "/v1/public/dashboards/{slug}": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Get a shared dashboard",
+        "operationId": "getPublicDashboard",
+        "security": [],
+        "description": "Fetch a dashboard that has been shared publicly, by its slug. No authentication.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The dashboard and its widgets."
+          },
+          "404": {
+            "description": "No public dashboard with this slug."
+          }
+        }
+      }
+    },
+    "/v1/public/dashboards/{slug}/widgets/{widgetId}/data": {
+      "post": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Get data for a shared dashboard widget",
+        "operationId": "getPublicWidgetData",
+        "security": [],
+        "description": "Fetch the computed data for one widget on a public dashboard. No authentication.",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "widgetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The widget result."
+          },
+          "404": {
+            "description": "Unknown dashboard or widget."
+          }
+        }
+      }
+    },
+    "/v1/public/stats": {
+      "get": {
+        "tags": [
+          "Public"
+        ],
+        "summary": "Global aggregate stats",
+        "operationId": "getPublicStats",
+        "security": [],
+        "description": "Public landing-page totals. No authentication.",
+        "responses": {
+          "200": {
+            "description": "Aggregate counters, e.g. { totalEvents }."
+          }
+        }
+      }
+    },
+    "/v1/badge/{token}.svg": {
+      "get": {
+        "tags": [
+          "Badges"
+        ],
+        "summary": "Render a badge image",
+        "operationId": "getBadge",
+        "security": [],
+        "description": "Render a public SVG badge for a workspace metric, for embedding in a README. No authentication.",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The badge image.",
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -235,7 +403,11 @@
           "properties": {
             "type": "object",
             "additionalProperties": true,
-            "description": "Custom key/value details. A finite number is stored as a numeric property (summable); a non-empty array breaks down per element; anything else is a string property."
+            "propertyNames": {
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "description": "Custom key/value details. Property keys are 1 to 128 characters. A finite number is stored as a numeric property (summable); a non-empty array breaks down per element; anything else is a string property."
           },
           "_source": {
             "type": "string",
@@ -280,6 +452,84 @@
             "maxItems": 500,
             "items": {
               "$ref": "#/components/schemas/Event"
+            }
+          }
+        }
+      },
+      "FlagEvaluate": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Optional targeting context. Omit every field to evaluate all flags for an anonymous caller.",
+        "properties": {
+          "actorKey": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "The actor to evaluate rollouts for (e.g. user_123)."
+          },
+          "groupKey": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "The group or tenant to evaluate for."
+          },
+          "keys": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9._-]+$",
+              "maxLength": 120
+            },
+            "description": "Flag keys to evaluate. Omit to evaluate every flag."
+          },
+          "logExposure": {
+            "type": "boolean",
+            "description": "When true, records an exposure for each evaluated flag."
+          }
+        },
+        "example": {
+          "actorKey": "user_123",
+          "keys": [
+            "new_dashboard"
+          ]
+        }
+      },
+      "FlagEvaluateResult": {
+        "type": "object",
+        "required": [
+          "flags"
+        ],
+        "description": "Each evaluated flag key mapped to its result.",
+        "properties": {
+          "flags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "boolean",
+                  "description": "Whether the flag is on."
+                },
+                "variant": {
+                  "type": "string",
+                  "enum": [
+                    "true",
+                    "false"
+                  ]
+                },
+                "reason": {
+                  "type": "string",
+                  "enum": [
+                    "rollout",
+                    "boolean",
+                    "disabled",
+                    "no_actor",
+                    "not_found"
+                  ],
+                  "description": "Why the flag resolved the way it did."
+                }
+              }
             }
           }
         }
