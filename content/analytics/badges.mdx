@@ -1,0 +1,336 @@
+---
+title: Stat badges
+description: Turn one counter widget into a live SVG you can paste into a README or your own site, and revoke it whenever you want.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+
+A **stat badge** is a live SVG image of one number from one of your dashboards.
+It is a small pill you can drop into a README, a wiki page, or your own site,
+and it redraws with the current value whenever someone loads the page.
+
+Think of it as the "build passing" badge you already see on GitHub, except the
+number inside it comes from your own events. You point a badge at a single
+counter widget, copy the image URL, and paste it wherever you want the number to
+show up.
+
+<Callout title="What a badge is (and is not)">
+  A badge is one number from one counter widget, served as an image at a public
+  URL. It is not a dashboard, it is not interactive, and it never sets a cookie
+  or asks anyone to log in. It also goes quiet, within a minute or so, once the
+  dashboard behind it stops being public.
+</Callout>
+
+## What a badge is made of
+
+A badge is a small record that ties a dashboard, one widget, and a secret token
+together.
+
+<TypeTable
+  type={{
+    dashboard: {
+      description: 'The public dashboard the badge belongs to. The badge borrows that dashboard\'s environment, time range, and default filter, so the number matches what the dashboard shows.',
+      type: 'Dashboard',
+    },
+    widget: {
+      description: 'The widget whose number is drawn. It has to be a widget on that same dashboard, and it has to be a counter (a single number, no breakdown, not plotted over time).',
+      type: 'Widget',
+    },
+    label: {
+      description: 'Optional text for the left-hand segment of the pill, 1 to 60 characters. Leave it blank and the widget\'s own title is used instead.',
+      type: 'string',
+    },
+    token: {
+      description: 'The secret that goes in the image URL. It starts with tsb_ and is shown to you exactly once, at the moment you create the badge.',
+      type: 'string',
+    },
+    prefix: {
+      description: 'The first 12 characters of the token (tsb_ plus 8 more). This is all you see afterwards, and it is how you tell two badges apart in the list.',
+      type: 'string',
+    },
+    lastRenderedAt: {
+      description: 'When the image was last drawn fresh. It updates at most once a minute, so it tells you a badge is being loaded, not how many times.',
+      type: 'string | null',
+    },
+    createdAt: {
+      description: 'When the badge was created.',
+      type: 'string',
+    },
+  }}
+/>
+
+### What the image looks like
+
+The badge is a rounded pill, 20 px tall, sized to fit its own text. It is built
+out of two or three segments, left to right.
+
+| Segment | Contents | When it appears |
+| --- | --- | --- |
+| Label | Your label, or the widget's title if you did not set one. | Always. |
+| Value | The current number, shortened for space: `1200` becomes `1.2K`, `3400000` becomes `3.4M`. | Always. |
+| `topstats.gg` | Fixed text. | Unless [white label](/docs/analytics/white-label) is active on your workspace. |
+
+The SVG carries a text alternative built from those same segments, so a screen
+reader reads out something like "Active players 12.4K topstats.gg" rather than
+skipping it.
+
+### Styling options
+
+There is exactly one styling option, and it is the **label**. Everything else
+about the pill is fixed: the colours, the height, the font, and the way the
+value is shortened.
+
+<Callout type="info" title="The image URL takes no query parameters">
+  There is no `?color=`, no `?style=`, no `?label=` on the badge URL. Anything
+  you add to the end of it is ignored. If you want different text in the pill,
+  change the label on the badge itself or rename the widget.
+</Callout>
+
+## Why you would use one
+
+A badge is for the number you want people to see without asking them to open a
+dashboard.
+
+- **Proof in your README.** Show live install counts, matches played, or
+  requests served next to your build and licence badges.
+- **A number on your own site.** Drop it into a landing page or a docs footer
+  without building anything or exposing an API key.
+- **Nothing to log into.** The image URL is public, so a reader who has never
+  heard of TopStats still sees the number.
+
+For example, a dashboard pinned to `production` and the last `24h` might have a
+counter widget titled `Active players`. Make a badge from it with the label
+`Active players` and you get a pill that reads
+`Active players | 12.4K | topstats.gg`, updated about once a minute, wherever
+you paste it.
+
+If you would rather the pill say something friendlier than the widget title, set
+the label. A widget called `distinct _actor, 24h` can happily render as
+`Players today`.
+
+## Creating a badge
+
+Badges live in the **Share** dialog on a dashboard, underneath the share link
+and the embed snippet.
+
+<Steps>
+<Step>
+
+### Make the dashboard public
+
+Open the dashboard, click **Share**, and turn on the **Public** toggle. The
+Badge section only appears once the dashboard is public, because a badge reads
+the same data the public share page does. See
+[Sharing and embedding](/docs/analytics/sharing-and-embedding).
+
+</Step>
+
+<Step>
+
+### Pick a counter widget
+
+The **Widget** dropdown lists only the counter widgets on that dashboard, since
+a badge can show one number and nothing else. If the dashboard has no counter
+widget yet, add one first: a [Metric](/docs/analytics/types/metric) widget with
+no breakdown and no "over time" is a counter.
+
+</Step>
+
+<Step>
+
+### Give it a label (optional)
+
+Type up to 60 characters into **Label**. Skip it and the badge falls back to the
+widget's title.
+
+</Step>
+
+<Step>
+
+### Create the badge and copy a snippet
+
+Click **Create badge**. The dialog reveals the image URL, a Markdown snippet,
+and an HTML snippet, each with its own **Copy** button. Copy what you need
+before you close the dialog.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="The token is shown once">
+  The full token appears only on the screen that creates the badge. TopStats
+  stores it hashed and cannot show it to you again. Afterwards the list shows
+  only the first 12 characters, so you can recognise a badge but not rebuild its
+  URL. Lose the URL and the fix is to revoke that badge and create a new one.
+</Callout>
+
+## The image URL
+
+Every badge is served from one public path:
+
+```txt
+https://analytics.topstats.gg/v1/badge/<token>.svg
+```
+
+`<token>` is the whole token, `tsb_` prefix included, with `.svg` joined
+straight onto the end with no slash in between. A real one looks like this:
+
+```txt
+https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg
+```
+
+Note the path is `/v1/badge/` in the singular. The management endpoints are
+`/v1/badges` in the plural. It is an easy one to mistype.
+
+There is no dashboard id and no widget id in the URL. The token alone decides
+what gets drawn, and everything else (which workspace, which dashboard, which
+widget, which environment, which time range) is looked up from the badge record.
+
+<Callout type="warn" title="Treat the URL like a share link">
+  Anyone who has the image URL can load the number, forever, until you revoke
+  it. There is no referrer check and no domain allowlist. Only put a badge
+  somewhere you are happy for the number to be public.
+</Callout>
+
+## Embedding it
+
+The Share dialog hands you both of these ready to paste. Each one wraps the
+image in a link back to the dashboard's public share page, so a reader who
+clicks the badge lands on the full dashboard.
+
+<Tabs items={['Markdown', 'HTML']}>
+  <Tab value="Markdown">
+
+```md
+[![Active players](https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg)](https://analytics.topstats.gg/share/my-dashboard)
+```
+
+  </Tab>
+  <Tab value="HTML">
+
+```html
+<a href="https://analytics.topstats.gg/share/my-dashboard">
+  <img
+    src="https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg"
+    alt="Active players"
+  >
+</a>
+```
+
+  </Tab>
+</Tabs>
+
+The alt text TopStats fills in is your label, or the widget's title when you did
+not set a label. Change it to whatever reads best in your document. The link
+target is the `/share/<slug>` URL for that dashboard, and you can drop the link
+entirely if you only want the image.
+
+## Caching and freshness
+
+A badge is close to live, but it is not a ticker. Two layers of caching sit in
+front of it, both one minute long.
+
+- The response is sent with `Cache-Control: public, max-age=60, s-maxage=60`,
+  so browsers and any proxy in between keep their copy for 60 seconds.
+- TopStats also holds the drawn image for 60 seconds per badge, so a badge on a
+  busy page does not re-run its query on every single view.
+
+In practice the number you see is **up to about a minute old**. That is
+deliberate: it keeps a popular README from turning into a load test.
+
+<Callout type="info" title="README hosts cache on top of that">
+  Sites that proxy images, including GitHub, keep their own copy of a badge for
+  their own length of time. A badge in a README can therefore lag noticeably
+  behind the same badge on a page you control. Nothing is broken when that
+  happens.
+</Callout>
+
+The badge's **last rendered** timestamp only moves when the image is actually
+redrawn, so it updates at most once a minute no matter how many people load the
+page.
+
+### Which numbers a badge uses
+
+A badge never picks its own environment or window. It takes them from the
+dashboard it belongs to, along with that dashboard's default filter, so the pill
+and the dashboard tile always agree. If the dashboard is pinned to a fixed date
+window, the badge uses that window, trimmed to the history your workspace still
+keeps (see [Plans and limits](/docs/analytics/plans-and-limits)).
+
+## When a badge shows "unavailable"
+
+The image endpoint always answers with an image, on the grounds that a broken
+image in a README looks worse than a muted one. When it cannot work out the
+number, you get a grey `topstats | unavailable` pill instead of an error. That
+happens when:
+
+- The badge has been revoked, or the token in the URL is wrong.
+- The dashboard is no longer public.
+- The widget was deleted, or edited until it is no longer a counter (a breakdown
+  or an "over time" toggle will do it).
+- The number could not be worked out for the dashboard's window.
+
+Because the response looks the same for all of these, start by checking the
+dashboard is still public and the widget is still a plain single number.
+
+## Revoking a badge
+
+Every badge on the dashboard is listed in the Share dialog with its label (or
+its prefix, if it has no label) and a **Revoke** button. Revoking kills the
+token: the URL stops resolving and starts returning the `unavailable` pill
+instead.
+
+Revoking does not wipe the copies that are already drawn. TopStats' own held
+image, and any copy a browser or a proxy has, can hang around for up to a
+minute, and longer on a host that proxies images itself, so a revoked badge may
+keep showing its last number briefly.
+
+<Callout type="warn" title="Revoking cannot be undone">
+  A revoked badge is gone for good. It disappears from the list and its URL
+  never works again. If you need the badge back, create a new one and replace
+  the URL wherever you pasted it.
+</Callout>
+
+If you just want to mute every badge at once, turn the dashboard's **Public**
+toggle off instead. All of its badges go to `unavailable` within a minute or so,
+and come back just as quickly once you switch Public on again.
+
+## Who can manage badges
+
+Any member of the workspace, including a Viewer, can see the badges on a
+dashboard. Creating a badge or revoking one needs the **Developer** role or
+higher, the same as every other change. See
+[Roles and permissions](/docs/analytics/roles-and-permissions).
+
+Loading the badge image needs no role and no account at all. That is the entire
+point of it.
+
+## API endpoints
+
+If you want to manage badges programmatically, these are the paths, all under
+`https://analytics.topstats.gg`. The three management endpoints authenticate
+with a signed-in session, the same one the web app uses, not with an ingest API
+key.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| POST | `/v1/badges` | Session (developer) | Create a badge from one counter widget. Returns the token, once. |
+| GET | `/v1/badges?dashboardId=<id>` | Session (member) | List the live badges on a dashboard. Revoked ones are left out. |
+| DELETE | `/v1/badges/:id` | Session (developer) | Revoke a badge. |
+| GET | `/v1/badge/<token>.svg` | None (public) | Render the badge image. |
+
+Two rejections on create are worth knowing about, because both are easy to hit:
+passing a widget that is not on the dashboard you named is a `400`, and passing
+a widget that is not a counter is a `422`. The public image path never turns a
+badge it cannot draw into an error status: it answers `200` with the
+`unavailable` pill instead.
+
+## Related pages
+
+<Cards>
+  <Card title="Sharing and embedding" href="/docs/analytics/sharing-and-embedding" description="Make a dashboard public, which a badge needs, and embed the whole thing as an iframe." />
+  <Card title="Metric" href="/docs/analytics/types/metric" description="Build the counter widget a badge draws its number from." />
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Who can create and revoke badges versus who can only see them." />
+</Cards>

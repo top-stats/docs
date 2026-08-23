@@ -1,0 +1,349 @@
+---
+title: Issues
+description: Group your errors and exceptions into deduplicated issues, see which actors and sources each one hit, and turn any of them into an alert.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+An **issue** is one distinct error, with every occurrence of that same error
+collapsed into it. Instead of scrolling past ten thousand near-identical error
+events, you get one row that reads "this error, 10,432 times, most recently four
+minutes ago".
+
+Think of it as the difference between reading a log file and reading a summary
+of one. The log gives you every line. An issue gives you one entry per problem,
+with the counts, the timings, and the people it hit attached to it. Issues live
+on the **Issues** page in the sidebar.
+
+<Callout title="What an issue is (and is not)">
+  An issue is a **view over events you already sent**, not a separate record you
+  create. There is no issue object to open, close, assign, or comment on, and
+  nothing is written when an issue appears. Change the environment or the time
+  range and the whole list is worked out again from your events. An issue drops
+  off the list because no matching error happened in the range you are looking
+  at, not because someone resolved it.
+</Callout>
+
+<Callout type="info" title="Issues needs a paid workspace">
+  Issues is available **on a paid workspace**. On a free workspace the Issues
+  link is hidden from the sidebar, opening the page directly shows a lock
+  instead of the list, and the API endpoints below answer with a `402`. See
+  [Plans and limits](/docs/analytics/plans-and-limits).
+</Callout>
+
+## What counts as an error
+
+Issues does not read a special "error" event type. It scans the events you
+already send and treats an event as an error when it carries any one of these
+four signals.
+
+| Signal | An event is an error when |
+| --- | --- |
+| Status code | Its `otel.status.code` property is `error`. |
+| Exception event | Its event name is `exception`. |
+| Severity text | Its `otel.severity_text` property is `ERROR` or `FATAL`. |
+| Severity number | Its `otel.severity_number` property is 17 or higher. |
+
+Any single one is enough. An event that matches none of them is a normal event
+and never appears in Issues.
+
+If you send data through [OpenTelemetry](/docs/analytics/opentelemetry), most of
+these fill themselves in: a span with an error status, a log record at `ERROR`
+or `FATAL`, and a span event named `exception` all arrive already flagged, with
+no extra work from you. If you use the native events endpoint, name the event
+`exception` and attach `exception.type`, `exception.message`, and
+`exception.stacktrace` as properties.
+
+## What an issue is made of
+
+Every issue in the list carries the same set of fields.
+
+<TypeTable
+  type={{
+    fingerprint: {
+      description: 'A short, stable id for the group, worked out from the issue signature. It is how the app and the API name one specific issue.',
+      type: 'string',
+    },
+    title: {
+      description: 'The error type. This is the exception.type property when the error carries one, and the event name otherwise.',
+      type: 'string',
+    },
+    sampleMessage: {
+      description: 'One real message from the group, exactly as it was sent. Taken from exception.message, then otel.status.message, then body. Empty when the error carried none of them.',
+      type: 'string',
+    },
+    level: {
+      description: 'Always error. Issues only ever groups errors, so there is nothing else this can be.',
+      type: 'string',
+    },
+    count: {
+      description: 'How many times the error occurred inside the selected time range.',
+      type: 'number',
+    },
+    firstSeen: {
+      description: 'UTC timestamp of the earliest occurrence inside the selected range.',
+      type: 'string',
+    },
+    lastSeen: {
+      description: 'UTC timestamp of the most recent occurrence inside the selected range.',
+      type: 'string',
+    },
+    affectedActors: {
+      description: 'How many distinct _actor values hit this error. Errors sent without an actor are not counted here.',
+      type: 'number',
+    },
+    affectedSources: {
+      description: 'How many distinct _source values the error arrived from. Unlike actors, errors sent without a source are counted, together, as one value here.',
+      type: 'number',
+    },
+    sparkline: {
+      description: 'Occurrence counts, oldest first, for each time bucket in the range that had at least one occurrence. Quiet buckets are left out rather than sent as a zero. Filled in on the issue detail view, which is where the trend is drawn, and empty in the list.',
+      type: 'number[]',
+    },
+  }}
+/>
+
+## How identical errors are collapsed
+
+Two error events land in the same issue when they share a **signature**. The
+signature is built from exactly two things:
+
+1. **The error type.** The `exception.type` property when the error has one, and
+   the event name otherwise.
+2. **The message, normalised.** The error's message with its volatile parts
+   blanked out.
+
+TopStats then derives a short, stable **fingerprint** from that signature, and
+that fingerprint is the issue's identity. Same signature, same fingerprint, same
+issue. Nothing else takes part: the actor, the source, the timestamp, and every
+other property are counted and shown against the issue, but they never change
+which issue an occurrence lands in.
+
+### What normalising the message removes
+
+Two errors that differ only by an id or a number are the same bug, so those
+parts are replaced with placeholders before the signature is built. The
+replacements happen in this order, top to bottom.
+
+| In the message | Replaced with |
+| --- | --- |
+| Anything inside single or double quotes | `<str>` |
+| A UUID | `<uuid>` |
+| A hex value: `0x` followed by hex digits, or a run of 8 or more hex characters | `<hex>` |
+| Any run of digits | `<num>` |
+| A run of whitespace | A single space |
+
+Quoted text goes first on purpose, so a number sitting inside quotes is blanked
+as one string rather than being torn in half.
+
+Here is what that does in practice. Two errors arrive an hour apart:
+
+```text
+Timeout after 3000ms fetching user 8f14e45f-ceea-467a-9d3e-1c2f1a2b3c4d
+Timeout after 4500ms fetching user b1946ac9-2b64-4a03-b6c1-1d1e1f2a3b4c
+```
+
+Both normalise to the same thing:
+
+```text
+Timeout after <num>ms fetching user <uuid>
+```
+
+So with the same error type they collapse into a single issue with a count of 2,
+rather than cluttering the list with two entries that say the same thing.
+
+The reverse also holds. A `TimeoutError` and a `ConnectionError` carrying a
+word-for-word identical message stay in **two separate issues**, because the
+error type is half the signature.
+
+<Callout type="warn" title="Grouping is per environment and per range">
+  Issues are worked out from the events in the environment and time range you
+  have selected. Two different environments never share an issue. Widening
+  the range from 24h to 30d pulls in older occurrences, which moves the counts,
+  moves first seen, and can add issues that were not in the list a moment ago.
+</Callout>
+
+## What the Issues list shows
+
+Two controls sit at the top of the page: an **environment** toggle listing every
+environment in your workspace (it opens on `production`) and a **time range**
+picker with `1h`, `24h`, `7d` (the default), `30d`, and `90d`.
+
+Above the list are two tiles:
+
+- **Issues** - how many distinct issues are in the list.
+- **Occurrences** - the total number of error events across all of them.
+
+A **Search issues** box filters the list as you type, matching against both the
+error type and the sample message. It narrows what is on screen and does not
+change the underlying counts.
+
+Each row in the list shows:
+
+| Part of the row | What it tells you |
+| --- | --- |
+| Error type | The issue's title, in monospace. |
+| Sample message | One real message from the group, when the error carried one. |
+| Occurrences | How many times it happened in the range. |
+| Last seen | How long ago the most recent occurrence was, like `12m ago`. |
+| Shaded bar | A background fill sized against the busiest issue in the list, so the loud ones are obvious at a glance. |
+
+Rows are ordered **most recently seen first**, and the list holds up to 50
+issues. Selecting a row opens it in the detail panel beside the list, and the
+most recent issue is selected for you when the page loads, so the panel is never
+empty.
+
+When nothing in the range counts as an error, the page says **No issues yet**
+instead of showing an empty list.
+
+## The issue detail
+
+The detail panel opens with an `error` pill, the error type as its heading,
+the sample message underneath, and a line telling you when the error was last
+seen and when it was first seen.
+
+Below that are three tiles: **Occurrences**, **Actors**, and **Sources** for the
+selected range. Then come the four blocks that tell you what is actually going
+wrong.
+
+- **Occurrences over time.** One bar per time bucket that had occurrences,
+  oldest first, so you can see at a glance whether the error is steady, spiking
+  right now, or already over. Quiet buckets are skipped rather than drawn as a
+  gap, so read it as a shape, not as a calendar.
+- **Stack sample.** The `exception.stacktrace` from one occurrence, laid out
+  line by line. Shown only when the error carried a stack trace.
+- **Top actors.** Up to 10 `_actor` values, ranked by how many times each one
+  hit this error, each with a bar sized against the top one. Errors sent without
+  an actor are left out of this list.
+- **Top sources.** The same treatment for up to 10 `_source` values, so you can
+  tell a region, shard, or service that is failing on its own from one that is
+  failing along with everything else.
+
+<Callout title="Actors are how you size the blast radius">
+  The occurrence count on its own is misleading. One error with 5,000
+  occurrences and **one** affected actor is usually a single stuck client
+  retrying in a loop, which is annoying. The same 5,000 occurrences spread over
+  4,000 actors is everybody's problem, which is an outage. The Actors tile and
+  the Top actors list are what separate the two.
+</Callout>
+
+## Alert me about this issue
+
+You do not have to rebuild an issue by hand in the alert builder. Open an issue
+and use **Alert me** to turn it into a real alert in one pass.
+
+<Steps>
+
+<Step>
+
+### Open the issue and choose Alert me
+
+Select the issue in the list, then use the **Alert me** button in the top right
+of the detail panel. It is hidden for a Viewer, who can read Issues but not
+create anything.
+
+</Step>
+
+<Step>
+
+### Set the threshold
+
+**Alert when occurrences exceed** takes a number greater than zero. This is how
+many occurrences of the error inside one window count as a problem worth waking
+up for.
+
+</Step>
+
+<Step>
+
+### Choose the window
+
+The rolling look-back the count is measured over: 5 minutes, 15 minutes, 30
+minutes, 1 hour (the default), 3 hours, 6 hours, 12 hours, or 24 hours.
+
+</Step>
+
+<Step>
+
+### Choose the severity
+
+`Warning` (the default) or `Critical`. Severity is a label carried into the
+notification. It does not change when the alert fires.
+
+</Step>
+
+<Step>
+
+### Attach channels
+
+Tick any of the channels you have already set up on the Alerts page. This is
+optional: an alert with no channels still tracks status and logs to Activity, it
+just does not notify anyone. Then use **Create alert**.
+
+</Step>
+
+</Steps>
+
+What you get is a normal alert, not a special issue-only object. It is named
+`Issue:` followed by the error type, it watches the environment you were looking
+at, it is enabled straight away, it fires when the count goes **above** your
+threshold inside the window, and its re-notify cooldown is set to 30 minutes.
+From there it appears on the [Alerts](/docs/analytics/alerts) page and you can
+edit, pause, or delete it like any other alert.
+
+<Callout type="warn" title="The alert watches the error, not the exact wording">
+  An issue is identified by its normalised message, but the alert built from it
+  watches the **event and its exception type** instead. That is deliberate: it
+  keeps firing when the same error comes back with a different id or number in
+  the text. It also means the alert can count occurrences that Issues has split
+  into a sibling issue, when those siblings share an exception type. When the
+  error carries no exception type at all, the alert counts the event by name
+  alone, which is broader still. If you need something narrower, open the alert
+  on the Alerts page and add filters.
+</Callout>
+
+## Who can manage issues
+
+Any member of a paid workspace, including a **Viewer**, can open the Issues page
+and read every issue and its detail. Creating an alert from an issue is a write,
+so it needs the **Developer** role or higher, and the **Alert me** button does
+not appear for a Viewer. See
+[Roles and permissions](/docs/analytics/roles-and-permissions) for the full
+breakdown.
+
+## API endpoints
+
+If you want to pull issues programmatically, these are the paths, all under
+`https://analytics.topstats.gg`. Every one of them requires a paid workspace and
+takes `environment` and `timeRange` as query parameters.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/issues` | Session (member) | List grouped issues for one environment and range. |
+| GET | `/v1/issues/:fingerprint` | Session (member) | Read one issue in full. |
+| POST | `/v1/issues/:fingerprint/alert` | Session (developer) | Create an alert that watches this error. |
+
+A few things worth knowing before you call them:
+
+- `GET /v1/issues` also accepts `limit` (1 to 200, default 50) and `sort`, which
+  is one of `lastSeen` (the default), `count`, or `firstSeen`. Results are
+  always returned highest first for the field you sort on.
+- The detail response carries every field above plus the stack sample, the
+  trend, the top actors, the top sources, and the **100 most recent
+  occurrences** with their full property sets.
+- A fingerprint that matches no error in the environment and range you asked for
+  returns a `404`, even when it was a perfectly real issue in a different range.
+- `POST /v1/issues/:fingerprint/alert` takes `threshold`, `windowMinutes` (1 to
+  1440), `severity`, and `channelIds`. It returns the created alert with a
+  `201`. The event and filter that identify the error are worked out on the
+  server, so you never send them yourself.
+
+## Related pages
+
+<Cards>
+  <Card title="Alerts" href="/docs/analytics/alerts" description="Where an issue alert lands, and how conditions, windows, and channels work." />
+  <Card title="The Events stream" href="/docs/analytics/events-stream" description="Read the individual error events behind an issue, exactly as they were sent." />
+  <Card title="Actors" href="/docs/analytics/actors" description="Follow one of the affected actors through everything else they did." />
+</Cards>

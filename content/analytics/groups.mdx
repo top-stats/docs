@@ -1,0 +1,400 @@
+---
+title: Groups
+description: Roll your events up by a shared property like a team, server, or account, and count funnels and retention by group instead of by person.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+
+A **group** is a set of events that share the same value for one property you
+nominate, like a team id, a server name, or an account id. You tell TopStats
+which property to roll up on, and every event carrying that property joins the
+group named by its value.
+
+Think of it as the "who is this for?" layer above the individual person. A
+single player belongs to a clan. A single seat belongs to a company. A single
+request belongs to a shard. Groups let you count and follow those containers
+instead of the individuals inside them.
+
+<Callout title="Groups is a paid feature">
+  The Groups page and group keys are available on a paid workspace. On a free
+  workspace the Groups page shows an upgrade prompt and no group key can be
+  registered. See [Plans and limits](/docs/analytics/plans-and-limits).
+</Callout>
+
+<Callout title="What a group is (and is not)">
+  A group is **derived from your event properties**, not something you create
+  and then fill. There is no list of groups to manage and no membership to
+  maintain. You register one property key, and the groups are whatever distinct
+  values your events happen to carry for it. Stop sending a value and that group
+  simply stops appearing.
+</Callout>
+
+## A group is not an actor
+
+This is the distinction that matters, and it is the reason the two live on
+separate pages.
+
+An [actor](/docs/analytics/actors) is **who** an event belongs to. You set it
+with the reserved `_actor` field, it is a first-class part of the event payload,
+and TopStats always knows about it.
+
+A group is **what** an event belongs to. It is an ordinary property inside your
+own `properties` object, and TopStats only treats it as a grouping once you
+say which key to use.
+
+| | Actor | Group |
+| --- | --- | --- |
+| Where it lives | The reserved `_actor` field | An ordinary key in `properties` |
+| Set up needed | None, just send it | Register the property key in Settings |
+| How many per event | One | One per registered group key |
+| Typical value | `user_123` | `team_42`, `eu-shard-3`, `acme-corp` |
+| Answers | "What did this person do?" | "How busy is this team?" |
+| Available on | Free and paid | Paid |
+
+One event can carry both at once, and usually should. `_actor: "user_123"` with
+`properties.team_id: "team_42"` says this was done by Ada, on behalf of team 42.
+The Actors page follows Ada. The Groups page follows team 42.
+
+<Callout type="info" title="You are not limited to one">
+  You can register more than one group key. A workspace might roll up by
+  `team_id` and by `server` at the same time, and switch between them on the
+  Groups page. One of them is the **default**, and the default is what group
+  funnels and retention use.
+</Callout>
+
+## What a group key is made of
+
+A group key is the small piece of configuration that tells TopStats which
+property to roll up on. It has three parts.
+
+<TypeTable
+  type={{
+    propKey: {
+      description: 'The property key to roll up on, 1 to 128 characters. It has to be a key your events already send, and you pick it from a list rather than typing it. Unique per workspace.',
+      type: 'string',
+    },
+    label: {
+      description: 'The display name shown in the group key picker, 1 to 80 characters. Leave it blank and the property key is used as the label.',
+      type: 'string',
+    },
+    isDefault: {
+      description: 'Whether this is the workspace default. Exactly one key is the default at a time, and the first key you add is always the default.',
+      type: 'boolean',
+    },
+  }}
+/>
+
+A group key is set for the whole workspace, so it applies to every environment
+in it, `production` and `development` included. The environment picker in
+Settings only changes which stream is searched for candidate properties, not
+where the key applies once it is saved.
+
+## How an event joins a group
+
+There is no separate call and no reserved field. An event joins a group by
+carrying the registered property, with the group id as its value.
+
+Say you registered `team_id` as your group key. This event belongs to group
+`team_42`:
+
+```json
+{
+  "name": "match_end",
+  "properties": {
+    "team_id": "team_42",
+    "map": "desert"
+  },
+  "_actor": "user_123"
+}
+```
+
+Sent the same way from anywhere:
+
+<Tabs items={['curl', 'JavaScript']}>
+<Tab value="curl">
+
+```bash
+curl -X POST https://analytics.topstats.gg/v1/events \
+  -H "Authorization: Bearer ts_live_your_key_here" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "match_end",
+    "properties": { "team_id": "team_42", "map": "desert" },
+    "_actor": "user_123"
+  }'
+```
+
+</Tab>
+<Tab value="JavaScript">
+
+```js
+await fetch("https://analytics.topstats.gg/v1/events", {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "match_end",
+    properties: { team_id: "team_42", map: "desert" },
+    _actor: "user_123",
+  }),
+})
+```
+
+</Tab>
+</Tabs>
+
+Two rules decide whether an event counts toward a group:
+
+- The event has to **carry the key**. An event with no `team_id` is not in any
+  group and is skipped by everything on this page.
+- The value has to be **non-empty**. `"team_id": ""` is treated the same as not
+  sending it at all.
+
+<Callout type="warn" title="The value has to be a string">
+  A group key only reads **string** properties. Send `"team_id": 42` and the
+  value is stored as a number, so it will never be offered as a group key and
+  never match one. Send `"team_id": "42"` instead. The same applies to lists:
+  an array property cannot be a group key. See
+  [Property types](/docs/analytics/property-types).
+</Callout>
+
+Group ids are matched exactly and are case-sensitive, so `Team_42` and
+`team_42` are two different groups. Pick a stable id and stick to it, the same
+way you would with an `_actor`.
+
+## Why you would use one
+
+Reach for a group whenever the thing you actually care about is bigger than one
+person.
+
+- **Per-account health.** You sell to companies, not seats. Ranking accounts by
+  activity tells you which ones are alive and which have gone quiet, which
+  counting individual users never shows you.
+- **Infrastructure slices.** Roll up by `server`, `shard`, or `region` and the
+  Groups page becomes a ranked view of where your load is really going.
+- **Team and guild activity.** In a game, `clan_id` turns a flat pile of match
+  events into a leaderboard of which clans are actually playing.
+- **Honest funnel and retention numbers.** A team of ten where one person
+  converts is a converted team, not a 10% conversion. Counting by group says so.
+
+A concrete example. A game sends a `match_end` event on every match, each with
+`clan_id` in `properties` and the player in `_actor`. Register `clan_id` as the
+group key and the Groups page ranks clans by match volume, with the busiest at
+the top and the ones that have gone silent falling down the list. Switch a
+retention grid to count by group and you find out whether **clans** keep
+playing week after week, which is a very different question from whether
+individual players do.
+
+## Registering a group key
+
+Group keys live in **Settings**, in the **Group keys** section. Until you add
+one, the Groups page has nothing to show and offers you a link straight here.
+
+<Steps>
+<Step>
+
+### Send some events carrying the property
+
+The property has to exist in your data before you can pick it. Send events with
+your grouping property inside `properties`, as a string value. See
+[Sending events](/docs/analytics/sending-events).
+
+</Step>
+
+<Step>
+
+### Open Settings and find Group keys
+
+Use the environment picker in that section to choose which stream to look in.
+The **Property** dropdown lists the string property keys your events have
+actually sent in that environment **over the last 30 days**, up to 200 of them,
+minus any you have already registered.
+
+If the dropdown is empty, no unused string properties were found in that
+environment in the last 30 days. Send events carrying one, then come back.
+
+</Step>
+
+<Step>
+
+### Pick the property and give it a label
+
+Choose the key from the dropdown, then add a label of up to 80 characters, like
+`Team` or `Server`. Leave the label blank and the property key is used instead.
+
+</Step>
+
+<Step>
+
+### Decide whether it is the default
+
+The first key you add is always the default. Once you have one, a **Make this
+the default group key** checkbox appears on the form. Ticking it moves the
+default to the new key, because a workspace has exactly one default at a time.
+
+</Step>
+
+<Step>
+
+### Add the group key
+
+Select **Add group key**. It appears in the list below with its label, its
+property key, and a **Default** badge if it is the default one. Registering a
+key that is already registered is refused, so you cannot end up with duplicates.
+
+</Step>
+</Steps>
+
+<Callout title="Removing a key never removes data">
+  **Remove** on a group key deletes the configuration and nothing else. Your
+  events keep their properties exactly as they were, so registering the same
+  key again later brings the whole history back with it. Remove the key that is
+  currently the default and the oldest remaining key takes over as the default.
+</Callout>
+
+## The Groups page
+
+**Groups** in the main navigation shows your events rolled up by the group key,
+ranked by activity. At the top you get three controls:
+
+- **Environment** - which stream to read: `production`, `development`, or any
+  environment you have added.
+- **Time range** - `1h`, `24h`, `7d` (the default), `30d`, or `90d`.
+- **Group key** - only shown when you have registered more than one. It starts
+  on the default key.
+
+Below that, two summary tiles give you the number of groups listed and their
+combined event count, then a search box and the ranked list itself.
+
+Each row in the list shows the group id, how long ago it was last seen, and its
+event count, with a bar behind it sized against the busiest group so you can see
+the shape of the distribution at a glance. Groups are ordered by event count,
+highest first, and up to **50** are listed. Search filters the loaded list by
+substring, case-insensitively, so typing `eu-` narrows a server list to the
+European shards.
+
+<Callout type="info" title="Only groups with events in range">
+  Everything on this page is scoped to the environment and time range you have
+  selected. A group with no events in the last 7 days does not appear in a 7d
+  view. Widen the range to see it again. Events you have hidden from the
+  [Events stream](/docs/analytics/events-stream) are left out of these counts.
+</Callout>
+
+## The group detail pane
+
+Select a group and the pane on the right fills in with everything TopStats knows
+about it in the selected range. The busiest group is selected for you when the
+page loads, so the pane is never empty.
+
+| Section | What it shows |
+| --- | --- |
+| Header | The group id and how long ago it was last active. |
+| Events | Total events for this group in the selected range. |
+| Per day | That total spread over the days the group was active, rounded. |
+| First seen | The earliest event in the range. |
+| Last seen | The most recent event in the range. |
+| Event types | The top 5 event names in the recent activity below, each with a bar and a count. |
+| Recent activity | The group's most recent events, up to **100** in the range. |
+
+Every row in **Recent activity** shows the event name, its source label if it
+has one, and the time it happened. Expand a row and you get that event's
+payload, with all of its properties, so you can see the full context without
+leaving the page. List properties are shown as their values together.
+
+<Callout type="info" title="Event types follows the timeline">
+  The **Event types** breakdown is counted from the events shown in **Recent
+  activity**, not from the whole range. For a busy group that is capped at 100
+  events, so read it as "what this group has been doing lately" rather than a
+  total for the period.
+</Callout>
+
+## Counting funnels and retention by group
+
+Registering a group key also changes what you can do on a dashboard.
+[Funnel](/docs/analytics/types/funnel) and
+[Retention](/docs/analytics/types/retention) widgets both have a **Count**
+setting in the widget builder with two options:
+
+| Count | What each unit is | What the widget answers |
+| --- | --- | --- |
+| `Actor` | One `_actor` value | How many **people** converted or came back. |
+| `Group` | One group id | How many **groups** converted or came back. |
+
+The default is `Actor`, and existing widgets are unaffected until you change
+them.
+
+Switching to `Group` swaps the unit the widget counts, and that is the whole
+change. In a funnel, a group reaches a step when **any** event from that group
+fires it in the right order inside the conversion window, so one busy member is
+enough to carry the whole group through. In a retention grid, a group is placed
+in the cohort of the period it **first** fired the cohort event, and it counts
+as retained in a later period when any of its events fire the return event then.
+
+The practical effect is that counts get smaller and conversion rates usually get
+higher, because you are counting containers rather than people. A funnel where
+1,000 users convert out of 10,000 might be 200 teams out of 300, and those two
+numbers tell you very different things.
+
+Two things to know before you switch:
+
+- **Group counting always uses the workspace default group key.** It is not
+  chosen per widget. If you change which key is the default, every group-grained
+  funnel and retention widget follows it.
+- **Events without the key are excluded.** With `Actor`, the widget reads
+  every matching event. With `Group`, an event that does not carry the group
+  key, or carries an empty value, drops out of the widget completely.
+
+<Callout type="warn" title="No group key means no change">
+  If your workspace has no group key registered, a widget set to `Group` quietly
+  falls back to counting by actor rather than showing nothing. If a funnel looks
+  identical after you switch it, check Settings for a registered group key
+  first.
+</Callout>
+
+## Who can manage group keys
+
+Group keys sit with the rest of your workspace configuration in **Settings**,
+and any member of a paid workspace can view the Groups page and add or remove a
+group key. Because a group key changes what every group-grained funnel and
+retention widget counts, treat swapping the default as a workspace-wide change
+rather than a personal preference. For how roles work everywhere else, see
+[Roles and permissions](/docs/analytics/roles-and-permissions).
+
+## API endpoints
+
+The Groups pages are driven by these endpoints, all under
+`https://analytics.topstats.gg`. Every one of them needs a signed-in session on
+a paid workspace, and the three `GET` endpoints all take `environment` and
+`timeRange` as required query parameters.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/groups/keys` | Session (member) | List registered group keys and the candidate properties you could register. |
+| POST | `/v1/groups/keys` | Session (member) | Register a group key from a property key and a label. |
+| DELETE | `/v1/groups/keys/:id` | Session (member) | Remove a group key. Events are untouched. |
+| GET | `/v1/groups` | Session (member) | List groups ranked by event count. |
+| GET | `/v1/groups/:groupKey` | Session (member) | One group's totals and recent activity. |
+
+A few details worth knowing:
+
+- `GET /v1/groups` accepts an optional `propKey` to read a group key other than
+  the default, and an optional `limit` between 1 and 200, defaulting to 50.
+- `GET /v1/groups/:groupKey` accepts the same optional `propKey`. It returns
+  `404` when the group has no events in the selected range.
+- With no group key registered, `GET /v1/groups` returns an empty list rather
+  than an error.
+- A free workspace gets `402` from all of them. See
+  [Limits and errors](/docs/analytics/limits-and-errors).
+
+## Related pages
+
+<Cards>
+  <Card title="Actors" href="/docs/analytics/actors" description="The person or server behind an event, and how the _actor field differs from a group." />
+  <Card title="Funnel" href="/docs/analytics/types/funnel" description="Step-by-step conversion, counted by actor or by group." />
+  <Card title="Retention" href="/docs/analytics/types/retention" description="Cohort grids that measure whether actors or groups came back." />
+</Cards>

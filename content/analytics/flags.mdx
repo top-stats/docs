@@ -1,0 +1,464 @@
+---
+title: Feature flags
+description: Roll a feature out to a slice of your actors behind a flag, ask the API which way to branch, and read out the effect on a funnel or retention goal.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+
+A **feature flag** is a named switch, scoped to one environment, that your own
+code asks about before it turns a feature on for someone. You ship the new code
+behind the flag, roll it out to a percentage of your actors, and TopStats records
+who saw which side so you can measure whether it actually helped.
+
+Think of a flag as a question your backend asks on every request: "should this
+user get the new checkout?" TopStats answers `true` or `false`, remembers that it
+answered, and later lines those answers up against a goal you already chart.
+
+<Callout title="What a flag is (and is not)">
+  A flag is an on/off answer plus a record of who got which answer. It is not a
+  config store and it does not change your app on its own. Nothing happens until
+  your code calls the evaluate endpoint and branches on the result. There are
+  only ever two sides, `true` and `false` - a flag never returns a named variant
+  or a value of its own.
+</Callout>
+
+<Callout type="info" title="Flags need a paid workspace">
+  Feature flags are available on a paid workspace. On a free workspace the Flags
+  page is locked and the flag endpoints the app uses answer with a `402`. The
+  evaluate endpoint is authenticated by API key rather than by plan, so it still
+  answers, but a free workspace has no flags for it to find. See
+  [Plans and limits](/docs/analytics/plans-and-limits).
+</Callout>
+
+## What a flag is made of
+
+Every flag is a small, fixed set of fields.
+
+<TypeTable
+  type={{
+    key: {
+      description:
+        'The id your code uses when it asks for an answer. 1 to 120 characters, letters, numbers, dot, dash and underscore only - no spaces. Unique within its environment, so creating a second flag with the same key returns a 409.',
+      type: 'string',
+    },
+    name: {
+      description:
+        'A human label, 1 to 120 characters. This is what you see in the flags list; your code never uses it.',
+      type: 'string',
+    },
+    description: {
+      description: 'Optional note, up to 500 characters, for your teammates.',
+      type: 'string | null',
+    },
+    environment: {
+      description:
+        'The stream the flag belongs to. Any environment in your workspace: production and development are the two every workspace starts with, plus any you have added. Chosen at creation and fixed afterwards.',
+      type: 'string',
+    },
+    type: {
+      description:
+        'Whether the flag is a plain switch for everyone, or a percentage rollout that only some actors land in.',
+      type: 'boolean | percentage',
+    },
+    enabled: {
+      description:
+        'The master switch. While a flag is off, every evaluation answers false no matter what else is set.',
+      type: 'boolean',
+    },
+    rolloutPercentage: {
+      description:
+        'For a percentage flag, the share of bucket keys that get true. A whole number from 0 to 100, and 0 if you leave it out.',
+      type: 'number',
+    },
+    bucketBy: {
+      description:
+        'For a percentage flag, which key decides the bucket: the individual actor, or the group they belong to. Defaults to actor.',
+      type: 'actor | group',
+    },
+  }}
+/>
+
+### Flag types
+
+| Type | What an enabled flag answers |
+| --- | --- |
+| `boolean` | `true` for every caller. The rollout percentage and bucket key are not used at all. |
+| `percentage` | `true` only for callers whose bucket falls inside the rollout percentage. |
+
+### Bucket by
+
+`bucketBy` only matters for a `percentage` flag. It decides which value from your
+request is used to place a caller in a bucket.
+
+| Bucket by | Uses | Good for |
+| --- | --- | --- |
+| `actor` | The `actorKey` in your request. | Rolling out to individual users, one at a time. |
+| `group` | The `groupKey` in your request. | Keeping everyone in the same server, guild, or account on the same side. See [Groups](/docs/analytics/groups). |
+
+If a percentage flag needs a bucket key and your request does not carry one, the
+answer is `false` with the reason `no_actor`, and no exposure is recorded.
+
+## How the rollout actually works
+
+A percentage rollout is not random and it is not sticky in a cookie. The bucket
+is worked out from the flag key and the bucket key together, so:
+
+- **The same actor always gets the same answer.** Every server in your fleet
+  computes the same bucket, with no shared state and no cache, so a user does not
+  flip sides between requests or between machines.
+- **Each flag buckets independently.** The flag key is part of the calculation,
+  so two flags both at 50% do not hand the new experience to the same half of
+  your users.
+- **Raising the percentage only ever adds people.** Going from 10% to 25% keeps
+  everyone who was already on and adds more. Nobody who had the feature loses it,
+  which is what makes a staged rollout safe.
+- **Lowering it takes the most recently added people back off**, in the reverse
+  of the order they were added.
+
+`0` means nobody and `100` means everybody. Turning `enabled` off beats
+everything else: the answer is `false` immediately, whatever the percentage says.
+
+## Why you would use one
+
+- **Ship dark, release later.** Merge the code with the flag off, then turn it on
+  when you are ready, without another deploy.
+- **Roll out gradually.** Start at 5%, watch your errors and your dashboards, and
+  raise the number when nothing catches fire.
+- **Kill it fast.** If the new path misbehaves, flip the flag off and every
+  request goes back to the old code on the next evaluation.
+- **Measure the change, not just survive it.** Because exposures are recorded,
+  you can compare the people who got the feature against the people who did not,
+  on a funnel or retention goal you already have.
+
+For example, a flag keyed `new-checkout` in `production`, type `percentage`,
+bucketed by `actor`, at `10`: one in ten of your signed-in users gets the new
+checkout, the same ten percent every time, and you raise it to `50` the next day.
+
+Or a flag keyed `beta-leaderboard`, type `percentage`, bucketed by `group`, at
+`25`: a quarter of your servers get the beta leaderboard, and everyone inside one
+of those servers sees the same thing as their teammates.
+
+## Creating a flag
+
+Flags live on the **Flags** page, with an environment switcher at the top.
+
+<Steps>
+<Step>
+
+### Open the Flags page and start a new flag
+
+Give the flag a **key** (1 to 120 characters, letters, numbers, dot, dash or
+underscore) and a **name**. The key is what your code sends, so pick something
+you are happy typing into your backend, like `new-checkout`. A description is
+optional and can be up to 500 characters.
+
+</Step>
+
+<Step>
+
+### Pick the environment
+
+Pick one of your workspace's environments. Every workspace starts with
+`production` and `development`, and you can add more. A key only has to be unique
+within its environment, so you can hold the same key in several of them and test
+the rollout against your development stream first.
+
+</Step>
+
+<Step>
+
+### Choose the type
+
+Pick **Boolean** for a plain switch that covers everyone, or **Percentage** for a
+staged rollout.
+
+</Step>
+
+<Step>
+
+### Set the rollout and the bucket key
+
+For a percentage flag, set the **rollout percentage** (a whole number from 0 to
+100) and choose **Per actor** or **Per group**. These two fields are hidden for a
+boolean flag because it does not use them.
+
+</Step>
+
+<Step>
+
+### Decide the initial state
+
+A new flag can be created enabled or disabled. The toggle starts at **Enabled on
+create**; switch it to disabled when the code is already deployed and you want to
+choose the moment it goes live.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="Some fields are fixed at creation">
+  Afterwards you can change the **name**, **description**, **enabled** state, and
+  **rollout percentage** at any time. The **key**, **environment**, **type**, and
+  **bucket by** setting cannot be changed. If you need a different key or a
+  different bucket key, create a new flag.
+</Callout>
+
+<Callout type="warn" title="Over the API, a percentage flag starts at zero">
+  The New flag dialog pre-fills the rollout at `50`, but if you create a
+  percentage flag through the API without a `rolloutPercentage`, it is set to
+  `0`, which means the flag answers `false` for everyone even while it is
+  enabled. Set the percentage when you create it, or raise it afterwards.
+</Callout>
+
+## Evaluating a flag
+
+`POST /v1/flags/evaluate` is the endpoint your backend calls. It is a
+server-to-server call, so treat this section as the contract.
+
+```sh
+POST https://analytics.topstats.gg/v1/flags/evaluate
+```
+
+### Auth
+
+Authenticate with an **API key**, the same kind of key you ingest events with,
+sent as a Bearer token:
+
+```
+Authorization: Bearer <YOUR_API_KEY>
+```
+
+The key alone decides the workspace **and the environment**. There is no
+environment field in the request body and one would be rejected: every key
+belongs to exactly one environment and evaluates only that environment's flags. A
+production key starts with `ts_live_`, and a key for any other environment starts
+with `ts_test_`. Point your staging deployment at a non-production key and it
+reads that environment's flags with no code change.
+
+Because this needs a key, evaluation belongs on your server. Do not ship an API
+key to a browser or a game client.
+
+### Request body
+
+<TypeTable
+  type={{
+    actorKey: {
+      description:
+        'Who you are asking about, 1 to 200 characters. Use the same id you send as _actor on your events, so exposures line up with your funnels and retention charts. Required in practice for any flag bucketed by actor.',
+      type: 'string',
+      required: false,
+    },
+    groupKey: {
+      description:
+        'The group you are asking about, 1 to 200 characters. Used instead of actorKey by any flag whose bucket by is group.',
+      type: 'string',
+      required: false,
+    },
+    keys: {
+      description:
+        'Which flags to evaluate, up to 200 keys. Leave it out to evaluate every flag in the environment.',
+      type: 'string[]',
+      required: false,
+    },
+    logExposure: {
+      description:
+        'Set to false to get an answer without recording an exposure. Send true, or leave it out, to record normally. It has to be a boolean, so any other value is a 400.',
+      type: 'boolean',
+      required: false,
+    },
+  }}
+/>
+
+The body accepts only these four fields. Any other field is rejected with a
+`400`.
+
+<Tabs items={['Request', 'Response']}>
+<Tab value="Request">
+
+```sh
+curl https://analytics.topstats.gg/v1/flags/evaluate \
+  -H "Authorization: Bearer $TOPSTATS_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "actorKey": "user_123",
+    "keys": ["new-checkout", "beta-search"]
+  }'
+```
+
+</Tab>
+<Tab value="Response">
+
+```json
+{
+  "flags": {
+    "new-checkout": { "value": true, "variant": "true", "reason": "rollout" },
+    "beta-search": { "value": false, "variant": "false", "reason": "disabled" }
+  }
+}
+```
+
+</Tab>
+</Tabs>
+
+### Response
+
+The response is always an object with a single `flags` key, holding one entry per
+flag you asked about, keyed by flag key. Every entry has the same three fields.
+
+| Field | Type | Meaning |
+| --- | --- | --- |
+| `value` | `boolean` | The answer to branch on. |
+| `variant` | `"true"` or `"false"` | The same answer as a string, and the side this caller is counted in on a readout. |
+| `reason` | string | Why you got that answer. See below. |
+
+Every key you asked for comes back, including keys that do not exist, so you can
+index the object without checking for missing entries first.
+
+| Reason | Means |
+| --- | --- |
+| `boolean` | The flag is a boolean flag and it is enabled, so everyone gets `true`. |
+| `rollout` | A percentage flag was bucketed. You get this whether the caller landed inside the percentage or outside it, so read `value` for the answer. |
+| `disabled` | The flag exists but its enabled switch is off. |
+| `no_actor` | A percentage flag needed a bucket key and your request did not include the one it buckets by. |
+| `not_found` | No flag with that key exists in this environment. |
+
+Anything other than `boolean` or `rollout` means the flag did not really get to
+make a decision, so treat `value: false` as "keep the old behaviour".
+
+### Rate limit
+
+Evaluation is rate limited to **6000 requests per minute, per client IP**, the
+same generous ceiling as event ingest. Going over returns a `429`.
+
+That is 100 requests a second from one address, which is plenty for a backend
+that checks flags per request. If you are close to it, ask for several flags in
+one call using `keys` rather than making one call per flag, and cache the answer
+for the life of a request rather than re-asking inside a loop.
+
+## How an exposure gets recorded
+
+An **exposure** is the record that one bucket key was shown one side of one flag.
+It is what makes a readout possible, and it is written by the evaluate endpoint
+itself, so there is no separate call to make.
+
+An exposure is recorded when all three of these are true:
+
+- The flag is **enabled**.
+- The request carried the **bucket key that flag uses** (`actorKey`, or
+  `groupKey` for a group-bucketed flag).
+- You did **not** send `logExposure: false`.
+
+So no exposure is written for an unknown key, for a flag that is switched off, or
+when the bucket key that would decide the answer is missing. Each recorded
+exposure carries the flag key, the bucket key, the variant the caller got, and
+the time.
+
+<Callout title="The first side wins">
+  Evaluating the same actor a hundred times writes a hundred exposures, and that
+  is fine: a readout counts each key once and uses the **first** variant it ever
+  recorded for them. So if you raise the rollout percentage mid-experiment,
+  someone already counted as control is not quietly moved into treatment.
+</Callout>
+
+Use `logExposure: false` when you are asking on someone's behalf rather than
+actually showing them the feature, for example a health check, an internal
+preview, or a background job that just wants to know the current state.
+
+## Reading out an experiment
+
+Every flag row has a **Readout** button. A readout answers one question: of the
+people who saw this flag, did the ones who got the feature convert better than
+the ones who did not?
+
+### What it compares
+
+- **Control** is every bucket key whose first recorded variant was `false`.
+- **Treatment** is every bucket key whose first recorded variant was `true`.
+- **Converted** is whichever of those keys met the goal you pick.
+
+The goal is an existing **funnel** or **retention** widget from a dashboard in
+the same environment. No other widget type can be a goal, because a readout needs
+a single yes-or-no outcome per actor.
+
+| Goal widget | Counts as converted |
+| --- | --- |
+| Funnel | Reached the **final step** of the funnel, in order, within the funnel's own conversion window. |
+| Retention | Fired the widget's **return event** at least once. If the widget has no separate return event, its cohort event counts. |
+
+You also pick a time range for the readout: `1h`, `24h`, `7d`, `30d`, or `90d`,
+and the dialog starts at `30d`.
+
+<Callout type="warn" title="The time range applies to the goal, not to exposure">
+  The range decides which conversions count. The exposed side counts everyone who
+  has ever been exposed to the flag. Pick a range that starts around when the
+  rollout started, otherwise you are comparing all-time exposure against a short
+  slice of conversions and both rates will look low.
+</Callout>
+
+### What it reports
+
+| Reported | What it is |
+| --- | --- |
+| Rate, per arm | Converted divided by exposed, shown as a percentage, for control and for treatment. |
+| Converted of exposed, per arm | The raw counts behind that rate. |
+| Lift | The treatment rate relative to the control rate. `+12.0%` means treatment converted twelve percent better than control, not twelve points better. |
+| Confidence | The level the significance check is run at. It is always 95%. |
+| Significant / Not significant | Whether the gap between the two rates is bigger than you would expect from chance alone at 95% confidence. |
+
+### How to read it
+
+- **Look at significance before lift.** A large lift on a hundred actors is
+  usually noise. "Not significant" means keep the experiment running, not that
+  the feature failed.
+- **Lift shows `n/a` when control never converted.** With a zero baseline there
+  is nothing to be a percentage of, so the readout leaves lift out rather than
+  inventing a number.
+- **A warning appears when one side has no exposed keys**, and you should not
+  trust that readout. Two common causes: the flag is at `0` or `100`, so everyone
+  is on the same side, or the flag is a boolean flag, which puts every exposed
+  actor into treatment and leaves no control to compare against. Run experiments
+  on a `percentage` flag somewhere between the two ends.
+- **Both arms only count exposed keys**, never your whole user base. Someone your
+  code never asked about is in neither arm.
+
+<Callout type="warn" title="Readouts line up on actors">
+  A readout matches the keys it recorded against the actors on your events, so a
+  flag bucketed **per actor** should send the same value in `actorKey` that you
+  send as `_actor` when you ingest events. A flag bucketed per group only lines up
+  if its group values are the same values your events carry as their actor.
+</Callout>
+
+## Who can manage flags
+
+Any workspace member on a paid workspace, including a Viewer, can see the flags
+list and run a readout. Creating a flag, flipping it on or off, changing its
+rollout percentage, and deleting it all need the **Developer** role or higher.
+See [Roles and permissions](/docs/analytics/roles-and-permissions) for the full
+breakdown.
+
+## API endpoints
+
+All paths are under `https://analytics.topstats.gg`.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/flags?environment=` | Session (member) | List the flags in one environment. |
+| POST | `/v1/flags` | Session (developer) | Create a flag. |
+| POST | `/v1/flags/evaluate` | API key | Evaluate flags for one actor or group, and record exposures. |
+| PATCH | `/v1/flags/:id` | Session (developer) | Change a flag's name, description, enabled state, or rollout percentage. |
+| DELETE | `/v1/flags/:id` | Session (developer) | Delete a flag. |
+| POST | `/v1/flags/:id/readout` | Session (member) | Run a readout against a funnel or retention goal widget. |
+
+`POST /v1/flags/evaluate` is the only one of these that takes an API key, and it
+is the only one you would call from your own backend. The rest are the endpoints
+the Flags page uses.
+
+## Related pages
+
+<Cards>
+  <Card title="Widgets" href="/docs/analytics/widgets" description="Build the funnel or retention widget that a readout measures your flag against." />
+  <Card title="Groups" href="/docs/analytics/groups" description="How groups are defined, and what to send as groupKey for a group-bucketed flag." />
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Who can read the flags list versus create, flip, and delete flags." />
+</Cards>

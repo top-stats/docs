@@ -1,0 +1,588 @@
+---
+title: Status pages
+description: Publish a public page that shows whether each of your services is up, post incidents as they happen, and give visitors a 90-day uptime history.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **status page** is a public page that answers one question for your users: is
+it working right now? You list the services you run, keep each one's status up
+to date, and post incidents when something breaks.
+
+Think of it as the page you send people to instead of answering the same "is it
+down for everyone or just me?" message twenty times. Visitors get a banner for
+the overall state, a row per service with a 90-day uptime bar, and a timeline of
+what you have said about any open incident.
+
+<Callout title="What a status page is (and is not)">
+  A status page is a **kind of dashboard**, not a separate object. It lives in
+  your Dashboards list, it has its own editor instead of the normal widget
+  toolbar, and you choose the kind once when you create it. A dashboard cannot
+  become a status page later, and a status page cannot become a normal
+  dashboard. It is also not automatic: nothing watches your servers by itself.
+  A component is up because you say it is, or because an [alert](/docs/analytics/alerts)
+  you built says so.
+</Callout>
+
+## How it differs from a shared dashboard
+
+Both are public links, so it is worth being clear about which one you want.
+
+| | Shared dashboard | Status page |
+| --- | --- | --- |
+| What it shows | Charts of your event data. | Service statuses, incidents, uptime, and optionally charts. |
+| Public URL | `/share/<slug>` | `/status/<slug>` |
+| Made public by | The **Share** dialog's Public toggle. | The **Published** toggle on its Settings tab. |
+| Kind | `dashboard` | `status` |
+
+See [Sharing and embedding](/docs/analytics/sharing-and-embedding) for the plain
+dashboard route.
+
+## The four tabs
+
+Open a status page and you get an editor split into four tabs.
+
+- **Components** - the services you list, their groups, and their current
+  status.
+- **Incidents** - open an incident and post updates to its public timeline.
+- **Analytics** - a normal widget grid, whose widgets also render on the public
+  page.
+- **Settings** - headline, support URL, publishing, custom domain, custom CSS,
+  and delete.
+
+## What a status page is made of
+
+The page itself carries a small set of settings, most of which live on the
+Settings tab.
+
+<TypeTable
+  type={{
+    name: {
+      description: 'The dashboard name, used in your Dashboards list. A new status page is created as "Status page".',
+      type: 'string',
+    },
+    headline: {
+      description: 'Up to 120 characters. The heading a visitor sees at the top of the public page. Falls back to the page name when empty.',
+      type: 'string | null',
+    },
+    supportUrl: {
+      description: 'A valid URL, up to 500 characters. Shown as a "Support" link next to the heading.',
+      type: 'string | null',
+    },
+    published: {
+      description: 'Whether the public URL actually serves the page. Off until you turn it on.',
+      type: 'boolean',
+    },
+    slug: {
+      description: 'The random-suffixed identifier in the public URL. Minted when the page is created and never changes.',
+      type: 'string',
+    },
+    customDomain: {
+      description: 'A subdomain you own that serves this page at its root. Needs the white-label add-on.',
+      type: 'string | null',
+    },
+    customCss: {
+      description: 'Up to 20000 characters of CSS, sanitized and scoped on save. Needs the white-label add-on.',
+      type: 'string | null',
+    },
+  }}
+/>
+
+## Components and groups
+
+A **component** is one row on the public page: a service, an endpoint, a region,
+whatever your users think of as a separate thing that can break. A **group** is a
+heading that a set of components sits under, like `Core services` or
+`Integrations`.
+
+<TypeTable
+  type={{
+    name: {
+      description: 'A label you choose, 1 to 120 characters. For example API, Dashboard, or Webhooks.',
+      type: 'string',
+    },
+    description: {
+      description: 'Optional, up to 500 characters. Shown in small text under the name.',
+      type: 'string | null',
+    },
+    group: {
+      description: 'The group this component sits under, or none. A component can only join a group on the same status page.',
+      type: 'Group | null',
+    },
+    statusSource: {
+      description: 'Where the status comes from. Manual means you set it; alert means it follows a linked alert.',
+      type: 'manual | alert',
+    },
+    status: {
+      description: 'The level shown to visitors. One of the five status levels below.',
+      type: 'StatusLevel',
+    },
+    alert: {
+      description: 'The alert a component with an alert source follows. The picker only lists alerts in the same environment as the status page, which is production for a page made from the New menu.',
+      type: 'Alert | null',
+    },
+    alertDownStatus: {
+      description: 'The level the component drops to while that alert is firing. Defaults to major outage.',
+      type: 'StatusLevel',
+    },
+    position: {
+      description: 'The order visitors see. Move a component with the up and down arrows on its row.',
+      type: 'number',
+    },
+  }}
+/>
+
+Groups are simpler: a name of 1 to 120 characters, and a position. Ungrouped
+components are listed first, then each group in its own order. Deleting a group
+does **not** delete its components, it just leaves them ungrouped.
+
+### Status levels
+
+Every component sits at one of five levels. The level decides the colour of its
+pill and its segment in the uptime bar, and it decides how that time counts
+towards uptime.
+
+| Level | What it means | Counts as |
+| --- | --- | --- |
+| `operational` | Working normally. | Up |
+| `degraded` | Working, but slow or unreliable. | Up |
+| `partial_outage` | Broken for some users or some requests. | Down |
+| `major_outage` | Broken for everyone. | Down |
+| `maintenance` | Deliberately out of service. | Neither |
+
+`maintenance` is not counted as an outage **or** as uptime. That time is removed
+from the uptime calculation entirely, so a planned window does not dent your
+number.
+
+The banner at the top of the public page shows the **worst** level across every
+component, ranked from least to most serious as: operational, maintenance,
+degraded, partial outage, major outage. So one degraded component turns the whole
+banner to "Degraded performance", and one major outage turns it to "Major
+outage", no matter how many other components are fine.
+
+### Setting a status by hand
+
+On the Components tab, every row has a status pill. Click it and pick a level.
+That writes a **manual status**, which is an operator override: it is what
+visitors see from that moment until you change it again.
+
+### Following an alert instead
+
+Set a component's status source to **Linked alert** and pick one of your
+[alerts](/docs/analytics/alerts), plus the level the component should drop to
+while that alert is firing.
+
+From then on TopStats keeps the component in step with the alert. When the alert
+fires, the component drops to the level you chose. When the alert resolves, the
+component returns to operational. This happens on its own, usually within a
+minute or two of the alert changing state, and the component's row is tagged
+**Alert-linked** in the editor so you can tell at a glance.
+
+<Callout type="warn" title="A manual status beats a linked alert">
+  If you set a status by hand on an alert-linked component, your choice wins for
+  as long as it is set. The linked alert keeps being tracked underneath, but the
+  page shows your override. This is what you want during an incident you are
+  already handling, and it is worth remembering when a component seems stuck on
+  a level the alert disagrees with.
+</Callout>
+
+Over the API, an override can be given an end time (`manualUntil`). Once that
+time passes, the override stops applying and the component goes back to
+following its alert. The app always sets an open-ended override, so in the app
+you clear one by picking a different level yourself.
+
+## The 90-day uptime bar
+
+Under each component on the public page is a bar of 90 segments, one per day,
+oldest on the left and today on the right. Hover a segment to see the date and
+the level. Under the bar sits a row reading `90 days ago`, that component's
+uptime percentage for the same window, and `Today`.
+
+How it is worked out:
+
+- The window is the **last 90 days**, counted in UTC: the 89 whole days before
+  today, plus today so far.
+- Each day's segment shows the **worst** level the component reached that day.
+  A ten-minute major outage colours the whole day.
+- The percentage is time-based, not day-based. Time at operational or degraded
+  counts as up; time at partial outage or major outage counts as down; time at
+  maintenance is removed from both sides of the sum.
+- A component with no recorded changes is treated as operational for the whole
+  window, so a brand-new component starts at 100.00%.
+- The result is rounded to two decimal places.
+
+Status changes are recorded as they happen, whether you set them by hand or an
+alert drove them, so the history builds up from the day you create the component.
+It does not backfill: a component created today has no outages before today.
+
+## Incidents
+
+An incident is the story you tell while something is wrong. It has a title, an
+impact, a list of affected components, and a **timeline of updates** that
+visitors read newest information last, in the order you posted them.
+
+### Impact
+
+Impact is the severity badge on the incident itself. It is set when you open the
+incident and can be changed over the API afterwards.
+
+| Impact | Use it for |
+| --- | --- |
+| `none` | Informational. Nothing is actually broken. |
+| `minor` | A small or contained problem. |
+| `major` | A significant problem affecting many users. |
+| `critical` | The worst case. Core functionality is unusable. |
+
+### Lifecycle
+
+Each update you post carries a status, and the incident takes on the status of
+its most recent update. The four statuses are the usual ones:
+
+| Status | What you are telling people |
+| --- | --- |
+| `investigating` | We know something is wrong and we are looking. |
+| `identified` | We know what is wrong. |
+| `monitoring` | We have applied a fix and we are watching it. |
+| `resolved` | It is over. |
+
+An incident is **active** until an update sets it to `resolved`, at which point
+it is stamped with a resolved time and moves to the history section. Posting a
+non-resolved update on a resolved incident reopens it and clears that stamp, so
+a problem that comes back does not need a second incident.
+
+### Opening one
+
+On the Incidents tab, click **New incident** and fill in:
+
+- **Title**, 1 to 200 characters, for example `Elevated API error rates`.
+- **Impact** and the starting **status**.
+- **Affected components**, ticked from the components on this page.
+- **First update**, 1 to 5000 characters. This is what opens the timeline, so it
+  is required.
+
+Afterwards, **Post update** on the incident card adds another entry: a status and
+a body of 1 to 5000 characters. Every update is public the moment you post it.
+
+<Callout title="Affected components are a label, not a switch">
+  Ticking components on an incident lists them under "Affects" on the public
+  page. It does **not** change those components' status pills or their uptime.
+  If a service is down, set its status as well, either by hand or through its
+  linked alert.
+</Callout>
+
+### Incidents opened for you
+
+When an alert-linked component drops to partial outage or major outage, TopStats
+opens an incident automatically so the page is never silently red. The incident
+is titled `<Component> is down`, starts at `investigating` with a first update
+saying you are looking into it, and takes its impact from the level the
+component reached: partial outage becomes `major`, major outage becomes
+`critical`.
+
+If that component goes down again while the same incident is still open, a new
+update is appended rather than a second incident being opened.
+
+<Callout type="warn" title="Auto-opened incidents do not close themselves">
+  Nothing resolves an incident for you, even one that was opened for you. When
+  the problem is over, post a `resolved` update so it moves to the history
+  section and stops showing in the active banner area.
+</Callout>
+
+## Charts on a status page
+
+The **Analytics** tab is a normal dashboard grid. Add
+[widgets](/docs/analytics/widgets) there exactly as you would on a
+[dashboard](/docs/analytics/dashboards), and they render on the public page in a
+**Metrics** section below your components. Visitors see the chart, not your raw
+events, and they cannot change the time range.
+
+This is how you show request volume, error rates, or a latency trend next to
+your component list, without also sharing the dashboard those numbers came from.
+
+## Why you would use one
+
+- **One place to point people.** A link you can put in your app, your docs, and
+  your support replies, so nobody has to ask you directly.
+- **Proof, not promises.** The 90-day bar is a record of what actually happened,
+  not a claim about what usually happens.
+- **Fewer duplicate reports.** An active incident with a timeline stops the same
+  bug arriving from twenty people at once.
+- **It can drive itself.** Link the components you already have alerts for, and
+  the page updates itself the moment an alert fires.
+
+For example, a game backend might list four components: `API` and `Matchmaking`
+under a **Core services** group, and `Discord bot` and `Webhooks` under
+**Integrations**. `API` is linked to an existing `api_error above 100` alert and
+drops to partial outage when that alert fires, while the other three are set by
+hand. When matchmaking breaks on a Saturday, you set `Matchmaking` to major
+outage, open an incident with `critical` impact, and post `identified` and then
+`resolved` updates as you go.
+
+## Creating a status page
+
+<Steps>
+<Step>
+
+### Create it from the New menu
+
+On the **Dashboards** page, open the **New dashboard** menu and choose **Status
+page**. The same menu is in the sidebar. The page is created straight away,
+named `Status page`, and its editor opens. Its public URL is fixed at this
+moment, so the link never changes later.
+
+</Step>
+
+<Step>
+
+### Add your components
+
+On the **Components** tab, click **Add group** for each heading you want, then
+**Add component** for each service. Give each component a name, an optional
+description, a group, and a starting status.
+
+Use the up and down arrows on a row to order components within their group. The
+order in the editor is exactly the order visitors see.
+
+</Step>
+
+<Step>
+
+### Link the ones an alert already covers
+
+For any component you already have an alert for, set **Status source** to
+**Linked alert**, pick the alert, and choose the level the component should drop
+to while it fires. Leave the rest on **Manual**. If an alert you expected is
+missing from the list, it is in a different environment from the status page.
+
+</Step>
+
+<Step>
+
+### Set the headline and support link
+
+On the **Settings** tab, set a **Headline** (up to 120 characters), which is the
+heading visitors see, and a **Support URL** if you want a support link next to
+it. Click **Save settings**.
+
+</Step>
+
+<Step>
+
+### Publish it
+
+Tick **Published**. The public URL appears with a **Copy** button next to it.
+That is the link to share.
+
+</Step>
+</Steps>
+
+## Publishing and the public URL
+
+Publishing is a single toggle on the Settings tab. Until it is on, the public
+URL returns nothing useful, and a visitor who somehow has the link sees "This
+status page is private or does not exist."
+
+The URL looks like this:
+
+```txt
+https://topstats.gg/status/<slug>
+```
+
+The `<slug>` is generated when the page is created, from the page name plus a
+short random suffix, so a page created from the New menu gets something like
+`status-page-4f2a91`. It does not change if you rename the page, or if you
+unpublish and republish, so a link you have handed out keeps working.
+
+### What a visitor sees
+
+In order, top to bottom:
+
+1. Your **headline** (or the page name), with a **Support** link if you set one.
+2. The **overall banner**: "All systems operational", "Degraded performance",
+   "Partial outage", "Major outage", or "Under maintenance", taken from the worst
+   component.
+3. **Active incidents**, each with its full update timeline.
+4. Your **components**, ungrouped ones first, then each group, every one with its
+   90-day uptime bar and percentage.
+5. **Metrics**, if you added widgets on the Analytics tab.
+6. **Incident history**: the 20 most recently started resolved incidents.
+7. A small "Powered by TopStats" line at the foot of the page.
+
+<Callout type="info" title="Not indexed by search engines">
+  A status page asks search engines not to index it. Visitors reach it because
+  you gave them the link, not because they searched for it. Link previews still
+  work, so pasting the URL into a chat shows a proper card.
+</Callout>
+
+## Attaching a custom domain
+
+<Callout type="warn" title="Paid feature">
+  A custom domain for a status page needs the **white-label add-on**, a paid
+  add-on any workspace can buy, free plan included. Without it, the Settings tab
+  shows a note and the fields are not offered, and the API rejects the attempt
+  as well, so there is no route around it.
+</Callout>
+
+With white-label active, a **White-label** panel appears on the Settings tab.
+
+<Steps>
+<Step>
+
+### Enter the domain
+
+Type the subdomain you want to use, for example `status.yourcompany.com`. It has
+to be a subdomain (at least three labels), cannot be a TopStats domain, and
+cannot already be in use by another status page or as a workspace portal domain.
+
+</Step>
+
+<Step>
+
+### Add the DNS record
+
+At your DNS provider, add a `CNAME` record for that name pointing to:
+
+```txt
+custom.topstats.gg
+```
+
+</Step>
+
+<Step>
+
+### Verify it
+
+Click **Verify**. The badge moves from **Pending verification** to **Verified**
+once the record resolves. If it says **Not verified**, the record has not
+propagated yet, so wait and try again.
+
+</Step>
+</Steps>
+
+Once verified, the domain serves your status page at its **root**, so
+`https://status.yourcompany.com/` is the page. The page itself renders exactly
+as it does on the `topstats.gg` link: the "Powered by TopStats" line and the
+standard link preview card still appear, because a status-page domain is a
+separate thing from the workspace portal domain that carries your branding.
+
+Changing the domain resets verification to pending, so you have to verify again.
+**Remove domain** clears it and sends visitors back to the
+`topstats.gg/status/<slug>` URL, which never stopped working.
+
+## Custom CSS
+
+<Callout type="warn" title="Paid feature">
+  Custom CSS also needs the **white-label add-on**. If the
+  add-on ever lapses, the CSS you saved is kept but stops being sent to
+  visitors, so the page falls back to its default styling immediately.
+</Callout>
+
+The **Custom CSS** box in the same White-label panel takes up to 20,000
+characters. Your CSS is cleaned and rewritten when you save, so what you get
+back may not be byte-for-byte what you typed.
+
+Every selector you write is automatically nested under the container class
+`.status-page-custom`, which means your CSS can only ever style the status
+page's own content. Write plain selectors and let the scoping happen:
+
+```css
+h1 {
+  letter-spacing: -0.02em;
+}
+```
+
+That is stored as `.status-page-custom h1`. Do not write the container class
+yourself: `.status-page-custom h1` gets scoped a second time, ends up as
+`.status-page-custom .status-page-custom h1`, and never matches anything.
+
+What survives the clean-up:
+
+- Ordinary rules and declarations, including custom properties.
+- `@media`, `@supports`, `@font-face`, and `@keyframes`.
+- `url()` values and image sources that use `https:` or an inline `data:image/`
+  URI.
+
+What gets dropped:
+
+- Selectors that reach outside the page: `html`, `body`, `:root`, and `*`.
+- Every other at-rule, including `@import`. A stylesheet cannot pull in more CSS
+  or fetch resources of its own.
+- `position: fixed` and `position: sticky`, and full-viewport sizes such as
+  `100vh` or `100vw`, because both are how a page takeover starts.
+- Legacy script vectors: `behavior`, `-moz-binding`, `expression()`, and any
+  `javascript:` value.
+- Anything else that fetches over plain `http:`, a relative path, or a
+  non-image data URI.
+
+If your stylesheet cannot be parsed at all, it is stored empty rather than
+partially applied. If a rule you expected does not take effect, it is almost
+always one of the items above.
+
+## Deleting a status page
+
+At the bottom of the **Settings** tab is a **Delete status page** card. Click
+**Delete**, then confirm with **Delete status page**.
+
+<Callout type="warn" title="This cannot be undone">
+  Deleting removes the page along with every component, group, incident, update,
+  and recorded status change on it. The public URL stops working immediately, and
+  the uptime history is gone rather than archived. There is no restore.
+</Callout>
+
+## Who can manage status pages
+
+Any workspace member, including a Viewer, can open a status page and read its
+components and incidents. Creating a status page, adding or editing components
+and groups, setting a status, opening incidents, posting updates, changing
+settings, publishing, and deleting all require the **Developer** role or higher.
+See [Roles and permissions](/docs/analytics/roles-and-permissions) for the full
+breakdown.
+
+The public page needs no account and no role at all. Anyone with the link, or
+with your custom domain, can read it.
+
+## API endpoints
+
+If you want to drive a status page programmatically, these are the paths, all
+under `https://analytics.topstats.gg`. `:dashboardId` is the status page's id.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| POST | `/v1/dashboards` | Session (developer) | Create a status page by sending `kind: "status"`. |
+| GET | `/v1/status/:dashboardId` | Session (member) | Read settings, groups, components, and incidents in one call. |
+| POST | `/v1/status/:dashboardId/components` | Session (developer) | Add a component. |
+| PATCH | `/v1/status/:dashboardId/components/:id` | Session (developer) | Edit a component, or set and clear its manual status. |
+| DELETE | `/v1/status/:dashboardId/components/:id` | Session (developer) | Delete a component. |
+| POST | `/v1/status/:dashboardId/components/reorder` | Session (developer) | Reorder components. |
+| POST | `/v1/status/:dashboardId/groups` | Session (developer) | Create a group. |
+| PATCH | `/v1/status/:dashboardId/groups/:id` | Session (developer) | Rename a group. |
+| DELETE | `/v1/status/:dashboardId/groups/:id` | Session (developer) | Delete a group and ungroup its components. |
+| POST | `/v1/status/:dashboardId/groups/reorder` | Session (developer) | Reorder groups. |
+| POST | `/v1/status/:dashboardId/incidents` | Session (developer) | Open an incident with its first update. |
+| PATCH | `/v1/status/:dashboardId/incidents/:id` | Session (developer) | Change an incident's title, impact, or affected components. |
+| POST | `/v1/status/:dashboardId/incidents/:id/updates` | Session (developer) | Post an update and move the incident's status. |
+| PUT | `/v1/status/:dashboardId/settings` | Session (developer) | Headline, support URL, publish, custom domain, custom CSS. |
+| POST | `/v1/status/:dashboardId/domain/verify` | Session (developer) | Re-check the custom domain's CNAME. |
+| DELETE | `/v1/dashboards/:id` | Session (developer) | Delete the status page and everything on it. |
+| GET | `/v1/public/status/:slug` | None | The published page exactly as a visitor sees it. |
+
+Three things to watch for:
+
+- None of the owner-side routes accept an API key. They are session routes, so
+  they only work while you are signed in to the workspace. Only
+  `/v1/public/status/:slug` is reachable without a session, and it needs no auth
+  at all.
+- Both reorder endpoints want **every** id on the page, exactly once. A partial
+  list is rejected rather than applied.
+- Re-sending an unchanged custom domain resets its verification to pending. Only
+  send `customDomain` when it has actually changed.
+
+## Related pages
+
+<Cards>
+  <Card title="Alerts" href="/docs/analytics/alerts" description="Build the alerts a status component can follow, and get notified the moment something breaches." />
+  <Card title="Sharing and embedding" href="/docs/analytics/sharing-and-embedding" description="The other public link: a read-only dashboard at /share/<slug>, plus embeds." />
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Who can read a status page versus create, publish, and delete one." />
+</Cards>

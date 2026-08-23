@@ -1,0 +1,261 @@
+---
+title: White label
+description: Serve the whole TopStats portal on your own domain, under your own name, logo, and colours.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+**White label** is a paid add-on that serves the whole TopStats portal under your
+own name, logo, colours, and domain. Your team signs in at
+`analytics.yourcompany.com` instead of `analytics.topstats.gg`, and the product
+they land in looks like yours.
+
+Think of it as a re-skin rather than a second product. Same workspace, same
+events, same dashboards and alerts. Only the domain, the wordmark, and the
+colours change.
+
+<Callout title="What white label is (and is not)">
+  White label re-brands the app you sign in to, plus the public dashboards,
+  embeds, and status pages you share. It is **not** a separate copy of TopStats,
+  and it does not change how data is sent or stored. It also does not re-brand
+  the emails TopStats sends you - sign-in codes, receipts, digests, and alert
+  notifications still arrive as TopStats.
+</Callout>
+
+## What white label changes
+
+Once the add-on is on and you have saved some branding:
+
+- **Your name and logo replace the TopStats mark.** Upload a logo and it takes
+  the place of the mark entirely. Set only a product name and it appears next to
+  the default mark instead.
+- **Your colours theme the whole app.** The four palette colours drive the page
+  background, cards, body text, buttons, links, focus rings, and the sidebar.
+- **Your branding follows you everywhere you are signed in.** Members see it on
+  `analytics.topstats.gg` too, not only on your own domain.
+- **Shared pages drop the TopStats attribution.** A public dashboard or status
+  page served on your verified domain loses the "Powered by TopStats" line, and
+  dashboards, embeds, and status pages all use your name in the browser tab and
+  link previews. An embed never carries the attribution line in the first place.
+- **Status pages gain a custom domain and custom CSS.** Both are white-label
+  only, and both stop working the moment the add-on is off.
+
+## What you can brand
+
+Branding is one set of fields on the workspace. Every field is optional, except
+that the palette is all-or-nothing.
+
+<TypeTable
+  type={{
+    brandName: {
+      description: 'Your product name, 1 to 60 characters, shown wherever TopStats would be. Leave it empty to keep the TopStats name.',
+      type: 'string',
+    },
+    brandLogoUrl: {
+      description: 'A PNG, JPEG, or WebP logo. It is squared to 256px when you upload it and must be 128KB or smaller.',
+      type: 'image',
+    },
+    brandBackground: {
+      description: 'The page background, as a six-digit hex colour like #04050e.',
+      type: 'hex colour',
+    },
+    brandSurface: {
+      description: 'The colour of cards and popovers that sit on the background.',
+      type: 'hex colour',
+    },
+    brandText: {
+      description: 'Body text. Muted text is blended toward the background for you, and borders and inputs are faded versions of it.',
+      type: 'hex colour',
+    },
+    brandColor: {
+      description: 'The accent: buttons, links, focus rings, and the active sidebar item.',
+      type: 'hex colour',
+    },
+  }}
+/>
+
+<Callout type="info" title="The palette is all four colours or none">
+  A themed portal needs every one of background, cards, text, and accent, so you
+  cannot save two of them and leave the rest. Either set all four to valid hex
+  values, or clear all four and keep the default TopStats theme.
+</Callout>
+
+### The readability rule
+
+TopStats will not let you save a palette nobody can read. Every save is checked
+against five contrast pairs, using the WCAG AA thresholds, and all five have to
+pass.
+
+| Pair | Minimum contrast |
+| --- | --- |
+| Text on background | 4.5 : 1 |
+| Text on cards | 4.5 : 1 |
+| Accent on background | 3 : 1 |
+| Accent on cards | 3 : 1 |
+| Button label on accent | 3 : 1 |
+
+The settings page shows each ratio live as you move the colour pickers, marks
+the failing ones in red, and disables **Save branding** until they all pass. The
+API applies the same check on write, so an unreadable palette cannot get in that
+way either.
+
+You do not pick the colour of text that sits on your accent. TopStats chooses
+black or white, whichever reads better on the accent you set, which is why that
+last pair is a check rather than a control.
+
+## Choosing a domain
+
+Your domain has to be a subdomain you control, not a bare root domain.
+
+- **Use a subdomain.** `analytics.yourcompany.com` is fine, `yourcompany.com` is
+  rejected. The domain needs at least three labels.
+- **It cannot be a TopStats domain.** `topstats.gg` and anything ending in
+  `.topstats.gg` are refused.
+- **One host does one job.** A domain already claimed by another workspace, or
+  used by any status page, is rejected as already in use.
+- **Case does not matter.** The domain is stored lowercased, up to 253
+  characters.
+
+## Setting up white label
+
+Everything lives in the **White-label** section of **Settings**.
+
+<Steps>
+<Step>
+
+### Turn on the add-on
+
+Open Settings and enable white-label. If your workspace is already paid, the
+add-on joins your existing subscription. If it is free, you pay for the add-on
+on its own. Your email address has to be verified first, and only the workspace
+Owner sees this section at all.
+
+</Step>
+
+<Step>
+
+### Add your domain
+
+Type the subdomain you want to serve the portal on, like
+`analytics.yourcompany.com`, and save it. The domain is stored straight away
+with the status **Pending verification** - it does nothing yet.
+
+</Step>
+
+<Step>
+
+### Point the domain at TopStats
+
+At your DNS provider, add one record:
+
+| Field | Value |
+| --- | --- |
+| Type | `CNAME` |
+| Name | your domain, for example `analytics.yourcompany.com` |
+| Value | `custom.topstats.gg` |
+
+</Step>
+
+<Step>
+
+### Verify it
+
+Click **Verify**. TopStats looks up your domain's CNAME chain and checks that it
+points at `custom.topstats.gg`. A match flips the status to **Verified** and the
+domain goes live. Anything else comes back as **Not verified** - DNS changes can
+take a while to spread, so wait and press Verify again.
+
+</Step>
+
+<Step>
+
+### Save your branding
+
+Upload your logo, set your product name, and pick the four palette colours. A
+live preview and the five contrast ratios sit next to the pickers, so you can
+tell before saving whether the combination works. **Reset to default** puts the
+TopStats palette back if you want to start again.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="Verification is rechecked, not just checked once">
+  A verified domain is re-resolved roughly once an hour. If the CNAME stops
+  pointing at `custom.topstats.gg`, the domain drops back to **Not verified** and
+  immediately stops serving your brand. Put the record back and press **Verify**
+  again to bring it live.
+</Callout>
+
+## What a visitor sees on your domain
+
+A host that reaches TopStats is in exactly one of three states, and each one
+behaves differently.
+
+| State | When | What is served |
+| --- | --- | --- |
+| Live | Verified domain, add-on active | The branded portal: your logo, name, and colours. The sign-in page is branded on the server, so it arrives themed on the first paint. |
+| Pending | Domain saved but not verified, or the add-on is off | The standard TopStats sign-in, with no branding at all. |
+| Unknown | No workspace claims that host | A short white-label pitch page in place of a sign-in form. |
+
+A domain you pointed at a [status page](/docs/analytics/status-pages) is a
+separate case: that host serves the status page at its root rather than a
+portal.
+
+A few more things happen on a custom domain, live or not:
+
+- **There is no self-serve sign-up.** The sign-up link is hidden and `/signup`
+  redirects to the sign-in page. People join your workspace by invite, the same
+  as anywhere else.
+- **Non-members hit a branded dead end.** On a live domain, someone signed in to
+  TopStats who is not a member of your workspace gets a branded "You are not a
+  part of this workspace" page with a sign-out link. They are never bounced to a TopStats
+  page, and they never see the app shell.
+- **Search engines are kept out.** Custom domains serve a `robots.txt` that
+  disallows everything, so your portal is not indexed.
+
+## What it costs
+
+White label is a flat **10 EUR per month** add-on on top of whatever your
+workspace already pays. It is available on a free workspace as well as a paid
+one, and it does not change your event volume or retention pricing. See
+[Plans and limits](/docs/analytics/plans-and-limits) for the rest of the bill.
+
+You can turn the add-on off at any time from the same section. Your domain and
+branding are kept, but they stop being applied: the domain no longer serves your
+portal, the app goes back to the TopStats theme, and status page custom domains
+stop resolving.
+
+## Who can manage white label
+
+White label is **Owner** only. Enabling or cancelling the add-on, setting or
+removing the domain, running verification, and saving branding all require the
+Owner role, and the section is hidden from everyone else. That is stricter than
+the usual "Developer or higher" rule for building things - see
+[Roles and permissions](/docs/analytics/roles-and-permissions).
+
+## API endpoints
+
+If you would rather script this, these are the paths, all under
+`https://analytics.topstats.gg`. Every write needs an Owner session on a
+workspace with the add-on active.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| PUT | `/v1/workspaces/:id/domain` | Session (owner) | Set the custom domain. Returns the pending status and the CNAME target to add. |
+| POST | `/v1/workspaces/:id/domain/verify` | Session (owner) | Resolve the CNAME now and record verified or not verified. |
+| DELETE | `/v1/workspaces/:id/domain` | Session (owner) | Remove the custom domain. |
+| PUT | `/v1/workspaces/:id/branding` | Session (owner) | Save the name, logo, and palette. Rejects an unreadable palette. |
+| GET | `/v1/branding/resolve?host=` | None | The state of a host (live, pending, or unknown) and, when live, its public branding. |
+
+Branding is written as a whole object, so send every field on each `PUT` and use
+`null` for the ones you want cleared.
+
+## Related pages
+
+<Cards>
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Why white label is Owner only, and what the other roles can change." />
+  <Card title="Plans and limits" href="/docs/analytics/plans-and-limits" description="How event volume and retention shape the rest of your bill." />
+  <Card title="Sharing and embedding" href="/docs/analytics/sharing-and-embedding" description="Public dashboards and embeds, which lose the TopStats attribution on your domain." />
+</Cards>

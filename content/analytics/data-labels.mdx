@@ -1,0 +1,244 @@
+---
+title: Data labels
+description: Map a raw key in your data to a friendly display name so charts read in plain English, without changing anything you send.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+A **data label** maps one raw key in your data to a friendlier display name.
+Your game sends `dmg_dealt`, and every chart that breaks down by it reads
+`Damage dealt` instead.
+
+Think of it as a small dictionary your workspace keeps on the side. Before
+TopStats draws a chart, it looks up each raw value in that dictionary. If there
+is an entry, it paints your friendly name. If there is not, the raw value goes
+on the chart exactly as it arrived.
+
+<Callout title="What a data label is (and is not)">
+  A data label is display text and nothing else. It never changes the events you
+  already sent, it never changes what your app has to send in future, and it
+  never changes what a filter, an alert, or the API matches on. Delete every
+  label you have and your data is exactly as it was.
+</Callout>
+
+<Callout type="info" title="Data labels need a paid workspace">
+  The Data labels page is available on a paid workspace. On a free workspace the
+  sidebar entry is hidden altogether, opening the page directly shows an upgrade
+  prompt instead, and the label endpoints return a `402`.
+  See [Plans and limits](/docs/analytics/plans-and-limits).
+</Callout>
+
+## What a data label is made of
+
+A label is a pair: the raw key, and the name you want on screen.
+
+<TypeTable
+  type={{
+    eventKey: {
+      description: 'The raw key exactly as it appears in your data, 1 to 128 characters. Matching is exact, so capitalisation counts. Leading and trailing spaces are trimmed before the label is saved.',
+      type: 'string',
+    },
+    displayLabel: {
+      description: 'The friendly name shown in its place, 1 to 120 characters. Anything you can type, including spaces and punctuation, though leading and trailing spaces are trimmed here too.',
+      type: 'string',
+    },
+    id: {
+      description: 'Assigned by TopStats when the label is saved. You only need it to delete a label over the API.',
+      type: 'string',
+    },
+  }}
+/>
+
+Two things follow from that shape:
+
+- **One label per raw key.** A key can only have one display name at a time.
+  Saving a key that already has a label replaces the old name.
+- **Labels are workspace-wide.** The page marks the list **Global**. Labels are
+  not tied to an environment, a dashboard, or a widget, so `production` and
+  `development` read the same dictionary.
+
+## What counts as a raw key
+
+Two kinds of raw value end up drawn on a chart, and a label can rename either
+of them.
+
+| Raw key | Where it comes from | Example |
+| --- | --- | --- |
+| A breakdown value | The value of the property a chart breaks down by. | `eu-w` becomes `Europe (West)` |
+| A numeric property key | The keys a chart picks up when you break down by **each numeric key**. | `dmg_dealt` becomes `Damage dealt` |
+
+The safest way to get the raw key right is to copy it off the chart you want to
+tidy up. Whatever the legend or the bar reads today is the string to put in the
+left-hand box.
+
+## Where the friendly name shows up
+
+Labels are applied at the moment a chart is drawn, so they appear wherever a
+widget draws a broken-down value:
+
+- **Legends** on a chart broken down over time, one entry per series.
+- **Bar and pie labels** on a chart broken down without a time axis. A pie
+  widget is drawn as a donut, and its legend carries the friendly names too.
+- **Tooltips** on those charts, because the tooltip reads the same values.
+- **The breakdown column** when one of those widgets is displayed as a table.
+  It is the column after the row-number column. On a chart broken down over
+  time, the friendly names become the value column headings instead.
+
+Everywhere else keeps the raw value on purpose, so you always have a way back to
+what your app actually sends:
+
+- The **Data labels page** itself. The left column is always the raw key.
+- The **widget builder**: the event picker, the **Break down by** buttons, and
+  the filter rows all work in raw keys and values.
+- The **heading over the breakdown column**, which names the property you broke
+  down by rather than any one value.
+- The [Events stream](/docs/analytics/events-stream) and
+  [Actors](/docs/analytics/actors), which show events as they were sent.
+- Counter, table, funnel, retention, heatmap, histogram, and KPI widgets, none
+  of which carry a broken-down value to rename.
+- Alert rules and their notifications, and emailed
+  [digests](/docs/analytics/digests).
+- Everything the API returns, including widget query results.
+
+<Callout type="info" title="Public views show the raw value">
+  A shared link, an embed, or a status page is drawn for a visitor who is not
+  signed in to your workspace, so those views fall back to the raw values. If
+  you want a public chart to read in plain English, name the property values
+  that way when you send them.
+</Callout>
+
+## Why you would use one
+
+You would reach for a label whenever the string that is convenient for your code
+is not the string you want a teammate to read.
+
+- **Readable charts.** `hp_lost` is fine in a payload and unhelpful on a
+  dashboard that a designer or a community manager opens.
+- **One shared vocabulary.** Everyone in the workspace sees the same name for
+  the same thing, instead of each person guessing what an abbreviation meant.
+- **No code change.** You fix the wording in the product, not in your game or
+  your app, so nothing has to be redeployed and no history has to be rewritten.
+
+For example, a game that sends its combat numbers as numeric properties might
+have a chart broken down by **each numeric key** whose legend reads
+`dmg_dealt`, `hp_lost`, and `gold_earned`. Three labels turn that into
+`Damage dealt`, `Health lost`, and `Gold earned`, and every other chart broken
+down the same way picks the new names up too.
+
+Or say you break a chart down by a `region` property that carries short codes.
+Labelling `eu-w`, `us-e`, and `ap-s` as `Europe (West)`, `US (East)`, and
+`Asia Pacific (South)` makes the chart readable without touching a single line
+of your sending code.
+
+## Creating a data label
+
+Labels live on the **Data labels** page in the sidebar. It is one list of rows,
+each row a raw key on the left and a display label on the right.
+
+<Steps>
+<Step>
+
+### Open the Data labels page
+
+The header row names the two columns, **Event key** and **Display label**. The
+empty row at the bottom of the list is where a new mapping starts.
+
+</Step>
+
+<Step>
+
+### Enter the raw key
+
+Type it into the **Event key** box, exactly as it appears in your data, 1 to 128
+characters. Copy it from the chart you want to relabel rather than retyping it
+from memory, because the match is exact.
+
+</Step>
+
+<Step>
+
+### Enter the display label
+
+Type the name you want on screen into the **Display label** box, 1 to 120
+characters.
+
+</Step>
+
+<Step>
+
+### Select Add mapping
+
+The button stays disabled until both boxes have something in them. Once you save,
+the mapping applies the next time a chart draws.
+
+</Step>
+</Steps>
+
+## Editing and deleting a label
+
+Both boxes on an existing row are editable in place. Change one and click away
+from it, and the row saves itself. There is no separate save button.
+
+- **Changing the display label** updates that mapping and leaves the raw key
+  alone.
+- **Changing the raw key** replaces the mapping. The old key stops being
+  relabelled and the new key takes over the display name.
+- **Saving a raw key that already has a label** overwrites the display name
+  rather than adding a second entry, so you never end up with two labels
+  fighting over one key.
+
+To delete a mapping, select the **X** at the end of its row. The row disappears
+and the charts go back to the raw value.
+
+<Callout type="warn" title="Deleting happens straight away">
+  Removing a row takes effect immediately, with no confirmation step and no
+  undo. Because a label is only display text, the fix is simply to add the same
+  mapping again - nothing about your events was touched either way.
+</Callout>
+
+## Who can manage data labels
+
+Any member of a paid workspace, including a Viewer, can read the list of labels
+and see the friendly names on charts. Creating, editing, and deleting a label
+requires the **Developer** role or higher, the same split that applies
+everywhere else in TopStats. See
+[Roles and permissions](/docs/analytics/roles-and-permissions) for the full
+breakdown.
+
+## API endpoints
+
+If you want to manage labels programmatically, these are the paths, all under
+`https://analytics.topstats.gg`. All three authenticate with a signed-in
+session, the same one the web app uses, rather than the API key you ingest
+events with. Every one of them needs a paid workspace and answers a free
+workspace with a `402`.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/labels` | Session (member) | List every label in the workspace, ordered by raw key. |
+| PUT | `/v1/labels` | Session (developer) | Save a label. Creates it, or replaces the display name on a key that already has one. |
+| DELETE | `/v1/labels/:id` | Session (developer) | Delete one label by its id. |
+
+`PUT /v1/labels` takes both fields and nothing else:
+
+```json
+{
+  "eventKey": "dmg_dealt",
+  "displayLabel": "Damage dealt"
+}
+```
+
+It answers with the saved label, including the `id` you would pass to `DELETE`.
+There is no separate create and update call, so sending the same `eventKey`
+twice is safe: the second call just moves the display name. `DELETE` answers
+with `204` on success, or `404` if that id is not a label in your workspace.
+
+## Related pages
+
+<Cards>
+  <Card title="Widgets" href="/docs/analytics/widgets" description="Break a chart down by a property or by each numeric key, which is what produces the values a label renames." />
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Who can read labels versus create, edit, and delete them." />
+  <Card title="Plans and limits" href="/docs/analytics/plans-and-limits" description="What a paid workspace unlocks, and how event volume and retention set the price." />
+</Cards>

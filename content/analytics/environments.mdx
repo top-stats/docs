@@ -1,0 +1,273 @@
+---
+title: Environments
+description: Keep separate streams of events, keys, and dashboards inside one workspace, so your test traffic never mixes with live.
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps'
+import { TypeTable } from 'fumadocs-ui/components/type-table'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+
+An **environment** is a separate stream of events inside one workspace. Every
+event you send lands in exactly one environment, and everything you build on top
+of those events reads one environment at a time.
+
+Every workspace starts with two: `production` and `development`. Those two are
+seeded for you, not a hard limit. They are ordinary environments with ordinary
+slugs, and you can add more beside them, like `staging`, `qa`, or `load-test`.
+
+<Callout title="What an environment is (and is not)">
+  An environment is a named stream of events plus everything scoped to that
+  stream. It is not a second workspace: your team, roles, invoices, and data
+  labels are shared across all of them. It is also not something you choose per
+  request. An event goes wherever its **API key** points, and the payload never
+  gets a say.
+</Callout>
+
+## What an environment is made of
+
+An environment is a small record: a permanent slug, a display name you can
+change, and two flags TopStats sets for you.
+
+<TypeTable
+  type={{
+    name: {
+      description: 'The display name shown in pickers, badges, and the Settings list, 1 to 60 characters after leading and trailing spaces are trimmed. You can rename it whenever you like.',
+      type: 'string',
+    },
+    slug: {
+      description: 'The permanent identifier used everywhere the API names an environment. Lowercase letters, digits, and dashes only, 1 to 32 characters. Chosen at creation and never changes.',
+      type: 'string',
+    },
+    id: {
+      description: 'Assigned by TopStats when the environment is created. You only need it to rename or delete an environment over the API.',
+      type: 'string',
+    },
+    isDefault: {
+      description: 'True for the two environments seeded with your workspace, production and development. Defaults sort to the top of every picker, and inside each group the sort is by name.',
+      type: 'boolean',
+    },
+    isProtected: {
+      description: 'True for production and nothing else. A protected environment can never be deleted.',
+      type: 'boolean',
+    },
+  }}
+/>
+
+### Slug rules
+
+The slug has to match `^[a-z0-9-]+$` and be between **1 and 32 characters**:
+lowercase letters, digits, and dashes, nothing else. No uppercase, no spaces, no
+underscores, no dots. So `staging`, `qa-2`, and `load-test` are fine, while
+`Staging`, `qa_2`, and `load test` are rejected. The slug field in Settings
+lowercases what you type as you go.
+
+Two things follow from that shape:
+
+- **The slug is permanent.** There is no rename for it. If you picked `stage`
+  and wish you had picked `staging`, you create a new environment and move over
+  to it.
+- **The slug is unique inside your workspace.** Reusing one that already exists
+  returns a `409` with `That environment already exists`.
+
+The display name is separate and much looser. It is free text up to 60
+characters, so a slug of `qa-2` can carry the name `QA (EU)` and read properly
+in a dashboard header. Renaming changes only that display text: every reference
+to the environment is by slug, so nothing you have already built notices.
+
+## Why you would use one
+
+You reach for another environment whenever two streams of the same events should
+not be counted together.
+
+- **Keep test traffic out of your real numbers.** Local runs, integration tests,
+  and a load test firing a million synthetic events all stay off the dashboard
+  your team actually reads.
+- **Give every stage its own key.** A `staging` deploy gets a `staging` key, and
+  the same code that runs in production writes somewhere harmless.
+- **Split alerts by seriousness.** A production alert can page a channel that
+  matters, while the same rule in `development` sits quietly in a side channel.
+- **Try a rollout safely.** A feature flag in `staging` can be at 100 percent
+  while the production copy of it is still at 5 percent.
+
+For example, a game studio might keep `production` for the live build,
+`development` for a programmer's machine, and a third environment `qa` that the
+test team points its automated runs at, so a broken test suite never dents the
+live retention chart.
+
+## Creating an environment
+
+Environments live in **Settings**, in the **Environments** section.
+
+<Steps>
+<Step>
+
+### Open the Environments section in Settings
+
+You will see the environments you already have, `Production` and `Development`
+to begin with, each with its slug beside it and a **Default** or **Protected**
+badge where one applies.
+
+</Step>
+
+<Step>
+
+### Enter a name and a slug
+
+The name is what you and your team will read, 1 to 60 characters, like
+`Staging`. The slug is what everything else refers to, 1 to 32 lowercase
+letters, digits, and dashes, like `staging`. Pick the slug carefully, because it
+is the part you cannot change later.
+
+</Step>
+
+<Step>
+
+### Select Add environment
+
+The new environment appears in the list straight away and shows up in every
+environment picker in the app: the new-dashboard flow, the alert builder, the
+segment form, and the rest.
+
+</Step>
+
+<Step>
+
+### Create an API key for it
+
+A new environment has no keys, and an environment with no key can never receive
+an event. Go to **Settings**, then **API keys**, create a key, and choose your
+new environment for it.
+
+</Step>
+</Steps>
+
+<Callout type="warn" title="A free workspace gets two environments">
+  A free workspace can hold **two environments in total**, and the seeded
+  `production` and `development` already account for both. Adding a third
+  returns a `402` with the message
+  `Upgrade to a paid plan to add more environments`, and the Settings section
+  swaps the create form for an upgrade prompt once you are at the limit. On a
+  paid workspace there is no cap on how many you create. See
+  [Plans and limits](/docs/analytics/plans-and-limits).
+</Callout>
+
+## How an API key decides the environment
+
+Every API key belongs to **exactly one environment**, chosen when you create the
+key and fixed for the life of that key. When events arrive, TopStats reads the
+environment off the key that authenticated the request. The ingest payload has
+no `environment` field at all, and the payload is strict, so an event that tries
+to carry one is rejected with a `400` rather than silently redirected.
+
+The prefix on a key tells you one thing, and only one thing:
+
+| Environment | Key prefix |
+| --- | --- |
+| `production` | `ts_live_` |
+| `development` | `ts_test_` |
+| Any environment you created yourself | `ts_test_` |
+
+<Callout type="warn" title="The prefix does not name the environment">
+  `ts_live_` means production. `ts_test_` means **not production**, and stops
+  there. A `development` key, a `staging` key, and a `qa-2` key all begin
+  `ts_test_`, so you cannot tell which stream a non-production key writes to by
+  reading it. The only reliable answer is the environment listed beside the key
+  in **Settings**, under **API keys**.
+</Callout>
+
+The practical version of that rule: when you rotate a key, replace it with a key
+created for the same environment. Revoking a key never moves the events it
+already sent, and creating a replacement in the wrong environment splits your
+data across two streams without any warning.
+
+## What is pinned to an environment
+
+Most things you build carry an environment, and they only ever see events from
+that one stream.
+
+| Thing | Environment chosen | Can it move afterwards |
+| --- | --- | --- |
+| API key | When you create the key | No |
+| Dashboard | In the new-dashboard flow | Not in the app, where it is shown as a badge in the header. A `PATCH` to the dashboard endpoint can move it. |
+| Alert | When you create the alert | Yes. The alert editor keeps its environment picker when you reopen an alert, so saving moves it. |
+| Segment | When you create the segment | No |
+| Annotation | When you create the annotation | No |
+| Feature flag | When you create the flag | No |
+| Actor | Not chosen at all | An actor is whatever the events in the environment you are viewing say it is, so the same `_actor` value in two environments gives you two separate timelines. |
+
+Because of that, an alert in `production` can only load a `production` segment,
+and a dashboard in `staging` only draws annotations that were added to
+`staging`. If you want the same thing in two environments, you build it twice.
+
+Data labels are the exception worth knowing: they are workspace-wide, so every
+environment reads the same dictionary of friendly names. See
+[Data labels](/docs/analytics/data-labels).
+
+## Deleting an environment
+
+Deleting is deliberately hard, because an environment is the anchor for a lot of
+other things.
+
+`production` is **protected** and can never be deleted, no matter how empty it
+is. Attempting it returns a `409` with `Production cannot be deleted`, and the
+Settings list does not show a delete control for it at all. `development` is a
+default but not protected, so it can go if you genuinely do not want it.
+
+Everything else has to be clear before a delete succeeds. TopStats checks these
+in order and stops at the first one that hits, returning a `409` that reads
+`This environment still has X; remove it first`:
+
+1. **Events.** Any event stored in the environment blocks the delete.
+2. **An API key** pointing at the environment, revoked or not.
+3. **A dashboard** in the environment.
+4. **An alert** in the environment.
+5. **A feature flag** in the environment.
+6. **A segment** in the environment.
+7. **An annotation** in the environment.
+
+Because the checks stop at the first blocker, clearing one thing can simply
+reveal the next. Expect to delete the dashboard, then the alert, then the
+segment, and try again after each.
+
+<Callout type="info" title="Events are the hardest blocker to clear">
+  Hiding an event in the Events stream does remove it for good once a short
+  grace period passes, but it is a one-event-at-a-time action with no bulk
+  clear, so it will not empty an environment that has taken real traffic. In
+  practice, deleting is for an environment you created by mistake or set up and
+  never pointed anything at. For a stream you are finished with, revoke its keys
+  and leave it in place rather than trying to clear it out.
+</Callout>
+
+## Who can manage environments
+
+Any workspace member, including a Viewer, can **read** the list of environments,
+which is what fills every environment picker in the app. Creating, renaming, and
+deleting an environment needs the **Developer** role or higher, and so does
+creating or revoking the API keys that point at one. See
+[Roles and permissions](/docs/analytics/roles-and-permissions) for the full
+breakdown.
+
+## API endpoints
+
+If you want to manage environments programmatically, these are the paths, all
+under `https://analytics.topstats.gg`.
+
+| Method | Path | Auth | Purpose |
+| --- | --- | --- | --- |
+| GET | `/v1/environments` | Session (member) | List every environment in the workspace, defaults first and then by name. |
+| POST | `/v1/environments` | Session (developer) | Create an environment from a `slug` and a `name`. Returns `201`. |
+| PATCH | `/v1/environments/:id` | Session (developer) | Rename an environment. `name` is the only field it accepts. |
+| DELETE | `/v1/environments/:id` | Session (developer) | Delete an environment, if nothing references it. Returns `204`. |
+
+These four are session endpoints, so they are called from a signed-in browser
+session rather than with an API key. The slug is absent from `PATCH` on purpose:
+there is no endpoint anywhere that changes a slug once it exists.
+
+## Related pages
+
+<Cards>
+  <Card title="Core concepts" href="/docs/analytics/concepts" description="Workspaces, environments, events, actors, dashboards, and widgets in one page." />
+  <Card title="Sending events" href="/docs/analytics/sending-events" description="The ingest payload, and why it never names an environment." />
+  <Card title="Roles and permissions" href="/docs/analytics/roles-and-permissions" description="Who can read the environment list versus create, rename, and delete." />
+  <Card title="Plans and limits" href="/docs/analytics/plans-and-limits" description="What a free workspace includes, and what a paid one unlocks." />
+</Cards>
