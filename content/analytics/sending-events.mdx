@@ -38,7 +38,7 @@ events go, you swap the key, not the payload.
 ## The event payload
 
 The request body is either one event object or a batch of them (see
-[Batching](/analytics/batching)). A single event has these five fields, and only
+[Batching](/analytics/batching)). A single event has these six fields, and only
 these. Any field you send that is not on this list is rejected, which helps you
 catch typos early.
 
@@ -61,6 +61,10 @@ catch typos early.
       description: 'Who the event belongs to. Powers the Actors view and retention.',
       type: 'string (max 256 chars)',
     },
+    _actorLabel: {
+      description: 'A human-readable name for that actor, like a username. Shown instead of the raw id in the product. Does not change who the actor is.',
+      type: 'string (max 256 chars)',
+    },
     _timestamp: {
       description: 'When the event happened, as an ISO 8601 datetime.',
       type: 'string (ISO 8601)',
@@ -69,9 +73,9 @@ catch typos early.
   }}
 />
 
-Notice the underscore on `_source`, `_actor` and `_timestamp`. Those are
-reserved platform fields, and the underscore prefix keeps them from ever
-clashing with a property of your own. Your `name` and everything inside
+Notice the underscore on `_source`, `_actor`, `_actorLabel` and `_timestamp`.
+Those are reserved platform fields, and the underscore prefix keeps them from
+ever clashing with a property of your own. Your `name` and everything inside
 `properties` belong to you, so you are free to use a plain `source` or `actor`
 key in `properties` without colliding with the reserved ones.
 
@@ -92,6 +96,7 @@ environment variable so it never gets committed to your code.
         "properties": { "playtime": 42, "map": "desert", "perks": ["double_jump", "shield"] },
         "_source": "eu-west-1",
         "_actor": "user_123",
+        "_actorLabel": "Ada Lovelace",
         "_timestamp": "2026-07-22T10:00:00Z"
       }'
     ```

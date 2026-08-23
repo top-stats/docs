@@ -32,12 +32,44 @@ start with `_` so they never clash with your own `properties`.
       description: 'Who the event belongs to (a user id, account id, or server name). Optional. Powers Actors and retention.',
       type: 'string',
     },
+    _actorLabel: {
+      description: 'An optional human-readable name for that actor, like a username or a server name. Display only.',
+      type: 'string',
+    },
   }}
 />
 
 <Callout type="info" title="Keep it short">
   An `_actor` is a string of at most **256 characters**. Use a stable id (like
   `user_123`) so the same person or server always maps to the same actor.
+</Callout>
+
+## Giving an actor a readable name
+
+A stable id makes a good `_actor` but a poor thing to read. Send an optional
+`_actorLabel` alongside it to attach a human-readable name, up to **256
+characters**.
+
+```json
+{
+  "name": "purchase",
+  "_actor": "user_123",
+  "_actorLabel": "Ada Lovelace"
+}
+```
+
+The label is display only. It never changes who the actor is, so identity,
+grouping and retention all keep working off `_actor` exactly as before. That
+means you can start sending labels at any point without disturbing the history
+you already have.
+
+The newest label you have sent wins. Events that leave `_actorLabel` out do not
+clear the name, so you only need to send it when it is set or when it changes.
+
+<Callout type="warn" title="Labels are not identity">
+  Two actors with the same label are still two different actors. If you want
+  events to count as the same person, they have to share the same `_actor`
+  value.
 </Callout>
 
 ## Attaching an actor
@@ -113,7 +145,8 @@ came back.
 The Actors page (in the main navigation) is a ranked list of everyone behind
 your events. It lists actors **by event count**, with:
 
-- The **actor key** (the `_actor` value you sent).
+- The **actor key** (the `_actor` value you sent). When you have sent an
+  `_actorLabel`, the label is shown instead and the raw key sits underneath it.
 - The **total events** that actor has.
 - The **last-seen** time.
 
