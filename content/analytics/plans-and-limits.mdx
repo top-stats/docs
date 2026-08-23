@@ -9,13 +9,15 @@ TopStats does not sell fixed "plans" with feature checklists. Pricing is
 **plan-less and usage-based**: you choose how many events you expect to send each
 month and how long you want to keep your data (retention), and the price scales
 continuously with both. There is no "Pro" tier that unlocks funnels or a
-"Business" tier that unlocks alerts. Every paid workspace gets every feature and
-unlimited team members.
+"Business" tier that unlocks alerts. There are only two states, free and paid,
+and every paid workspace gets the same thing: every feature and unlimited team
+members, whatever you spend.
 
 <Callout title="Two knobs, one price">
   The only things that move your price are **monthly event volume** and
   **retention**. More events or a longer retention window cost more; fewer events
-  or a shorter window cost less. Features are never gated behind a tier.
+  or a shorter window cost less. Spending more never unlocks extra features, it
+  only buys headroom.
 </Callout>
 
 ## Free vs paid
@@ -25,11 +27,33 @@ unlimited team members.
 | Monthly events | 2,000,000 (hard cap) | Usage-based, metered |
 | Data retention | 30 days | 30 days up to 2 years |
 | Team members | 1 | Unlimited |
-| Features | All | All |
+| Environments | 2 | Unlimited |
+| Features | Everything except the five below | All |
 
-The free tier is a real, complete workspace, not a trial with features switched
-off. You can build dashboards, set up alerts, invite... well, on free it is just
-you, but every widget type and every feature works exactly as it does on paid.
+The free tier is a real, complete workspace, not a trial. Every widget type,
+every chart, alerts, digests, annotations, external sources, status pages, stat
+badges, and sharing and embedding all work on free exactly as they do on paid.
+Five features are the exception.
+
+## What needs a paid workspace
+
+These five features require a paid workspace:
+
+- [Saved segments](/docs/analytics/segments)
+- [Groups](/docs/analytics/groups)
+- [Issues](/docs/analytics/issues)
+- [Feature flags](/docs/analytics/flags)
+- [Data labels](/docs/analytics/data-labels)
+
+On a free workspace they are hidden from the navigation, and calling their
+endpoints directly returns a `402` with the message
+`Upgrade to a paid plan to use this feature`.
+
+<Callout title="This is the only feature difference">
+  Free and paid differ in exactly two ways: the volume limits in the table
+  above, and these five features. There is nothing else a paid workspace can do
+  that a free one cannot.
+</Callout>
 
 ## The free monthly cap
 
@@ -80,6 +104,17 @@ When you set retention on a paid workspace, you pick from these presets:
 
 Choosing a longer preset raises your price; choosing a shorter one lowers it,
 along with your monthly event volume being the other factor.
+
+## The white label add-on
+
+[White label](/docs/analytics/white-label) is the one thing you buy separately
+rather than by turning a knob. It is a flat **10 EUR per month** on top of
+whatever your usage costs, and it does not change with event volume or
+retention.
+
+It is not restricted to paid workspaces: a free workspace can buy the add-on on
+its own. Only a workspace **Owner** with a verified email address can add or
+remove it.
 
 ## Related
 
