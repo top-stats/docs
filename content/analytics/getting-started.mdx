@@ -71,7 +71,7 @@ is a single thing that happened, with a `name` (like `player_join` or
 <Tab value="curl">
 
 ```bash
-curl -X POST https://analytics.topstats.gg/v1/events \
+curl -X POST https://topstats.gg/v1/events \
   -H "Authorization: Bearer ts_live_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -88,7 +88,7 @@ curl -X POST https://analytics.topstats.gg/v1/events \
 const key = "YOUR_API_KEY"
 
 async function track(name, properties) {
-  await fetch("https://analytics.topstats.gg/v1/events", {
+  await fetch("https://topstats.gg/v1/events", {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${key}`,

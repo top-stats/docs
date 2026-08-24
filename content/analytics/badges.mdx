@@ -171,14 +171,14 @@ before you close the dialog.
 Every badge is served from one public path:
 
 ```txt
-https://analytics.topstats.gg/v1/badge/<token>.svg
+https://topstats.gg/v1/badge/<token>.svg
 ```
 
 `<token>` is the whole token, `tsb_` prefix included, with `.svg` joined
 straight onto the end with no slash in between. A real one looks like this:
 
 ```txt
-https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg
+https://topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg
 ```
 
 Note the path is `/v1/badge/` in the singular. The management endpoints are
@@ -204,16 +204,16 @@ clicks the badge lands on the full dashboard.
   <Tab value="Markdown">
 
 ```md
-[![Active players](https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg)](https://analytics.topstats.gg/share/my-dashboard)
+[![Active players](https://topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg)](https://topstats.gg/share/my-dashboard)
 ```
 
   </Tab>
   <Tab value="HTML">
 
 ```html
-<a href="https://analytics.topstats.gg/share/my-dashboard">
+<a href="https://topstats.gg/share/my-dashboard">
   <img
-    src="https://analytics.topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg"
+    src="https://topstats.gg/v1/badge/tsb_Qk3n8s2R1vLpXy7ZcW0aBdEfGhIjKlMn.svg"
     alt="Active players"
   >
 </a>
@@ -310,7 +310,7 @@ point of it.
 ## API endpoints
 
 If you want to manage badges programmatically, these are the paths, all under
-`https://analytics.topstats.gg`. The three management endpoints authenticate
+`https://topstats.gg`. The three management endpoints authenticate
 with a signed-in session, the same one the web app uses, not with an ingest API
 key.
 

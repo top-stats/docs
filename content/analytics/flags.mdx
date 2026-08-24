@@ -218,7 +218,7 @@ choose the moment it goes live.
 server-to-server call, so treat this section as the contract.
 
 ```sh
-POST https://analytics.topstats.gg/v1/flags/evaluate
+POST https://topstats.gg/v1/flags/evaluate
 ```
 
 ### Auth
@@ -278,7 +278,7 @@ The body accepts only these four fields. Any other field is rejected with a
 <Tab value="Request">
 
 ```sh
-curl https://analytics.topstats.gg/v1/flags/evaluate \
+curl https://topstats.gg/v1/flags/evaluate \
   -H "Authorization: Bearer $TOPSTATS_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -440,7 +440,7 @@ breakdown.
 
 ## API endpoints
 
-All paths are under `https://analytics.topstats.gg`.
+All paths are under `https://topstats.gg`.
 
 | Method | Path | Auth | Purpose |
 | --- | --- | --- | --- |

@@ -18,7 +18,7 @@ Send every event to a single URL and authenticate with your API key as a Bearer
 token:
 
 ```
-POST https://analytics.topstats.gg/v1/events
+POST https://topstats.gg/v1/events
 Authorization: Bearer <YOUR_API_KEY>
 Content-Type: application/json
 ```
@@ -88,7 +88,7 @@ environment variable so it never gets committed to your code.
 <Tabs items={['curl', 'JavaScript']}>
   <Tab value="curl">
     ```bash
-    curl -X POST https://analytics.topstats.gg/v1/events \
+    curl -X POST https://topstats.gg/v1/events \
       -H "Authorization: Bearer ts_live_your_key_here" \
       -H "Content-Type: application/json" \
       -d '{
@@ -103,7 +103,7 @@ environment variable so it never gets committed to your code.
   </Tab>
   <Tab value="JavaScript">
     ```js
-    await fetch("https://analytics.topstats.gg/v1/events", {
+    await fetch("https://topstats.gg/v1/events", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,

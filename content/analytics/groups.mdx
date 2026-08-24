@@ -117,7 +117,7 @@ Sent the same way from anywhere:
 <Tab value="curl">
 
 ```bash
-curl -X POST https://analytics.topstats.gg/v1/events \
+curl -X POST https://topstats.gg/v1/events \
   -H "Authorization: Bearer ts_live_your_key_here" \
   -H "Content-Type: application/json" \
   -d '{
@@ -131,7 +131,7 @@ curl -X POST https://analytics.topstats.gg/v1/events \
 <Tab value="JavaScript">
 
 ```js
-await fetch("https://analytics.topstats.gg/v1/events", {
+await fetch("https://topstats.gg/v1/events", {
   method: "POST",
   headers: {
     Authorization: `Bearer ${process.env.TOPSTATS_KEY}`,
@@ -368,7 +368,7 @@ rather than a personal preference. For how roles work everywhere else, see
 ## API endpoints
 
 The Groups pages are driven by these endpoints, all under
-`https://analytics.topstats.gg`. Every one of them needs a signed-in session on
+`https://topstats.gg`. Every one of them needs a signed-in session on
 a paid workspace, and the three `GET` endpoints all take `environment` and
 `timeRange` as required query parameters.
 

@@ -59,7 +59,7 @@ endpoints directly returns a `402` with the message
 
 The free tier includes **2,000,000 events per month**, and that number is a
 **hard cap**. Once you reach it, ingest stops accepting new events: a
-`POST https://analytics.topstats.gg/v1/events` call returns
+`POST https://topstats.gg/v1/events` call returns
 [`402`](/analytics/limits-and-errors) until the next monthly cycle, or until you
 upgrade. Nothing you already sent is lost; you just cannot add more that month.
 
