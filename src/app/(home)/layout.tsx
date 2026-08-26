@@ -13,7 +13,8 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL('https://docs.topstats.gg'),
   title: { default: 'Docs | TopStats.gg', template: '%s | TopStats.gg' },
-  description: 'Documentation and Guides for TopStats.gg',
+  description:
+    'Guides and API reference for TopStats: event ingest over HTTP and OpenTelemetry, twelve language SDKs, game server and web framework integrations, dashboards, funnels, alerts, feature flags and status pages.',
   openGraph: {
     title: 'TopStats.gg Documentation',
     url: 'https://docs.topstats.gg',

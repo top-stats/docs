@@ -48,6 +48,7 @@ export async function generateMetadata(
     metadataBase: new URL('https://docs.topstats.gg'),
     title: page.data.title,
     description: page.data.description,
+    alternates: { canonical: page.url },
     openGraph: {
       images: getPageImage(page).url,
     },
